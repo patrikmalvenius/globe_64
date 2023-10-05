@@ -1,0 +1,14 @@
+{
+    "wmts_1": {
+        "nom": "Plan IGN v2",
+      "url": "https://wxs.ign.fr/decouverte/geoportail/wmts?SERVICE=WMTS",
+      "layers": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+      "format": "image/png"
+    },
+    "wmts_2": {
+        "nom": "Photographies aériennes",
+        "url": "https://wxs.ign.fr/decouverte/geoportail/wmts?SERVICE=WMTS",
+        "layers": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "format": "image/jpeg"
+      }
+  }

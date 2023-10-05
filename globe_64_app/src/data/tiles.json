@@ -1,0 +1,19 @@
+{
+  "layer_1": {
+    "title": "Bâtiment en bloc",
+    "assetid": "bati_os_v2/tileset.json",
+    "color": "blue",
+    "show": true,
+    "type": "BatiIGN",
+    "flyTo": true
+  },
+  "layer_2": {
+    "title": "Eglise de Roquiague",
+    "assetid": "eglise_de_roquiague/tileset.json",
+    "color": "blue",
+    "show": true,
+    "type": "Metashape",
+    "flyTo": true,
+    "translatez": 56.2
+  }
+}
