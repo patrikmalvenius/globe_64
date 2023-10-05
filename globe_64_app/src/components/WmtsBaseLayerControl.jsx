@@ -17,9 +17,14 @@ function WmtsBaseLayerControl({
   console.log("addedWmtsBaselayer", wmtsBaseLayers);
 
   const onVisibilityChange = (name, value) => {
+    const newVisibilityState = {};
+    Object.keys(visibilityStateWmtsBaselayer).forEach((k) => {
+      newVisibilityState[k] = !visibilityStateWmtsBaselayer[k];
+    });
+    console.log("newVisibilityState", newVisibilityState);
+    console.log("visibilityStateWmtsBaselayer", visibilityStateWmtsBaselayer);
     setVisibilityStateWmtsBaselayer({
-      ...visibilityStateWmtsBaselayer,
-      [name]: value,
+      ...newVisibilityState,
     });
   };
 
