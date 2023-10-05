@@ -87,6 +87,7 @@ function App() {
         terrainProvider={terrain}
         //selectionIndicator={false}
         //infoBox={false} - this needs to be kept on because other code (not investigated deeper) depends on it. = replace with similar
+        baseLayerPicker={false}
         imageryProvider={false}
         baseLayer={false}
         geocoder={false}
