@@ -1,4 +1,4 @@
-import { ImageryLayer } from "resium";
+import { ImageryLayer, ImageryLayerCollection } from "resium";
 import { useEffect, useRef } from "react";
 import * as Cesium from "cesium";
 
@@ -6,6 +6,7 @@ function WmtsBaseLayers({ wmtsBaseLayers, visibilityStateWmtsBaselayer }) {
   const wmtsbaselayers = Object.entries(wmtsBaseLayers).map((a) => {
     console.log("WMTS", a);
     const imageryprovider = new Cesium.WebMapTileServiceImageryProvider({
+      subdomains: ['decouverte'],
       url: a[1]["url"],
       layer: a[1]["layer"],
       format: a[1]["format"],
@@ -21,7 +22,7 @@ function WmtsBaseLayers({ wmtsBaseLayers, visibilityStateWmtsBaselayer }) {
       />
     );
   });
-  return wmtsbaselayers;
+  return <ImageryLayerCollection> {wmtsbaselayers}</ImageryLayerCollection>;
 }
 
 export default WmtsBaseLayers;
