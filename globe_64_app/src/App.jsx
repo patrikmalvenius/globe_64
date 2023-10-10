@@ -72,8 +72,6 @@ function App() {
     addedTilesets[name] = value;
   };
 
-  console.log("wmslyrs", wmsLayers);
-  console.log("addedWmsLayers", addedWmsLayers);
   return (
     <ThemeProvider theme={theme}>
       <Viewer

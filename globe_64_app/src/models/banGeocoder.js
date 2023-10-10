@@ -1,4 +1,9 @@
 import * as Cesium from "cesium";
+import proj4 from "proj4";
+proj4.defs(
+  "EPSG:2154",
+  "+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+);
 
 function banGeocoder() {}
 
@@ -11,36 +16,31 @@ function banGeocoder() {}
 
 banGeocoder.prototype.geocode = async (input) => {
   console.log(input);
-  const endpoint =  'https://api-adresse.data.gouv.fr/search/?q=' +input;
+  const endpoint = "https://api-adresse.data.gouv.fr/search/?q=" + input;
   const resource = new Cesium.Resource({
     url: endpoint,
-    address : input,
-    outputFormat: 'json',
+    address: input,
+    outputFormat: "json",
   });
 
-  const results = await resource.fetchText();
-  console.log(results.toString());
-    let bboxDegrees;
-    return results?.map(resultObject => {
-      console.log(resultObject);
-      bboxDegrees = [
-        parseFloat(resultObject.lon),
-        parseFloat(resultObject.lat)
-      ];
-      return {
-        displayName: resultObject.display_name,
-        destination: Cesium.Cartesian3.fromDegrees(
-          // No matter which line below is used, after searching a location
-          // camera end position is always the same height as long as
-          // createWorldTerrain() is used in the viewer as terrainProvider:
+  const results = await resource.fetchJson();
 
-          // bboxDegrees[0], bboxDegrees[1], 0.0
-          bboxDegrees[0], bboxDegrees[1], 50.0
-          // bboxDegrees[0], bboxDegrees[1], 15000.0
-          // bboxDegrees[0], bboxDegrees[1], 50000.0
-        ),
-      };
-    });
+  //let bboxDegrees;
+
+  return results?.features?.map((resultObject) => {
+    const bboxDegrees = proj4("EPSG:2154", "EPSG:4326", [
+      parseFloat(resultObject.properties.x),
+      parseFloat(resultObject.properties.y),
+    ]);
+    return {
+      displayName: resultObject.properties.label,
+      destination: Cesium.Cartesian3.fromDegrees(
+        bboxDegrees[0],
+        bboxDegrees[1],
+        25.0
+      ),
+    };
+  });
 };
 
 export default banGeocoder;
