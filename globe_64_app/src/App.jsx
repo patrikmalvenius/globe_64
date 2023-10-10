@@ -14,6 +14,7 @@ import WmtsBaseLayer from "./components/WmtsBaseLayer";
 import LayerControlContainer from "./components/LayerControlContainer";
 import * as Cesium from "cesium";
 import { wmsLayers, wmsUrl } from "./models/queryWMS";
+import banGeocoderService from "./models/banGeocoderService";
 import banGeocoder from "./models/banGeocoder";
 import wmtsBaseLayers from "./data/wmts.json";
 import tileLayers from "./data/tiles.json";
@@ -65,8 +66,7 @@ function App() {
   const [visibilityStateWms, setVisibilityStateWms] = useState(addedWmsLayers);
   const [visibilityStateWmtsBaselayer, setVisibilityStateWmtsBaselayer] =
     useState(initVisibilityWmtsBaseLayers);
-  useState();
-  const g = useMemo(() => new banGeocoder(), []);
+  const g = useMemo(() => new banGeocoderService(), []);
   const ref = useRef(null);
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
@@ -90,14 +90,15 @@ function App() {
         baseLayerPicker={false}
         imageryProvider={false}
         baseLayer={false}
-        geocoder={g}
+        //geocoder={g}
+        geocoder={new banGeocoder()}
         animation={false}
         timeline={false}
         homeButton={false}
         fullscreenButton={false}
         navigationHelpButton={false}
         //baseLayerPicker= {false}
-        shadows={Cesium.ShadowMode.DISABLED}
+        //shadows={Cesium.ShadowMode.DISABLED}
         scene3DOnly={true}
         requestRenderMode={false} //substitute this with true + rerender viewer ref in useeffect on visibilityState ?
         maximumRenderTimeChange={"Infinity"}
