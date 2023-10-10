@@ -7,13 +7,14 @@ import {
   Globe,
   Camera,
 } from "resium";
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import Tilesets from "./components/Tilesets";
 import WmsLayers from "./components/WmsLayers";
 import WmtsBaseLayer from "./components/WmtsBaseLayer";
 import LayerControlContainer from "./components/LayerControlContainer";
 import * as Cesium from "cesium";
 import { wmsLayers, wmsUrl } from "./models/queryWMS";
+import banGeocoder from "./models/banGeocoder";
 import wmtsBaseLayers from "./data/wmts.json";
 import tileLayers from "./data/tiles.json";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -65,6 +66,7 @@ function App() {
   const [visibilityStateWmtsBaselayer, setVisibilityStateWmtsBaselayer] =
     useState(initVisibilityWmtsBaseLayers);
   useState();
+  const g = useMemo(() => new banGeocoder(), []);
   const ref = useRef(null);
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
@@ -90,7 +92,7 @@ function App() {
         baseLayerPicker={false}
         imageryProvider={false}
         baseLayer={false}
-        geocoder={false}
+        geocoder={g}
         animation={false}
         timeline={false}
         homeButton={false}
