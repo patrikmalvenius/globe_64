@@ -91,7 +91,7 @@ function App() {
         imageryProvider={false}
         baseLayer={false}
         //geocoder={g}
-        geocoder={new banGeocoder()}
+        geocoder={new banGeocoder(ref)}
         animation={false}
         timeline={false}
         homeButton={false}
