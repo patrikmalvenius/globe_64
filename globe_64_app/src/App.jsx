@@ -6,8 +6,9 @@ import {
   Scene,
   Globe,
   Camera,
+  useCesium,
 } from "resium";
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, useEffect } from "react";
 import Tilesets from "./components/Tilesets";
 import WmsLayers from "./components/WmsLayers";
 import WmtsBaseLayer from "./components/WmtsBaseLayer";
@@ -71,7 +72,21 @@ function App() {
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
   };
+  /*
+  const { viewer } = useCesium();
+  useEffect(() => {
+    console.log("viewerviewer", ref.current);
 
+    ref.current.cesiumElement.geocoder.viewModel.destinationFound = function (
+      viewModel,
+      destination
+    ) {
+      ref.current.cesiumElement.camera.flyTo({
+        destination: destination,
+      });
+      console.log("Going to", viewModel.searchText);
+    };
+  }, []);*/
   return (
     <ThemeProvider theme={theme}>
       <Viewer
@@ -90,8 +105,8 @@ function App() {
         baseLayerPicker={false}
         imageryProvider={false}
         baseLayer={false}
-        //geocoder={g}
-        geocoder={new banGeocoder(ref)}
+        geocoder={g}
+        //geocoder={new banGeocoder(ref)}
         animation={false}
         timeline={false}
         homeButton={false}
