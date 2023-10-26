@@ -6,6 +6,7 @@ function WmsLayers({ wmsUrl, visibilityStateWms }) {
   //hack based on https://github.com/reearth/resium/issues/634
   //only known (to me) way to recharge layers for the moment
   const { viewer } = useCesium();
+  //ref instead of useCesium?
   useEffect(() => {
     const mapProjection = viewer.scene.mapProjection;
     const ellipsoid = mapProjection.ellipsoid;
