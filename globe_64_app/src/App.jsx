@@ -17,7 +17,7 @@ import * as Cesium from "cesium";
 import { wmsLayers, wmsUrl } from "./models/queryWMS";
 import banGeocoderService from "./models/banGeocoderService";
 import banGeocoder from "./models/banGeocoder";
-import FirstPersonCameraEventHandler from "./components/FirstPersonCameraEventHandler"
+import {CustomEventHandlers} from "./components/CustomEventHandlers"
 import wmtsBaseLayers from "./data/wmts.json";
 import tileLayers from "./data/tiles.json";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -119,7 +119,7 @@ function App() {
         requestRenderMode={false} //substitute this with true + rerender viewer ref in useeffect on visibilityState ?
         maximumRenderTimeChange={"Infinity"}
       >
-        <FirstPersonCameraEventHandler viewer={ref}></FirstPersonCameraEventHandler>
+        <CustomEventHandlers viewRef={ref}></CustomEventHandlers>
         <Scene />
 
         <Globe depthTestAgainstTerrain={true} />
