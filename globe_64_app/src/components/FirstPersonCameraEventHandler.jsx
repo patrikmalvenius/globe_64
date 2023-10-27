@@ -60,6 +60,8 @@ const enterClick = (click)=> {
 }
 
 const exitClick = (click) => {
+    camera.moveStart.removeEventListener(stopRolling);
+   camera.moveEnd.removeEventListener(stopRolling);
     if (camera.frustum.fov > Cesium.Math.toRadians(75)) {
         const from = 90;
         const to = 60;
@@ -81,13 +83,13 @@ const exitClick = (click) => {
         screenSpaceCameraController.enableLook = false;
         screenSpaceCameraController.rotateEventTypes = [Cesium.CameraEventType.LEFT_DRAG];
 
-        ellipsoid.cartesianToCartographic(this.camera.positionWC, cartographic);
+        ellipsoid.cartesianToCartographic(camera.positionWC, cartographic);
 
         const lng = Cesium.Math.toDegrees(cartographic.longitude).toFixed(6);
         const lat = Cesium.Math.toDegrees(cartographic.latitude).toFixed(6);
         const height = (cartographic.height).toFixed(2);
-        const heading = Cesium.Math.toDegrees(this.camera.heading).toFixed(2);
-        const pitch = Cesium.Math.toDegrees(this.camera.pitch).toFixed(2);
+        const heading = Cesium.Math.toDegrees(camera.heading).toFixed(2);
+        const pitch = Cesium.Math.toDegrees(camera.pitch).toFixed(2);
 
         camera.flyTo({
             destination: Cesium.Cartesian3.fromDegrees(lng, lat, Number(height) + 30),
@@ -101,6 +103,9 @@ const easeInOutQuart = function(t, b, c, d) {
     return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
 };
 
+const  stopRolling = () => { 
+    camera.setView({orientation: {heading: camera.heading, pitch: camera.pitch, roll: 0.0}});
+}
 const toFPS = () => {
     screenSpaceCameraController.enableRotate = false;
     screenSpaceCameraController.enableTranslate = false;
@@ -108,6 +113,9 @@ const toFPS = () => {
     screenSpaceCameraController.enableTilt = false;
     screenSpaceCameraController.enableLook = true;
     screenSpaceCameraController.lookEventTypes = [Cesium.CameraEventType.LEFT_DRAG];
+
+    camera.moveStart.addEventListener(stopRolling);
+   camera.moveEnd.addEventListener(stopRolling);
 
     setTimeout(function () {
         const from = 60;
