@@ -1,10 +1,10 @@
 import { ScreenSpaceEvent, ScreenSpaceEventHandler } from "resium";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as Cesium from "cesium";
 
 export const MeasureEventHandler = ({viewRef}) => {
     console.log("VIEWERINMES", viewRef)
-    let  viewer, ellipsoid, scene;
+   // let  viewer, ellipsoid, scene;
     let cartographic = new Cesium.Cartographic();
     let geodesic = new Cesium.EllipsoidGeodesic();
     let points;
@@ -14,31 +14,29 @@ export const MeasureEventHandler = ({viewRef}) => {
 
     let distanceLabel, verticalLabel, horizontalLabel;
     let LINEPOINTCOLOR = Cesium.Color.RED;
-    viewer = viewRef.current.cesiumElement;
+    const viewer = viewRef.current.cesiumElement;
     console.log(viewer)
-    scene = viewer.scene;
+    const scene = viewer.scene;
     console.log(scene)
-
-    ellipsoid = scene.mapProjection.ellipsoid;
-
-
     points = scene.primitives.add(new Cesium.PointPrimitiveCollection());
     polylines = scene.primitives.add(new Cesium.PolylineCollection());
-    ellipsoid = scene.mapProjection.ellipsoid;
+
+    const ellipsoid = scene.mapProjection.ellipsoid;
     useEffect(() => {
-        viewer = viewRef.current.cesiumElement;
-        console.log(viewer)
-        scene = viewer.scene;
-        console.log(scene)
+        const remove = () => {
+            scene.primitives.remove(points)
+            scene.primitives.remove(polylines)
+            viewer.entities.remove(distanceLabel);
+            viewer.entities.remove(horizontalLabel);
+            viewer.entities.remove(verticalLabel);
+        }
 
-        ellipsoid = scene.mapProjection.ellipsoid;
+        return remove
 
- /*
-        points = scene.primitives.add(new Cesium.PointPrimitiveCollection());
-        polylines = scene.primitives.add(new Cesium.PolylineCollection());
-        ellipsoid = scene.mapProjection.ellipsoid;*/
 
-    },[]);
+
+
+    },[points, polylines]);
 
 
 
@@ -117,6 +115,7 @@ const getMidpoint = (point1, point2, height) =>{
 
 const measureAction = (click) => {
 console.log("scenscenscene", scene)
+console.log("points", points)
 
     if (scene.mode !== Cesium.SceneMode.MORPHING) {
 
