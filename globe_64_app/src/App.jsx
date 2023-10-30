@@ -7,6 +7,7 @@ import {
   Globe,
   Camera,
   useCesium,
+  ImageryLayerCollection
 } from "resium";
 import { useState, useRef, useMemo, useEffect } from "react";
 import Tilesets from "./components/Tilesets";
@@ -70,24 +71,11 @@ function App() {
     useState(initVisibilityWmtsBaseLayers);
   const g = useMemo(() => new banGeocoderService(), []);
   const ref = useRef(null);
+  const collectionRef = useRef(null);
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
   };
-  /*
-  const { viewer } = useCesium();
-  useEffect(() => {
-    console.log("viewerviewer", ref.current);
 
-    ref.current.cesiumElement.geocoder.viewModel.destinationFound = function (
-      viewModel,
-      destination
-    ) {
-      ref.current.cesiumElement.camera.flyTo({
-        destination: destination,
-      });
-      console.log("Going to", viewModel.searchText);
-    };
-  }, []);*/
   return (
     <ThemeProvider theme={theme}>
       <Viewer
@@ -123,19 +111,23 @@ function App() {
         <Scene />
 
         <Globe depthTestAgainstTerrain={true} />
-        <WmtsBaseLayer
-          wmtsBaseLayers={wmtsBaseLayers}
-          visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
-        />
+
         <Tilesets
           tileLayers={tileLayers}
           visibilityStateTile={visibilityStateTile}
           tilesetLoaded={tilesetLoaded}
         />
+        <ImageryLayerCollection ref={collectionRef} ></ImageryLayerCollection>
         <WmsLayers
           wmsLayers={wmsLayersArray}
           wmsUrl={wmsUrl}
           visibilityStateWms={visibilityStateWms}
+          collectionRef={collectionRef}
+        /> 
+                <WmtsBaseLayer
+          wmtsBaseLayers={wmtsBaseLayers}
+          visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
+          collectionRef={collectionRef}
         />
         <Camera position={position} />
 

@@ -2,7 +2,7 @@ import { ImageryLayerCollection, ImageryLayer, useCesium } from "resium";
 import { memo, useEffect, useRef } from "react";
 import * as Cesium from "cesium";
 
-function WmsLayers({ wmsUrl, visibilityStateWms }) {
+function WmsLayers({ wmsUrl, visibilityStateWms, collectionRef }) {
   //hack based on https://github.com/reearth/resium/issues/634
   //only known (to me) way to recharge layers for the moment
   const { viewer } = useCesium();
@@ -57,7 +57,7 @@ function WmsLayers({ wmsUrl, visibilityStateWms }) {
     };
   }, []);
 
-  const collectionRef = useRef();
+  //const collectionRef = useRef();
   useEffect(() => {
     const visibleLayers = {};
     Object.keys(visibilityStateWms).forEach(
@@ -65,6 +65,7 @@ function WmsLayers({ wmsUrl, visibilityStateWms }) {
     );
     const layers = Object.keys(visibleLayers).join();
     const collection = collectionRef?.current?.cesiumElement;
+    console.log("collection", collection)
     if (collection) {
       const index = 1;
       const prevLayer = collection.get(index);
@@ -84,7 +85,7 @@ function WmsLayers({ wmsUrl, visibilityStateWms }) {
     }
   }, [visibilityStateWms, collectionRef]);
 
-  return <ImageryLayerCollection ref={collectionRef} />;
+  return <></>;
 }
 
 export default WmsLayers;

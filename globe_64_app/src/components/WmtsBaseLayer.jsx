@@ -2,8 +2,17 @@ import { ImageryLayer, ImageryLayerCollection } from "resium";
 import { useEffect, useRef } from "react";
 import * as Cesium from "cesium";
 
-function WmtsBaseLayers({ wmtsBaseLayers, visibilityStateWmtsBaselayer }) {
-  const wmtsbaselayers = Object.entries(wmtsBaseLayers).map((a) => {
+function WmtsBaseLayers({ wmtsBaseLayers, visibilityStateWmtsBaselayer,collectionRef }) {
+  useEffect(() => {
+  const collection = collectionRef?.current?.cesiumElement;
+  const index = 0;
+
+ if (collection){
+  const prevLayer = collection.get(index);
+  collection.remove(prevLayer);
+  Object.entries(wmtsBaseLayers).map((a) => {
+    console.log("visibilityStateWmtsBaselayer[a[0]]", visibilityStateWmtsBaselayer[a[0]])
+    if (visibilityStateWmtsBaselayer[a[0]]) {
     const imageryprovider = new Cesium.WebMapTileServiceImageryProvider({
       subdomains: ["decouverte"],
       url: a[1]["url"],
@@ -13,15 +22,13 @@ function WmtsBaseLayers({ wmtsBaseLayers, visibilityStateWmtsBaselayer }) {
       tileMatrixSetID: "PM",
       style: "normal",
     });
-    return (
-      <ImageryLayer
-        key={a[0]}
-        show={visibilityStateWmtsBaselayer[a[0]]}
-        imageryProvider={imageryprovider}
-      />
-    );
-  });
-  return <ImageryLayerCollection> {wmtsbaselayers}</ImageryLayerCollection>;
-}
+    const layer = new Cesium.ImageryLayer(imageryprovider);
+    collection.add(layer, index);
+    collection.lowerToBottom(layer);
 
+  }});}
+}, [visibilityStateWmtsBaselayer, collectionRef]);
+ 
+
+return<></>;}
 export default WmtsBaseLayers;
