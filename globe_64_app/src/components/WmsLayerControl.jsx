@@ -31,9 +31,9 @@ function WmsLayerControl({setVisibilityStateWms, visibilityStateWms, addedWmsLay
         >
           {Object.entries(addedWmsLayers).map((a) => {
             return (
-              <ListItem  key={a[0]} disablePadding dense>
+              <ListItem  key={a[0]}  dense >
                 <ListItemButton divider
-                sx={{ bgcolor: visibilityStateWms[a[0]] ? theme.palette.secondary.light : theme.palette.primary.light}}
+                sx={{  bgcolor: visibilityStateWms[a[0]] ? theme.palette.secondary.light : theme.palette.primary.light}}
                 onClick={() => onVisibilityChange(a[0], !visibilityStateWms[a[0]])}
               >
                 <Checkbox
@@ -41,8 +41,9 @@ function WmsLayerControl({setVisibilityStateWms, visibilityStateWms, addedWmsLay
                   checked={visibilityStateWms[a[0]]}
                   tabIndex={-1}
                   disableRipple
+                  sx={{padding: 0.5}}
                 />
-                <ListItemText primary={a} />
+                <ListItemText  primary={a} />
               </ListItemButton>
                 </ListItem >
             );

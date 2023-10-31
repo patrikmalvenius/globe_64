@@ -43,7 +43,7 @@ function TilesetLayerControl({
     >
       {Object.entries(tileLayers).map((a) => {
         return (
-          <ListItem key={a[1]["title"]} disablePadding dense>
+          <ListItem key={a[1]["title"]}  dense>
             <ListItemButton  divider
               sx={{
                 bgcolor: visibilityStateTile[a[0]]
@@ -59,6 +59,7 @@ function TilesetLayerControl({
                   checked={visibilityStateTile[a[0]]}
                   tabIndex={-1}
                   disableRipple
+                  sx={{padding: 0.5}}
                 />
               <ListItemText primary={a[1]["title"]} />
             </ListItemButton>

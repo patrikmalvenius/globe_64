@@ -19,6 +19,7 @@ import { wmsLayers, wmsUrl } from "./models/queryWMS";
 import banGeocoderService from "./models/banGeocoderService";
 import banGeocoder from "./models/banGeocoder";
 import {CustomEventHandlers} from "./components/CustomEventHandlers"
+import GlobeAppBar from "./components/GlobeAppBar";
 import wmtsBaseLayers from "./data/wmts.json";
 import tileLayers from "./data/tiles.json";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -67,6 +68,7 @@ function App() {
   const [visibilityStateTile, setVisibilityStateTile] =
     useState(initVisibilityTile);
   const [visibilityStateWms, setVisibilityStateWms] = useState(addedWmsLayers);
+  const [layersControlVisible, setLayersControlVisible] = useState(false)
   const [visibilityStateWmtsBaselayer, setVisibilityStateWmtsBaselayer] =
     useState(initVisibilityWmtsBaseLayers);
   const g = useMemo(() => new banGeocoderService(), []);
@@ -140,7 +142,8 @@ function App() {
           </EntityDescription>
         </Entity>
       </Viewer>
-      <LayerControlContainer
+      <GlobeAppBar layersControlVisible={layersControlVisible} setLayersControlVisible={setLayersControlVisible}/>
+      {layersControlVisible ? <LayerControlContainer
         addedTilesets={addedTilesets}
         visibilityStateTile={visibilityStateTile}
         setVisibilityStateTile={setVisibilityStateTile}
@@ -152,7 +155,7 @@ function App() {
         setVisibilityStateWmtsBaselayer={setVisibilityStateWmtsBaselayer}
         visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
         wmtsBaseLayers={wmtsBaseLayers}
-      />
+      /> : null}
     </ThemeProvider>
   );
 }

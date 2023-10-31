@@ -42,7 +42,7 @@ function WmtsBaseLayerControl({
     >
       {Object.entries(wmtsBaseLayers).map((a) => {
         return (
-          <ListItem key={a[0]} disablePadding dense>
+          <ListItem key={a[0]}  dense>
             <ListItemButton  divider
               sx={{
                 bgcolor: visibilityStateWmtsBaselayer[a[0]]
@@ -57,7 +57,8 @@ function WmtsBaseLayerControl({
                   edge="start"
                   checked={visibilityStateWmtsBaselayer[a[0]]}
                   tabIndex={-1}
-                  disableRipple
+                  disableRipple                  
+                  sx={{padding: 0.5}}
                 />
               <ListItemText primary={a[1]["nom"]} />
             </ListItemButton>
