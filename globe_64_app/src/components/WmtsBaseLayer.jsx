@@ -30,5 +30,5 @@ function WmtsBaseLayers({ wmtsBaseLayers, visibilityStateWmtsBaselayer,collectio
 }, [visibilityStateWmtsBaselayer, collectionRef]);
  
 
-return<></>;}
+}
 export default WmtsBaseLayers;

@@ -1,7 +1,8 @@
 import { ScreenSpaceEvent, ScreenSpaceEventHandler } from "resium";
 import { useEffect } from "react";
 import * as Cesium from "cesium";
-import {MeasureEventHandler} from "./MeasureEventHandler"
+import {MeasureEventHandler} from "./MeasureEventHandler";
+import { PickElevationEventHandler } from "./PickElevationEventHandler";
 
 export const CustomEventHandlers = ({viewRef}) => {
         console.log('VIEWERIN SCREEN', viewRef)
@@ -146,6 +147,7 @@ export const CustomEventHandlers = ({viewRef}) => {
                 />
                 <ScreenSpaceEvent action={exitClick} type={Cesium.ScreenSpaceEventType.RIGHT_CLICK} />
                 <MeasureEventHandler viewRef={viewRef}/>
+                <PickElevationEventHandler viewRef={viewRef}/>
                 </ScreenSpaceEventHandler>
                 )
     

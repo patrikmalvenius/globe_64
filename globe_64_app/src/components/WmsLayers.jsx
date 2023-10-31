@@ -85,7 +85,7 @@ function WmsLayers({ wmsUrl, visibilityStateWms, collectionRef }) {
     }
   }, [visibilityStateWms, collectionRef]);
 
-  return <></>;
+;
 }
 
 export default WmsLayers;
