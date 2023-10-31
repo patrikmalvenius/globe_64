@@ -5,6 +5,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import Checkbox from '@mui/material/Checkbox';
 import { useTheme } from "@mui/material/styles";
 
 function WmtsBaseLayerControl({
@@ -41,8 +42,8 @@ function WmtsBaseLayerControl({
     >
       {Object.entries(wmtsBaseLayers).map((a) => {
         return (
-          <ListItem key={a[0]}>
-            <ListItemButton
+          <ListItem key={a[0]} disablePadding dense>
+            <ListItemButton  divider
               sx={{
                 bgcolor: visibilityStateWmtsBaselayer[a[0]]
                   ? theme.palette.secondary.light
@@ -52,6 +53,12 @@ function WmtsBaseLayerControl({
                 onVisibilityChange(a[0], !visibilityStateWmtsBaselayer[a[0]])
               }
             >
+            <Checkbox
+                  edge="start"
+                  checked={visibilityStateWmtsBaselayer[a[0]]}
+                  tabIndex={-1}
+                  disableRipple
+                />
               <ListItemText primary={a[1]["nom"]} />
             </ListItemButton>
           </ListItem>

@@ -5,6 +5,7 @@ import List from "@mui/material/List";
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import Checkbox from '@mui/material/Checkbox';
 import { useTheme } from '@mui/material/styles';
 
 function WmsLayerControl({setVisibilityStateWms, visibilityStateWms, addedWmsLayers}) {
@@ -30,11 +31,17 @@ function WmsLayerControl({setVisibilityStateWms, visibilityStateWms, addedWmsLay
         >
           {Object.entries(addedWmsLayers).map((a) => {
             return (
-              <ListItem  key={a[0]} >
-                <ListItemButton
+              <ListItem  key={a[0]} disablePadding dense>
+                <ListItemButton divider
                 sx={{ bgcolor: visibilityStateWms[a[0]] ? theme.palette.secondary.light : theme.palette.primary.light}}
                 onClick={() => onVisibilityChange(a[0], !visibilityStateWms[a[0]])}
               >
+                <Checkbox
+                  edge="start"
+                  checked={visibilityStateWms[a[0]]}
+                  tabIndex={-1}
+                  disableRipple
+                />
                 <ListItemText primary={a} />
               </ListItemButton>
                 </ListItem >

@@ -49,7 +49,7 @@ const initVisibilityWmtsBaseLayers = {};
 const addedTilesets = {};
 const addedWmsLayers = {};
 const wmsLayersArray = [];
-
+const dummyCredit = document.createElement("div");
 Object.entries(tileLayers).forEach(([k, v]) => {
   initVisibilityTile[k] = v["show"];
 });
@@ -88,6 +88,7 @@ function App() {
         }}
         //ref={e => { viewer = e ? e.cesiumElement : undefined; }}
         ref={ref}
+        creditContainer={dummyCredit}
         terrainProvider={terrain}
         //selectionIndicator={false}
         //infoBox={false} - this needs to be kept on because other code (not investigated deeper) depends on it. = replace with similar
