@@ -7,7 +7,7 @@ import {
   Globe,
   Camera,
   useCesium,
-  ImageryLayerCollection
+  ImageryLayerCollection,
 } from "resium";
 import { useState, useRef, useMemo, useEffect } from "react";
 import Tilesets from "./components/Tilesets";
@@ -17,8 +17,7 @@ import LayerControlContainer from "./components/LayerControlContainer";
 import * as Cesium from "cesium";
 import { wmsLayers, wmsUrl } from "./models/queryWMS";
 import banGeocoderService from "./models/banGeocoderService";
-import banGeocoder from "./models/banGeocoder";
-import {CustomEventHandlers} from "./components/CustomEventHandlers"
+import { CustomEventHandlers } from "./components/CustomEventHandlers";
 import GlobeAppBar from "./components/GlobeAppBar";
 import wmtsBaseLayers from "./data/wmts.json";
 import tileLayers from "./data/tiles.json";
@@ -68,7 +67,7 @@ function App() {
   const [visibilityStateTile, setVisibilityStateTile] =
     useState(initVisibilityTile);
   const [visibilityStateWms, setVisibilityStateWms] = useState(addedWmsLayers);
-  const [layersControlVisible, setLayersControlVisible] = useState(false)
+  const [layersControlVisible, setLayersControlVisible] = useState(false);
   const [visibilityStateWmtsBaselayer, setVisibilityStateWmtsBaselayer] =
     useState(initVisibilityWmtsBaseLayers);
   const g = useMemo(() => new banGeocoderService(), []);
@@ -97,7 +96,7 @@ function App() {
         baseLayerPicker={false}
         imageryProvider={false}
         baseLayer={false}
-        geocoder={g}
+        geocoder={false}
         //geocoder={new banGeocoder(ref)}
         animation={false}
         timeline={false}
@@ -120,14 +119,14 @@ function App() {
           visibilityStateTile={visibilityStateTile}
           tilesetLoaded={tilesetLoaded}
         />
-        <ImageryLayerCollection ref={collectionRef} ></ImageryLayerCollection>
+        <ImageryLayerCollection ref={collectionRef}></ImageryLayerCollection>
         <WmsLayers
           wmsLayers={wmsLayersArray}
           wmsUrl={wmsUrl}
           visibilityStateWms={visibilityStateWms}
           collectionRef={collectionRef}
-        /> 
-                <WmtsBaseLayer
+        />
+        <WmtsBaseLayer
           wmtsBaseLayers={wmtsBaseLayers}
           visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
           collectionRef={collectionRef}
@@ -142,20 +141,25 @@ function App() {
           </EntityDescription>
         </Entity>
       </Viewer>
-      <GlobeAppBar layersControlVisible={layersControlVisible} setLayersControlVisible={setLayersControlVisible}/>
-      {layersControlVisible ? <LayerControlContainer
-        addedTilesets={addedTilesets}
-        visibilityStateTile={visibilityStateTile}
-        setVisibilityStateTile={setVisibilityStateTile}
-        tileLayers={tileLayers}
-        addedWmsLayers={addedWmsLayers}
-        visibilityStateWms={visibilityStateWms}
-        setVisibilityStateWms={setVisibilityStateWms}
-        viewer={ref}
-        setVisibilityStateWmtsBaselayer={setVisibilityStateWmtsBaselayer}
-        visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
-        wmtsBaseLayers={wmtsBaseLayers}
-      /> : null}
+      <GlobeAppBar
+        layersControlVisible={layersControlVisible}
+        setLayersControlVisible={setLayersControlVisible}
+      />
+      {layersControlVisible ? (
+        <LayerControlContainer
+          addedTilesets={addedTilesets}
+          visibilityStateTile={visibilityStateTile}
+          setVisibilityStateTile={setVisibilityStateTile}
+          tileLayers={tileLayers}
+          addedWmsLayers={addedWmsLayers}
+          visibilityStateWms={visibilityStateWms}
+          setVisibilityStateWms={setVisibilityStateWms}
+          viewer={ref}
+          setVisibilityStateWmtsBaselayer={setVisibilityStateWmtsBaselayer}
+          visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
+          wmtsBaseLayers={wmtsBaseLayers}
+        />
+      ) : null}
     </ThemeProvider>
   );
 }
