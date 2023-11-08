@@ -9,6 +9,7 @@ import LayersIcon from "@mui/icons-material/Layers";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
 import ColorizeIcon from "@mui/icons-material/Colorize";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import AdsClickIcon from '@mui/icons-material/AdsClick';
 import { useEffect } from "react";
 import "../assets/searchbar.css";
 import { useCesium } from "resium";
@@ -26,18 +27,19 @@ export default function GlobeAppBar({
   };
   const activateMeasureTool = () => {
     setLeftClickAction('measure')
-    console.log('measure')
-    console.log(leftClickAction)
+
   };
   const activateGroundPicker = () => {
     setLeftClickAction('pick')
-    console.log('pick')
-    console.log(leftClickAction)
+
   };
   const activateFPS = () => {
     setLeftClickAction('fps')
-    console.log('fps')
-    console.log(leftClickAction)
+
+  };
+  const activateInfo = () => {
+    setLeftClickAction('info')
+
   };
 
   return (
@@ -46,7 +48,7 @@ export default function GlobeAppBar({
         <IconButton
           size="large"
           edge="start"
-          color="inherit"
+          color={layersControlVisible  ? 'warning':'inherit'}
           aria-label="menu"
           sx={{ mr: 2 }}
           onClick={() => onVisibilityChange()}
@@ -57,7 +59,7 @@ export default function GlobeAppBar({
         <IconButton
           size="large"
           edge="start"
-          color="inherit"
+          color={leftClickAction === 'measure' ? 'warning':'inherit'}
           aria-label="menu"
           sx={{ mr: 2 }}
           onClick={() => activateMeasureTool()}
@@ -67,7 +69,7 @@ export default function GlobeAppBar({
         <IconButton
           size="large"
           edge="start"
-          color="inherit"
+          color={leftClickAction === 'pick' ? 'warning':'inherit'}
           aria-label="menu"
           sx={{ mr: 2 }}
           onClick={() => activateGroundPicker()}
@@ -77,12 +79,22 @@ export default function GlobeAppBar({
         <IconButton
           size="large"
           edge="start"
-          color="inherit"
+          color={leftClickAction === 'fps' ? 'warning':'inherit'}
           aria-label="menu"
           sx={{ mr: 2 }}
           onClick={() => activateFPS()}
         >
           <TravelExploreIcon />
+        </IconButton>
+        <IconButton
+          size="large"
+          edge="start"
+          color={leftClickAction === 'info' ? 'warning':'inherit'}
+          aria-label="menu"
+          sx={{ mr: 2 }}
+          onClick={() => activateInfo()}
+        >
+          <AdsClickIcon />
         </IconButton>
         <Typography
           variant="h6"
