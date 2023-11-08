@@ -160,7 +160,7 @@ export const FpsEventHandler = ({ leftClick, viewRef, setLeftClick }) => {
     <>
       <ScreenSpaceEvent
         action={enterClick}
-        type={Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK}
+        type={Cesium.ScreenSpaceEventType.LEFT_CLICK}
       />
       <ScreenSpaceEvent
         action={exitClick}

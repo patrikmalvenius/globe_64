@@ -2,13 +2,14 @@ import { ImageryLayerCollection, ImageryLayer, useCesium } from "resium";
 import { memo, useEffect, useRef } from "react";
 import * as Cesium from "cesium";
 import viewerBanGeocoderMixin from "../models/viewerBanGeocoderMixin";
-function WmsLayers({ wmsUrl, visibilityStateWms, collectionRef }) {
+function WmsLayers({ wmsUrl, visibilityStateWms, collectionRef, setInfoClickAction }) {
   //hack based on https://github.com/reearth/resium/issues/634
   //only known (to me) way to recharge layers for the moment
   const { viewer } = useCesium();
   //ref instead of useCesium? och kanske flytta skiten till bättre ställe?
   useEffect(() => {
     viewer.extend(viewerBanGeocoderMixin);
+
   }, []);
 
   useEffect(() => {

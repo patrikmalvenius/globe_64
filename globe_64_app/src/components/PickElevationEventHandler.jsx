@@ -19,4 +19,4 @@ const groundPosition = scene.pickPosition(click.position);
 
         }
 
-        return   (<ScreenSpaceEvent action={groundPickAction} type={Cesium.ScreenSpaceEventType.RIGHT_CLICK}  modifier={Cesium.KeyboardEventModifier.SHIFT}/>)}
+        return   (<ScreenSpaceEvent action={groundPickAction} type={Cesium.ScreenSpaceEventType.LEFT_CLICK} />)}

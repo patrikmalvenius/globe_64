@@ -263,7 +263,6 @@ export const MeasureEventHandler = ({ viewRef }) => {
     <ScreenSpaceEvent
       action={measureAction}
       type={Cesium.ScreenSpaceEventType.LEFT_CLICK}
-      modifier={Cesium.KeyboardEventModifier.SHIFT}
     />
   );
 };

@@ -9,20 +9,37 @@ import LayersIcon from "@mui/icons-material/Layers";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
 import ColorizeIcon from "@mui/icons-material/Colorize";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import { useEffect } from "react";
 import "../assets/searchbar.css";
+import { useCesium } from "resium";
 
 export default function GlobeAppBar({
   layersControlVisible,
   setLayersControlVisible,
-  leftClickEvent,
-  setLeftClickEvent,
+  leftClickAction,
+  setLeftClickAction,
+  infoClickAction,
+  setInfoClickAction
 }) {
   const onVisibilityChange = () => {
     setLayersControlVisible(!layersControlVisible);
   };
-  const activateMeasureTool = () => {};
-  const activateGroundPicker = () => {};
-  const activateFPS = () => {};
+  const activateMeasureTool = () => {
+    setLeftClickAction('measure')
+    console.log('measure')
+    console.log(leftClickAction)
+  };
+  const activateGroundPicker = () => {
+    setLeftClickAction('pick')
+    console.log('pick')
+    console.log(leftClickAction)
+  };
+  const activateFPS = () => {
+    setLeftClickAction('fps')
+    console.log('fps')
+    console.log(leftClickAction)
+  };
+
   return (
     <AppBar position="static">
       <Toolbar sx={{ bgcolor: "grey.800" }}>

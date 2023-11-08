@@ -70,6 +70,8 @@ function App() {
   const [layersControlVisible, setLayersControlVisible] = useState(false);
   const [visibilityStateWmtsBaselayer, setVisibilityStateWmtsBaselayer] =
     useState(initVisibilityWmtsBaseLayers);
+  const [leftClickAction, setLeftClickAction] = useState('info');
+  const [infoClickAction, setInfoClickAction] = useState();
   const g = useMemo(() => new banGeocoderService(), []);
   const ref = useRef(null);
   const collectionRef = useRef(null);
@@ -109,7 +111,7 @@ function App() {
         requestRenderMode={false} //substitute this with true + rerender viewer ref in useeffect on visibilityState ?
         maximumRenderTimeChange={"Infinity"}
       >
-        <CustomEventHandlers viewRef={ref}></CustomEventHandlers>
+        <CustomEventHandlers viewRef={ref} leftClickAction={leftClickAction} setLeftClickAction = {setLeftClickAction} infoClickAction ={infoClickAction} setInfoClickAction={setInfoClickAction} ></CustomEventHandlers>
         <Scene />
 
         <Globe depthTestAgainstTerrain={true} />
@@ -125,6 +127,7 @@ function App() {
           wmsUrl={wmsUrl}
           visibilityStateWms={visibilityStateWms}
           collectionRef={collectionRef}
+          setInfoClickAction={setInfoClickAction}
         />
         <WmtsBaseLayer
           wmtsBaseLayers={wmtsBaseLayers}
@@ -144,6 +147,9 @@ function App() {
       <GlobeAppBar
         layersControlVisible={layersControlVisible}
         setLayersControlVisible={setLayersControlVisible}
+        setInfoClickAction={setInfoClickAction}
+        setLeftClickAction={setLeftClickAction}
+        leftClickAction={leftClickAction}
       />
       {layersControlVisible ? (
         <LayerControlContainer
