@@ -6,11 +6,12 @@ import { InfoClickEventHandler } from "./InfoClickEventHandler";
 import { useEffect, useState } from "react";
 import * as Cesium from 'cesium'
 
-export const CustomEventHandlers = ({ viewRef, leftClickAction, setLeftClickAction,  infoClickAction, setInfoClickAction }) => {
-console.log("leftClickAction", leftClickAction)
+export const CustomEventHandlers = ({ viewRef, leftClickAction, setLeftClickAction }) => {
+
 if (viewRef.current && viewRef.current.cesiumElement) {
 //not sure if i need this but felt safer
   viewRef.current.cesiumElement.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK)
+  console.log("viewRef.current.cesiumElement", viewRef.current.cesiumElement)
 
 }
   return (
@@ -24,7 +25,7 @@ if (viewRef.current && viewRef.current.cesiumElement) {
       {leftClickAction === 'pick' ?
       <PickElevationEventHandler viewRef={viewRef} /> : null}
       {leftClickAction === 'info' ?
-      <InfoClickEventHandler infoClickAction={infoClickAction}/> : null}
+      <InfoClickEventHandler viewRef={viewRef} /> : null}
     </ScreenSpaceEventHandler>
   );
 };

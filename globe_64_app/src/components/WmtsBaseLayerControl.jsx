@@ -46,8 +46,8 @@ function WmtsBaseLayerControl({
             <ListItemButton  divider
               sx={{
                 bgcolor: visibilityStateWmtsBaselayer[a[0]]
-                  ? theme.palette.secondary.light
-                  : theme.palette.primary.light,
+                ? theme.palette.primary.light
+                : theme.palette.secondary.light,
               }}
               onClick={() =>
                 onVisibilityChange(a[0], !visibilityStateWmtsBaselayer[a[0]])

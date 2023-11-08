@@ -47,8 +47,8 @@ function TilesetLayerControl({
             <ListItemButton  divider
               sx={{
                 bgcolor: visibilityStateTile[a[0]]
-                  ? theme.palette.secondary.light
-                  : theme.palette.primary.light,
+                  ? theme.palette.primary.light
+                  : theme.palette.secondary.light,
               }}
               onClick={() =>
                 onVisibilityChange(a[0], !visibilityStateTile[a[0]])
@@ -65,7 +65,7 @@ function TilesetLayerControl({
             </ListItemButton>
 
             <ListItemIcon>
-              <FlightTakeoffIcon onClick={() => onClick2(a[0])} />
+              <FlightTakeoffIcon onClick={() => onClick2(a[0])} sx={{padding: 0.5}}/>
             </ListItemIcon>
           </ListItem>
         );

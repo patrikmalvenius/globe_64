@@ -27,17 +27,17 @@ const themeOptions = {
   palette: {
     mode: "light",
     primary: {
-      main: "#8c4e4e",
-      light: "#d1a4a3",
-      dark: "#4d2128",
+      main: "#00a948",
+      light: "#baf8d5",
+      dark: "#008832",
     },
     secondary: {
-      main: "#215f3b",
-      light: "#7aaa90",
-      dark: "#052007",
+      main: "#ef2c81",
+      light: "#f8b9d3",
+      dark: "#8b0055",
     },
   },
-};
+};      
 
 const theme = createTheme(themeOptions);
 const localTerrainUrl =
@@ -71,7 +71,7 @@ function App() {
   const [visibilityStateWmtsBaselayer, setVisibilityStateWmtsBaselayer] =
     useState(initVisibilityWmtsBaseLayers);
   const [leftClickAction, setLeftClickAction] = useState('info');
-  const [infoClickAction, setInfoClickAction] = useState();
+  const [infoClickAction, setInfoClickAction] = useState(null);
   const g = useMemo(() => new banGeocoderService(), []);
   const ref = useRef(null);
   const collectionRef = useRef(null);
@@ -111,7 +111,7 @@ function App() {
         requestRenderMode={false} //substitute this with true + rerender viewer ref in useeffect on visibilityState ?
         maximumRenderTimeChange={"Infinity"}
       >
-        <CustomEventHandlers viewRef={ref} leftClickAction={leftClickAction} setLeftClickAction = {setLeftClickAction} infoClickAction ={infoClickAction} setInfoClickAction={setInfoClickAction} ></CustomEventHandlers>
+        <CustomEventHandlers viewRef={ref} leftClickAction={leftClickAction} setLeftClickAction = {setLeftClickAction}  ></CustomEventHandlers>
         <Scene />
 
         <Globe depthTestAgainstTerrain={true} />
@@ -127,7 +127,7 @@ function App() {
           wmsUrl={wmsUrl}
           visibilityStateWms={visibilityStateWms}
           collectionRef={collectionRef}
-          setInfoClickAction={setInfoClickAction}
+
         />
         <WmtsBaseLayer
           wmtsBaseLayers={wmtsBaseLayers}
@@ -147,9 +147,11 @@ function App() {
       <GlobeAppBar
         layersControlVisible={layersControlVisible}
         setLayersControlVisible={setLayersControlVisible}
-        setInfoClickAction={setInfoClickAction}
+
         setLeftClickAction={setLeftClickAction}
         leftClickAction={leftClickAction}
+
+        viewRef={ref}
       />
       {layersControlVisible ? (
         <LayerControlContainer

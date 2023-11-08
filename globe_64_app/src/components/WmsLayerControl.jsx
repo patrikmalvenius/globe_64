@@ -33,7 +33,8 @@ function WmsLayerControl({setVisibilityStateWms, visibilityStateWms, addedWmsLay
             return (
               <ListItem  key={a[0]}  dense >
                 <ListItemButton divider
-                sx={{  bgcolor: visibilityStateWms[a[0]] ? theme.palette.secondary.light : theme.palette.primary.light}}
+                sx={{  bgcolor: visibilityStateWms[a[0]] ?                   theme.palette.primary.light
+                  : theme.palette.secondary.light,}}
                 onClick={() => onVisibilityChange(a[0], !visibilityStateWms[a[0]])}
               >
                 <Checkbox

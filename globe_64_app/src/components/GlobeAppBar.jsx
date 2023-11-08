@@ -10,9 +10,10 @@ import SquareFootIcon from "@mui/icons-material/SquareFoot";
 import ColorizeIcon from "@mui/icons-material/Colorize";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import AdsClickIcon from '@mui/icons-material/AdsClick';
+import Tooltip from '@mui/material/Tooltip';
 import { useEffect } from "react";
 import "../assets/searchbar.css";
-import { useCesium } from "resium";
+import * as Cesium from 'cesium'
 
 export default function GlobeAppBar({
   layersControlVisible,
@@ -20,7 +21,8 @@ export default function GlobeAppBar({
   leftClickAction,
   setLeftClickAction,
   infoClickAction,
-  setInfoClickAction
+  setInfoClickAction,
+  viewRef
 }) {
   const onVisibilityChange = () => {
     setLayersControlVisible(!layersControlVisible);
@@ -30,14 +32,17 @@ export default function GlobeAppBar({
 
   };
   const activateGroundPicker = () => {
+
     setLeftClickAction('pick')
 
   };
   const activateFPS = () => {
+
     setLeftClickAction('fps')
 
   };
   const activateInfo = () => {
+
     setLeftClickAction('info')
 
   };
@@ -45,6 +50,7 @@ export default function GlobeAppBar({
   return (
     <AppBar position="static">
       <Toolbar sx={{ bgcolor: "grey.800" }}>
+      <Tooltip title="Ouvrir contrôle de couches">
         <IconButton
           size="large"
           edge="start"
@@ -55,7 +61,8 @@ export default function GlobeAppBar({
         >
           <LayersIcon />
         </IconButton>
-
+        </Tooltip>
+        <Tooltip title="Mesure objets 3D">
         <IconButton
           size="large"
           edge="start"
@@ -66,6 +73,8 @@ export default function GlobeAppBar({
         >
           <SquareFootIcon />
         </IconButton>
+        </Tooltip>
+        <Tooltip title="Mesure XYZ sur terre">
         <IconButton
           size="large"
           edge="start"
@@ -76,6 +85,8 @@ export default function GlobeAppBar({
         >
           <ColorizeIcon />
         </IconButton>
+        </Tooltip>
+        <Tooltip title="Entrez en mode FPS. Clique-droite pour sortir">
         <IconButton
           size="large"
           edge="start"
@@ -86,6 +97,9 @@ export default function GlobeAppBar({
         >
           <TravelExploreIcon />
         </IconButton>
+        </Tooltip>
+        <Tooltip title="Cliquez sur objets 3D pour infos">
+
         <IconButton
           size="large"
           edge="start"
@@ -96,6 +110,8 @@ export default function GlobeAppBar({
         >
           <AdsClickIcon />
         </IconButton>
+        </Tooltip>
+
         <Typography
           variant="h6"
           align="center"
