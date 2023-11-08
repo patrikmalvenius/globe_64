@@ -8,7 +8,7 @@ function Tilesets({tileLayers, visibilityStateTile, tilesetLoaded}) {
   const tilesets =  Object.entries(tileLayers).map((a) => {
 
         return (
-          <Cesium3DTileset key={a[0]} url={bUrl + a[1]['assetid']} showOutline={true} show={visibilityStateTile[a[0]]}
+          <Cesium3DTileset key={a[0]} url={bUrl + a[1]['assetid']} showOutline={true} show={visibilityStateTile[a[0]] } maximumScreenSpaceError={4}
           onReady={(e)=>{
             tilesetLoaded([a[0]], e );
             if (a[1].translatez) {

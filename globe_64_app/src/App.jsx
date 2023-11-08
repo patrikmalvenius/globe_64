@@ -110,6 +110,7 @@ function App() {
         scene3DOnly={true}
         requestRenderMode={false} //substitute this with true + rerender viewer ref in useeffect on visibilityState ?
         maximumRenderTimeChange={"Infinity"}
+  
       >
         <CustomEventHandlers viewRef={ref} leftClickAction={leftClickAction} setLeftClickAction = {setLeftClickAction}  ></CustomEventHandlers>
         <Scene />
