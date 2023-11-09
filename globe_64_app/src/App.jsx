@@ -5,7 +5,7 @@ import {
   EntityDescription,
   Scene,
   Globe,
-  Camera,
+  CameraFlyTo,
   useCesium,
   ImageryLayerCollection,
 } from "resium";
@@ -43,7 +43,7 @@ const theme = createTheme(themeOptions);
 const localTerrainUrl =
   "https://apgl64.geomatika.fr/releves/apgl64/terrain/test/terrain";
 const terrain = await Cesium.CesiumTerrainProvider.fromUrl(localTerrainUrl);
-const position = Cesium.Cartesian3.fromDegrees(-1.6522244, 43.3854383, 300);
+const position = Cesium.Cartesian3.fromDegrees(-0.359818, 43.309767, 300);
 const initVisibilityTile = {};
 const initVisibilityWmtsBaseLayers = {};
 const addedTilesets = {};
@@ -135,15 +135,7 @@ function App() {
           visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
           collectionRef={collectionRef}
         />
-        <Camera position={position} />
-
-        <Entity position={position} name="Tokyo">
-          <PointGraphics pixelSize={10} />
-          <EntityDescription>
-            <h1>Hello, world.</h1>
-            <p>JSX is available here!</p>
-          </EntityDescription>
-        </Entity>
+        <CameraFlyTo destination={new Cesium.Cartesian3(4648690.8089348255,-29158.155070096756,4352934.020068386)} once={true}/>
       </Viewer>
       <GlobeAppBar
         layersControlVisible={layersControlVisible}
