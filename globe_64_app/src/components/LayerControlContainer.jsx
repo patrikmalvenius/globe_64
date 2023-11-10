@@ -33,7 +33,7 @@ function LayerControlContainer({
     event.preventDefault();
     setValue(newValue);
   };
-  if (wmsLayers) {
+  //if (wmsLayers) {
   return  ( 
     <Box
       sx={{ width: "20%", bgcolor: "background.paper", position: "absolute" }}
@@ -58,13 +58,14 @@ function LayerControlContainer({
           viewer={viewer}
         />
       </LayerControlTabPanel>
+      { wmsLayers ? 
       <LayerControlTabPanel value={value} index={1}>
         <WmsLayerControl
           addedWmsLayers={addedWmsLayers}
           setVisibilityStateWms={setVisibilityStateWms}
           visibilityStateWms={visibilityStateWms}
-        />
-      </LayerControlTabPanel>
+        /> 
+      </LayerControlTabPanel>: null}
       <LayerControlTabPanel value={value} index={2}>
         <WmtsBaseLayerControl
           setVisibilityStateWmtsBaselayer={setVisibilityStateWmtsBaselayer}
@@ -72,9 +73,7 @@ function LayerControlContainer({
           wmtsBaseLayers={wmtsBaseLayers}
         />
       </LayerControlTabPanel>
-    </Box>)} else {
-  return null;
-    }
+    </Box>)
 
 }
 export default LayerControlContainer;
