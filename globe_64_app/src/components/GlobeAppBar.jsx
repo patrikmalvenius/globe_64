@@ -10,6 +10,7 @@ import SquareFootIcon from "@mui/icons-material/SquareFoot";
 import ColorizeIcon from "@mui/icons-material/Colorize";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import AdsClickIcon from '@mui/icons-material/AdsClick';
+import BackspaceIcon from '@mui/icons-material/Backspace';
 import Tooltip from '@mui/material/Tooltip';
 import { useEffect } from "react";
 import "../assets/searchbar.css";
@@ -22,8 +23,12 @@ export default function GlobeAppBar({
   setLeftClickAction,
   infoClickAction,
   setInfoClickAction,
-  viewRef
+  viewRef,
+  setRemoveMeasures,
+  removeMeasures,
+  
 }) {
+
   const onVisibilityChange = () => {
     setLayersControlVisible(!layersControlVisible);
   };
@@ -47,6 +52,11 @@ export default function GlobeAppBar({
 
   };
 
+  const eraseMeasurements = () => {
+    setRemoveMeasures(removeMeasures + 1);
+    //setMeasurePointLayer(null);
+  }
+
   return (
     <AppBar position="static">
       <Toolbar sx={{ bgcolor: "grey.800" }}>
@@ -59,7 +69,7 @@ export default function GlobeAppBar({
           sx={{ mr: 2 }}
           onClick={() => onVisibilityChange()}
         >
-          <LayersIcon />
+          <LayersIcon fontSize={'large'}/>
         </IconButton>
         </Tooltip>
         <Tooltip title="Mesure objets 3D">
@@ -71,9 +81,22 @@ export default function GlobeAppBar({
           sx={{ mr: 2 }}
           onClick={() => activateMeasureTool()}
         >
-          <SquareFootIcon />
+          <SquareFootIcon fontSize={'large'}/>
         </IconButton>
         </Tooltip>
+        { leftClickAction === 'measure' ?
+        <Tooltip title="Supprime mesurements">
+        <IconButton
+          size="small"
+          edge="start"
+          color= 'warning'
+          aria-label="menu"
+          sx={{ mr: 2 }}
+          onClick={() => eraseMeasurements()}
+        >
+          <BackspaceIcon fontSize={'small'}/>
+        </IconButton>
+        </Tooltip> : null}
         <Tooltip title="Mesure XYZ sur terre">
         <IconButton
           size="large"
@@ -83,7 +106,7 @@ export default function GlobeAppBar({
           sx={{ mr: 2 }}
           onClick={() => activateGroundPicker()}
         >
-          <ColorizeIcon />
+          <ColorizeIcon fontSize={'large'}/>
         </IconButton>
         </Tooltip>
         <Tooltip title="Entrez en mode FPS. Clique-droite pour sortir">
@@ -95,7 +118,7 @@ export default function GlobeAppBar({
           sx={{ mr: 2 }}
           onClick={() => activateFPS()}
         >
-          <TravelExploreIcon />
+          <TravelExploreIcon fontSize={'large'}/>
         </IconButton>
         </Tooltip>
         <Tooltip title="Cliquez sur objets 3D pour infos">
@@ -108,7 +131,7 @@ export default function GlobeAppBar({
           sx={{ mr: 2 }}
           onClick={() => activateInfo()}
         >
-          <AdsClickIcon />
+          <AdsClickIcon fontSize={'large'}/>
         </IconButton>
         </Tooltip>
 

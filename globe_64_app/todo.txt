@@ -1,0 +1,4 @@
+* refaire outil mesure - ajouter plusieurs points, afficher ligne SUR terre/modèle, option mésure hauteur droit de terre
+* position sur terre - ajoute recherche vers API ign pour comparison, change placement des labels pour meeilleur lisibilité
+* fpseventhandler seems to lose reference to scene when entered/exited but button still active in app bar. find out if it is so, and why, then fix
+* fix loading of wms - make it not stopping on load of app

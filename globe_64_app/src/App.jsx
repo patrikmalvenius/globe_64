@@ -72,6 +72,7 @@ function App() {
     useState(initVisibilityWmtsBaseLayers);
   const [leftClickAction, setLeftClickAction] = useState('info');
   const [infoClickAction, setInfoClickAction] = useState(null);
+  const [removeMeasures, setRemoveMeasures] = useState(0)
   const g = useMemo(() => new banGeocoderService(), []);
   const ref = useRef(null);
   const collectionRef = useRef(null);
@@ -112,8 +113,8 @@ function App() {
         maximumRenderTimeChange={"Infinity"}
   
       >
-        <CustomEventHandlers viewRef={ref} leftClickAction={leftClickAction} setLeftClickAction = {setLeftClickAction}  ></CustomEventHandlers>
-        <Scene />
+        <CustomEventHandlers viewRef={ref} leftClickAction={leftClickAction} setLeftClickAction = {setLeftClickAction} removeMeasures={removeMeasures} ></CustomEventHandlers>
+        <Scene pickTranslucentDepth={true} useDepthPicking={true}/>
 
         <Globe depthTestAgainstTerrain={true} />
 
@@ -143,7 +144,9 @@ function App() {
 
         setLeftClickAction={setLeftClickAction}
         leftClickAction={leftClickAction}
-
+        setRemoveMeasures={setRemoveMeasures}
+        removeMeasures={removeMeasures}
+        
         viewRef={ref}
       />
       {layersControlVisible ? (
