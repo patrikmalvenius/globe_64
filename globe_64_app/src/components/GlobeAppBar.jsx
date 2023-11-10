@@ -26,7 +26,7 @@ export default function GlobeAppBar({
   viewRef,
   setRemoveMeasures,
   removeMeasures,
-  
+  wmsLayers
 }) {
 
   const onVisibilityChange = () => {
@@ -67,7 +67,7 @@ export default function GlobeAppBar({
           color={layersControlVisible  ? 'warning':'inherit'}
           aria-label="menu"
           sx={{ mr: 2 }}
-          onClick={() => onVisibilityChange()}
+          onClick={() => wmsLayers ? onVisibilityChange() : alert("Les couches ne sont pas encore chargées. Veuillez patienter")}
         >
           <LayersIcon fontSize={'large'}/>
         </IconButton>

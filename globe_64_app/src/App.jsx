@@ -57,11 +57,11 @@ Object.entries(tileLayers).forEach(([k, v]) => {
 Object.entries(wmtsBaseLayers).forEach(([k, v]) => {
   initVisibilityWmtsBaseLayers[k] = v["show"];
 });
-
+/*
 wmsLayers.forEach((lyr) => {
   addedWmsLayers[lyr["Name"]] = false;
   wmsLayersArray.push(lyr["Name"]);
-});
+});*/
 
 function App() {
   const [visibilityStateTile, setVisibilityStateTile] =
@@ -125,7 +125,8 @@ function App() {
         />
         <ImageryLayerCollection ref={collectionRef}></ImageryLayerCollection>
         <WmsLayers
-          wmsLayers={wmsLayersArray}
+                  wmsLayers={wmsLayers}
+                  wmsLayersArray={wmsLayersArray}
           wmsUrl={wmsUrl}
           visibilityStateWms={visibilityStateWms}
           collectionRef={collectionRef}
@@ -146,7 +147,7 @@ function App() {
         leftClickAction={leftClickAction}
         setRemoveMeasures={setRemoveMeasures}
         removeMeasures={removeMeasures}
-        
+        wmsLayers={wmsLayers}
         viewRef={ref}
       />
       {layersControlVisible ? (
@@ -155,13 +156,15 @@ function App() {
           visibilityStateTile={visibilityStateTile}
           setVisibilityStateTile={setVisibilityStateTile}
           tileLayers={tileLayers}
-          addedWmsLayers={addedWmsLayers}
+          wmsLayers={wmsLayers}
           visibilityStateWms={visibilityStateWms}
           setVisibilityStateWms={setVisibilityStateWms}
           viewer={ref}
           setVisibilityStateWmtsBaselayer={setVisibilityStateWmtsBaselayer}
           visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
           wmtsBaseLayers={wmtsBaseLayers}
+          addedWmsLayers={addedWmsLayers}
+          wmsLayersArray={wmsLayersArray}
         />
       ) : null}
     </ThemeProvider>

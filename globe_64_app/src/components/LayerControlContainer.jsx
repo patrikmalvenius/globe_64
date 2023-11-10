@@ -19,15 +19,22 @@ function LayerControlContainer({
   setVisibilityStateWmtsBaselayer,
   visibilityStateWmtsBaselayer,
   wmtsBaseLayers,
+  wmsLayers,
+  wmsLayersArray
 }) {
+  wmsLayers ? 
+  wmsLayers.forEach((lyr) => {
+    addedWmsLayers[lyr["Name"]] = false;
+    wmsLayersArray.push(lyr["Name"]);
+  }) : null;
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     event.preventDefault();
     setValue(newValue);
   };
-
-  return (
+  if (wmsLayers) {
+  return  ( 
     <Box
       sx={{ width: "20%", bgcolor: "background.paper", position: "absolute" }}
     >
@@ -65,7 +72,9 @@ function LayerControlContainer({
           wmtsBaseLayers={wmtsBaseLayers}
         />
       </LayerControlTabPanel>
-    </Box>
-  );
+    </Box>)} else {
+  return null;
+    }
+
 }
 export default LayerControlContainer;

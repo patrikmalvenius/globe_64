@@ -2,7 +2,7 @@ import { ImageryLayerCollection, ImageryLayer, useCesium } from "resium";
 import { memo, useEffect, useRef } from "react";
 import * as Cesium from "cesium";
 import viewerBanGeocoderMixin from "../models/viewerBanGeocoderMixin";
-function WmsLayers({ wmsUrl, visibilityStateWms, collectionRef }) {
+function WmsLayers({ wmsUrl, visibilityStateWms, collectionRef, wmsLayers }) {
   //hack based on https://github.com/reearth/resium/issues/634
   //only known (to me) way to recharge layers for the moment
   const { viewer } = useCesium();
@@ -11,7 +11,11 @@ function WmsLayers({ wmsUrl, visibilityStateWms, collectionRef }) {
     viewer.extend(viewerBanGeocoderMixin);
 
   }, []);
-
+  /*wmsLayers ? 
+  wmsLayers.forEach((lyr) => {
+    addedWmsLayers[lyr["Name"]] = false;
+    wmsLayersArray.push(lyr["Name"]);
+  }) : null;*/
   useEffect(() => {
     const visibleLayers = {};
     Object.keys(visibilityStateWms).forEach(
