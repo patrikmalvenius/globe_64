@@ -7,6 +7,7 @@ import LayerControlTabPanel from "./LayerControlTabPanel";
 import TilesetLayerControl from "./TilesetLayerControl";
 import WmsLayerControl from "./WmsLayerControl";
 import WmtsBaseLayerControl from "./WmtsBaseLayerControl";
+import { Typography } from "@mui/material";
 function LayerControlContainer({
   visibilityStateTile,
   setVisibilityStateTile,
@@ -58,14 +59,15 @@ function LayerControlContainer({
           viewer={viewer}
         />
       </LayerControlTabPanel>
-      { wmsLayers ? 
+
       <LayerControlTabPanel value={value} index={1}>
+      { wmsLayers ? 
         <WmsLayerControl
           addedWmsLayers={addedWmsLayers}
           setVisibilityStateWms={setVisibilityStateWms}
           visibilityStateWms={visibilityStateWms}
-        /> 
-      </LayerControlTabPanel>: null}
+        /> : <Typography>Les couches WMS ne sont pas encore chargées</Typography>}
+      </LayerControlTabPanel>
       <LayerControlTabPanel value={value} index={2}>
         <WmtsBaseLayerControl
           setVisibilityStateWmtsBaselayer={setVisibilityStateWmtsBaselayer}
