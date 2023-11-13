@@ -1,3 +1,9 @@
 * fpseventhandler seems to lose reference to scene when entered/exited but button still active in app bar. find out if it is so, and why, then fix
 * better mobile ui - give layer control minwidth, put tool buttons in popdown
-* clean up entity + label in pickelevationhandler
+* Entity in pickelevationhandler: add nice marker for click position, clean up entity + label when unloading tool
+* click on 3d-model: add custom html table, better positioned
+* search bar: don't move app title when opened. make target entity nice looking. clean up target entity
+* fps view: add "walkmode" with keyboard. collisions??
+* drag drop mixin: add and test funcitonality
+* mixin init: move out of wmslayers. find/create good spot to load
+* camera on app load: find out how to place it in nice position without flyto
