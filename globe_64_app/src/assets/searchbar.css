@@ -7,7 +7,10 @@
   width: 0;
   height: 32px;
   margin: 0;
-  padding: 0 32px 0 0;
+  padding: 0 0 0 0;
+  position: absolute;
+  top: 26%;
+  right: 32px;
   border-radius: 0;
   box-sizing: border-box;
   transition: width ease-in-out 0.25s, background-color 0.2s ease-in-out;
@@ -31,11 +34,13 @@
 }
 #globe64toolbar .search-results {
   position: absolute;
+  top: 38px;
+  right: 32px;
   background-color: #000;
   color: #eee;
   overflow-y: auto;
   opacity: 0.8;
-  width: 100%;
+  width: 25%;
 }
 #globe64toolbar .search-results ul {
   list-style-type: none;
@@ -59,7 +64,6 @@
   cursor: pointer;
   width: 32px;
   top: 26%;
-  right: 25px;
   height: 30px;
   vertical-align: middle;
   fill: #edffff;

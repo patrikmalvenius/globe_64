@@ -197,8 +197,9 @@ export default function GlobeAppBar({
         >
           Globe-64
         </Typography>
-        <div id="globe64toolbar"></div>
+
       </Toolbar>
+      <IconButton  id="globe64toolbar"></IconButton>
     </AppBar>
   );
 }
