@@ -7,3 +7,4 @@
 * drag drop mixin: add and test funcitonality
 * mixin init: move out of wmslayers. find/create good spot to load
 * camera on app load: find out how to place it in nice position without flyto
+* flyto-button: larger padding, add change cursor on hover so it's the same like for the rest of the mui components. tooltip that does it??
