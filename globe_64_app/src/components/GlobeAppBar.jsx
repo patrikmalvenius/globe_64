@@ -22,19 +22,17 @@ import Tooltip from '@mui/material/Tooltip';
 import { useState } from "react";
 import "../assets/searchbar.css";
 import * as Cesium from 'cesium'
+import { remove } from "ol/array";
 
 export default function GlobeAppBar({
   layersControlVisible,
   setLayersControlVisible,
   leftClickAction,
   setLeftClickAction,
-  infoClickAction,
-  setInfoClickAction,
-  viewRef,
   setRemoveMeasures,
-  removeMeasures,
-  wmsLayers
+  removeMeasures
 }) {
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
