@@ -7,35 +7,45 @@ export const PickElevationEventHandler = ({viewRef}) => {
 
 const terrainProvider = viewRef.current.cesiumElement.terrainProvider;
 const scene =  viewRef.current.cesiumElement.scene;
+
 const entity = viewRef.current.cesiumElement.entities.add({
     label: {
         show: false,
         showBackground: true,
         font: "14px monospace",
         horizontalOrigin: Cesium.HorizontalOrigin.LEFT,
-        verticalOrigin: Cesium.VerticalOrigin.TOP,
-        pixelOffset: new Cesium.Cartesian2(15, 0)
+        verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+        pixelOffset: new Cesium.Cartesian2(15, 0),
     },
 });
-const groundPickAction = (click) => {
+
+
+const groundPickAction = async (click) => {
 
 const groundPosition = scene.pickPosition(click.position);
+const cartographic = Cesium.Cartographic.fromCartesian(groundPosition);
+const zIgn = await fetch('https://wxs.ign.fr/calcul/alti/rest/elevation.json?lon='+Cesium.Math.toDegrees(cartographic.longitude)+'&lat=' + Cesium.Math.toDegrees(cartographic.latitude)).then((response) => response.json())
+
 console.log("groundPosition", groundPosition)
     Cesium.sampleTerrainMostDetailed(terrainProvider, [Cesium.Cartographic.fromCartesian(groundPosition)]).then((newpoints) =>{
-        const labelPosition = {...groundPosition, ...{z:groundPosition['z']+50}}
+        const labelPosition = {...groundPosition, ...{z:groundPosition['z']+10}}
+        console.log('zIgn', zIgn)
         console.log("labelPosition", labelPosition)
         console.log("newpoints",newpoints)
         entity.position = labelPosition;
+
         entity.label.show = true;
         entity.label.text =
             "Lon: " +
-            ("   " + newpoints[0].longitude) +
+            ("   " + Cesium.Math.toDegrees(newpoints[0].longitude).toFixed(6)) +
             "\u00B0" +
             "\nLat: " +
-            ("   " + newpoints[0].latitude) +
+            ("   " + Cesium.Math.toDegrees(newpoints[0].latitude).toFixed(6)) +
             "\u00B0" +
             "\nElevation: " +
-            ("   " + newpoints[0].height);
+            ("   " + newpoints[0].height.toFixed(1)) +
+            "\nIGN z|acc: " +
+            ("   " + zIgn['elevations'][0]['z'] + '|' + zIgn['elevations'][0]['acc']);
     });
 
         }
