@@ -37,7 +37,7 @@ function LayerControlContainer({
   //if (wmsLayers) {
   return  ( 
     <Box
-      sx={{ width: "20%", bgcolor: "background.paper", position: "absolute" }}
+      sx={{ width: "20%", minWidth: "400px", bgcolor: "background.paper", position: "absolute" }}
     >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
