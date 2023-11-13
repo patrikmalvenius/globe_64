@@ -1,4 +1,3 @@
 * fpseventhandler seems to lose reference to scene when entered/exited but button still active in app bar. find out if it is so, and why, then fix
-* fix loading of wms - make it not stopping on load of app
 * better mobile ui - give layer control minwidth, put tool buttons in popdown
-* clean up entity in pickelevationhandler
+* clean up entity + label in pickelevationhandler
