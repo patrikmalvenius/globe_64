@@ -9,6 +9,7 @@ function WmsLayers({ wmsUrl, visibilityStateWms, collectionRef, wmsLayers }) {
   //ref instead of useCesium? och kanske flytta skiten till bättre ställe?
   useEffect(() => {
     viewer.extend(viewerBanGeocoderMixin);
+    viewer.extend(Cesium.viewerDragDropMixin);
 
   }, []);
   /*wmsLayers ? 
