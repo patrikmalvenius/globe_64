@@ -15,7 +15,7 @@ import WmsLayers from "./components/WmsLayers";
 import WmtsBaseLayer from "./components/WmtsBaseLayer";
 import LayerControlContainer from "./components/LayerControlContainer";
 import * as Cesium from "cesium";
-import { wmsLayers, wmsUrl } from "./models/queryWMS";
+import { fetchWmsLayers } from "./models/queryWMS";
 import banGeocoderService from "./models/banGeocoderService";
 import { CustomEventHandlers } from "./components/CustomEventHandlers";
 import GlobeAppBar from "./components/GlobeAppBar";
@@ -37,7 +37,7 @@ const themeOptions = {
       dark: "#8b0055",
     },
   },
-};      
+};
 
 const theme = createTheme(themeOptions);
 const localTerrainUrl =
@@ -50,35 +50,65 @@ const addedTilesets = {};
 const addedWmsLayers = {};
 const wmsLayersArray = [];
 const dummyCredit = document.createElement("div");
-Object.entries(tileLayers).forEach(([k, v]) => {
-  initVisibilityTile[k] = v["show"];
-});
-
-Object.entries(wmtsBaseLayers).forEach(([k, v]) => {
-  initVisibilityWmtsBaseLayers[k] = v["show"];
-});
-/*
-wmsLayers.forEach((lyr) => {
-  addedWmsLayers[lyr["Name"]] = false;
-  wmsLayersArray.push(lyr["Name"]);
-});*/
 
 function App() {
-  const [visibilityStateTile, setVisibilityStateTile] =
-    useState(initVisibilityTile);
+  const [visibilityStateTile, setVisibilityStateTile] = useState();
   const [visibilityStateWms, setVisibilityStateWms] = useState(addedWmsLayers);
   const [layersControlVisible, setLayersControlVisible] = useState(false);
   const [visibilityStateWmtsBaselayer, setVisibilityStateWmtsBaselayer] =
-    useState(initVisibilityWmtsBaseLayers);
-  const [leftClickAction, setLeftClickAction] = useState('info');
+    useState();
+  const [wmsLayers, setWmsLayers] = useState([]);
+  const [leftClickAction, setLeftClickAction] = useState("info");
   const [infoClickAction, setInfoClickAction] = useState(null);
-  const [removeMeasures, setRemoveMeasures] = useState(0)
+  const [removeMeasures, setRemoveMeasures] = useState(0);
+  const [appConfig, setAppConfig] = useState();
   const g = useMemo(() => new banGeocoderService(), []);
   const ref = useRef(null);
   const collectionRef = useRef(null);
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
   };
+  const [mapConfig, setMapConfig] = useState();
+  /*useEffect(() => {
+    let urlParams = new URLSearchParams(window.location.search);
+    console.log("PAAAAAAAAAAAAAAAAAAAAAAAARA", urlParams.get("conf"));
+    const conf = urlParams.get("conf")
+    setMapConfig(urlParams.get("conf"));
+  }, []);*/
+  useEffect(() => {
+    async function fetchConfig() {
+      let urlParams = new URLSearchParams(window.location.search);
+      const conf = urlParams.get("conf");
+      const fetchAppConfig = await fetch("/appConfig.json");
+      const result = await fetchAppConfig.json();
+      conf in result ? setMapConfig(conf) : setMapConfig("standard");
+      setAppConfig(result);
+    }
+    fetchConfig();
+  }, []);
+
+  useEffect(() => {
+    if (appConfig) {
+      async function initApp() {
+        Object.entries(appConfig[mapConfig].basemaps).forEach(([k, v]) => {
+          initVisibilityWmtsBaseLayers[k] = v["show"];
+        });
+        setVisibilityStateWmtsBaselayer(initVisibilityWmtsBaseLayers);
+        console.log(
+          "appConfig.standard.basemaps",
+          appConfig[mapConfig].basemaps
+        );
+        Object.entries(tileLayers).forEach(([k, v]) => {
+          initVisibilityTile[k] = v["show"];
+        });
+        setVisibilityStateTile(initVisibilityTile);
+        const layers = await fetchWmsLayers(appConfig[mapConfig]["wms"]["url"]);
+        console.log("layers", layers);
+        setWmsLayers((prev) => [...prev, ...layers]);
+      }
+      initApp();
+    }
+  }, [appConfig]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -111,10 +141,14 @@ function App() {
         scene3DOnly={true}
         requestRenderMode={false} //substitute this with true + rerender viewer ref in useeffect on visibilityState ?
         maximumRenderTimeChange={"Infinity"}
-  
       >
-        <CustomEventHandlers viewRef={ref} leftClickAction={leftClickAction} setLeftClickAction = {setLeftClickAction} removeMeasures={removeMeasures} ></CustomEventHandlers>
-        <Scene pickTranslucentDepth={true} useDepthPicking={true}/>
+        <CustomEventHandlers
+          viewRef={ref}
+          leftClickAction={leftClickAction}
+          setLeftClickAction={setLeftClickAction}
+          removeMeasures={removeMeasures}
+        ></CustomEventHandlers>
+        <Scene pickTranslucentDepth={true} useDepthPicking={true} />
 
         <Globe depthTestAgainstTerrain={true} />
 
@@ -125,24 +159,31 @@ function App() {
         />
         <ImageryLayerCollection ref={collectionRef}></ImageryLayerCollection>
         <WmsLayers
-                  wmsLayers={wmsLayers}
-                  wmsLayersArray={wmsLayersArray}
-          wmsUrl={wmsUrl}
+          wmsLayers={wmsLayers}
+          wmsLayersArray={wmsLayersArray}
+          wmsUrl={appConfig ? appConfig[mapConfig].wms.url : null}
           visibilityStateWms={visibilityStateWms}
           collectionRef={collectionRef}
-
         />
         <WmtsBaseLayer
           wmtsBaseLayers={wmtsBaseLayers}
           visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
           collectionRef={collectionRef}
         />
-        <CameraFlyTo destination={new Cesium.Cartesian3(4648690.8089348255,-29158.155070096756,4352934.020068386)} once={true}/>
+        <CameraFlyTo
+          destination={
+            new Cesium.Cartesian3(
+              4648690.8089348255,
+              -29158.155070096756,
+              4352934.020068386
+            )
+          }
+          once={true}
+        />
       </Viewer>
       <GlobeAppBar
         layersControlVisible={layersControlVisible}
         setLayersControlVisible={setLayersControlVisible}
-
         setLeftClickAction={setLeftClickAction}
         leftClickAction={leftClickAction}
         setRemoveMeasures={setRemoveMeasures}

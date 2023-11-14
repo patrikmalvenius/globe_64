@@ -21,23 +21,30 @@ function LayerControlContainer({
   visibilityStateWmtsBaselayer,
   wmtsBaseLayers,
   wmsLayers,
-  wmsLayersArray
+  wmsLayersArray,
 }) {
-  wmsLayers ? 
-  wmsLayers.forEach((lyr) => {
-    addedWmsLayers[lyr["Name"]] = false;
-    wmsLayersArray.push(lyr["Name"]);
-  }) : null;
+  console.log("wmsLayerswmsLayerswmsLayerswmsLayers", wmsLayers);
+
+  wmsLayers
+    ? wmsLayers.forEach((lyr) => {
+        addedWmsLayers[lyr["Name"]] = false;
+        wmsLayersArray.push(lyr["Name"]);
+      })
+    : null;
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     event.preventDefault();
     setValue(newValue);
   };
-  //if (wmsLayers) {
-  return  ( 
+  return (
     <Box
-      sx={{ width: "20%", minWidth: "400px", bgcolor: "background.paper", position: "absolute" }}
+      sx={{
+        width: "20%",
+        minWidth: "400px",
+        bgcolor: "background.paper",
+        position: "absolute",
+      }}
     >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
@@ -61,12 +68,15 @@ function LayerControlContainer({
       </LayerControlTabPanel>
 
       <LayerControlTabPanel value={value} index={1}>
-      { wmsLayers ? 
-        <WmsLayerControl
-          addedWmsLayers={addedWmsLayers}
-          setVisibilityStateWms={setVisibilityStateWms}
-          visibilityStateWms={visibilityStateWms}
-        /> : <Typography>Les couches WMS ne sont pas encore chargées</Typography>}
+        {wmsLayers ? (
+          <WmsLayerControl
+            addedWmsLayers={addedWmsLayers}
+            setVisibilityStateWms={setVisibilityStateWms}
+            visibilityStateWms={visibilityStateWms}
+          />
+        ) : (
+          <Typography>Les couches WMS ne sont pas encore chargées</Typography>
+        )}
       </LayerControlTabPanel>
       <LayerControlTabPanel value={value} index={2}>
         <WmtsBaseLayerControl
@@ -75,7 +85,7 @@ function LayerControlContainer({
           wmtsBaseLayers={wmtsBaseLayers}
         />
       </LayerControlTabPanel>
-    </Box>)
-
+    </Box>
+  );
 }
 export default LayerControlContainer;

@@ -1,0 +1,42 @@
+{
+  "standard": {
+    "wms": {
+      "url": "https://wxs.ign.fr/inspire/inspire/v/wms?"
+    },
+    "tilesets": {
+      "layer_1": {
+        "title": "Bâtiment en bloc",
+        "assetid": "bati_os_v2/tileset.json",
+        "color": "blue",
+        "show": true,
+        "type": "BatiIGN",
+        "flyTo": true
+      },
+      "layer_2": {
+        "title": "Eglise de Roquiague",
+        "assetid": "eglise_de_roquiague/tileset.json",
+        "color": "blue",
+        "show": true,
+        "type": "Metashape",
+        "flyTo": true,
+        "translatez": 56.2
+      }
+    },
+    "basemaps": {
+      "wmts_2": {
+        "nom": "Photographies aériennes",
+        "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
+        "layer": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "format": "image/jpeg",
+        "show": true
+      },
+      "wmts_1": {
+        "nom": "Plan IGN v2",
+        "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
+        "layer": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+        "format": "image/png",
+        "show": false
+      }
+    }
+  }
+}
