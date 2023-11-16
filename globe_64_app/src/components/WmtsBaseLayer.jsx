@@ -11,7 +11,7 @@ function WmtsBaseLayers({
     const collection = collectionRef?.current?.cesiumElement;
     const index = 0;
 
-    if (collection && visibilityStateWmtsBaselayer) {
+    if (collection && visibilityStateWmtsBaselayer && wmtsBaseLayers) {
       const prevLayer = collection.get(index);
       collection.remove(prevLayer);
       Object.entries(wmtsBaseLayers).map((a) => {
@@ -35,6 +35,6 @@ function WmtsBaseLayers({
         }
       });
     }
-  }, [visibilityStateWmtsBaselayer, collectionRef]);
+  }, [visibilityStateWmtsBaselayer, collectionRef, wmtsBaseLayers]);
 }
 export default WmtsBaseLayers;

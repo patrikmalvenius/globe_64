@@ -10,6 +10,8 @@ function WmsLayers({ wmsUrl, visibilityStateWms, collectionRef, wmsLayers }) {
   useEffect(() => {
     viewer.extend(viewerBanGeocoderMixin);
     viewer.extend(Cesium.viewerDragDropMixin);
+    //viewer.extend(Cesium.viewerCesiumInspectorMixin);
+    //viewer.extend(Cesium.viewerCesium3DTilesInspectorMixin);
 
   }, []);
   /*wmsLayers ? 

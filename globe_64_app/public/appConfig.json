@@ -20,6 +20,14 @@
         "type": "Metashape",
         "flyTo": true,
         "translatez": 56.2
+      },
+      "layer_3": {
+        "title": "Arbres",
+        "assetid": "arbres/tileset.json",
+        "color": "blue",
+        "show": true,
+        "type": "lidar",
+        "flyTo": true
       }
     },
     "basemaps": {
@@ -38,5 +46,29 @@
         "show": false
       }
     }
-  }
-}
+  },
+  "test": {
+    "wms": {
+      "url": "https://wxs.ign.fr/inspire/inspire/v/wms?"
+    },
+    "tilesets": {
+      "layer_2": {
+        "title": "Eglise de Roquiague",
+        "assetid": "eglise_de_roquiague/tileset.json",
+        "color": "blue",
+        "show": true,
+        "type": "Metashape",
+        "flyTo": true,
+        "translatez": 56.2
+      }
+    },
+    "basemaps": {
+      "wmts_2": {
+        "nom": "Photographies aériennes",
+        "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
+        "layer": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "format": "image/jpeg",
+        "show": true
+      }
+    }
+  }}

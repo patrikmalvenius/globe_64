@@ -16,11 +16,9 @@ import WmtsBaseLayer from "./components/WmtsBaseLayer";
 import LayerControlContainer from "./components/LayerControlContainer";
 import * as Cesium from "cesium";
 import { fetchWmsLayers } from "./models/queryWMS";
-import banGeocoderService from "./models/banGeocoderService";
 import { CustomEventHandlers } from "./components/CustomEventHandlers";
 import GlobeAppBar from "./components/GlobeAppBar";
-import wmtsBaseLayers from "./data/wmts.json";
-import tileLayers from "./data/tiles.json";
+//import wmtsBaseLayers from "./data/wmts.json";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const themeOptions = {
@@ -57,32 +55,30 @@ function App() {
   const [layersControlVisible, setLayersControlVisible] = useState(false);
   const [visibilityStateWmtsBaselayer, setVisibilityStateWmtsBaselayer] =
     useState();
+    //do we want the layers to use state? might be useful to add/remove content in client otherwise not really
   const [wmsLayers, setWmsLayers] = useState([]);
+  const [wmtsBaseLayers, setWmtsBaseLayers] = useState();
+  const [tileLayers, setTileLayers] = useState([]);
   const [leftClickAction, setLeftClickAction] = useState("info");
-  const [infoClickAction, setInfoClickAction] = useState(null);
   const [removeMeasures, setRemoveMeasures] = useState(0);
   const [appConfig, setAppConfig] = useState();
-  const g = useMemo(() => new banGeocoderService(), []);
   const ref = useRef(null);
   const collectionRef = useRef(null);
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
   };
   const [mapConfig, setMapConfig] = useState();
-  /*useEffect(() => {
-    let urlParams = new URLSearchParams(window.location.search);
-    console.log("PAAAAAAAAAAAAAAAAAAAAAAAARA", urlParams.get("conf"));
-    const conf = urlParams.get("conf")
-    setMapConfig(urlParams.get("conf"));
-  }, []);*/
+
   useEffect(() => {
     async function fetchConfig() {
       let urlParams = new URLSearchParams(window.location.search);
       const conf = urlParams.get("conf");
+      console.log("conf", conf)
       const fetchAppConfig = await fetch("/appConfig.json");
       const result = await fetchAppConfig.json();
       conf in result ? setMapConfig(conf) : setMapConfig("standard");
       setAppConfig(result);
+      console.log("mapConfig", mapConfig)
     }
     fetchConfig();
   }, []);
@@ -90,6 +86,8 @@ function App() {
   useEffect(() => {
     if (appConfig) {
       async function initApp() {
+        console.log("mapConfig", mapConfig)
+        console.log("appConfig", appConfig)
         Object.entries(appConfig[mapConfig].basemaps).forEach(([k, v]) => {
           initVisibilityWmtsBaseLayers[k] = v["show"];
         });
@@ -98,9 +96,12 @@ function App() {
           "appConfig.standard.basemaps",
           appConfig[mapConfig].basemaps
         );
-        Object.entries(tileLayers).forEach(([k, v]) => {
+        setTileLayers(appConfig[mapConfig].tilesets);
+        Object.entries(appConfig[mapConfig].tilesets).forEach(([k, v]) => {
           initVisibilityTile[k] = v["show"];
         });
+
+        setWmtsBaseLayers(appConfig[mapConfig].basemaps)
         setVisibilityStateTile(initVisibilityTile);
         const layers = await fetchWmsLayers(appConfig[mapConfig]["wms"]["url"]);
         console.log("layers", layers);
