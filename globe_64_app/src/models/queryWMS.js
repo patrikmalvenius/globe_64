@@ -1,5 +1,4 @@
 import WMSCapabilities from "ol/format/WMSCapabilities.js";
-import wmsUrls from "../data/wms.json";
 
 const parser = new WMSCapabilities();
 async function fetchWmsLayers(url) {
@@ -17,6 +16,5 @@ async function fetchWmsLayers(url) {
   return layers;
 }
 
-const wmsUrl = wmsUrls["wms_1"]["url"];
 
-export { fetchWmsLayers, wmsUrl };
+export { fetchWmsLayers };
