@@ -22,15 +22,25 @@ function LayerControlContainer({
   wmtsBaseLayers,
   wmsLayers,
   wmsLayersArray,
+  appConfig,
+  setAppConfig,
+  mapConfig
 }) {
   console.log("wmsLayerswmsLayerswmsLayerswmsLayers", wmsLayers);
 
-  wmsLayers
-    ? wmsLayers.forEach((lyr) => {
+  useEffect(()=>{
+    console.log("WMSLAYERS IN FUNCTION", wmsLayers)
+    if (addedWmsLayers.length>0) {
+      addedWmsLayers = [];
+      wmsLayers.forEach((lyr) => {
         addedWmsLayers[lyr["Name"]] = false;
         wmsLayersArray.push(lyr["Name"]);
       })
-    : null;
+    }
+
+
+  }, [wmsLayers])
+
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -73,6 +83,9 @@ function LayerControlContainer({
             addedWmsLayers={addedWmsLayers}
             setVisibilityStateWms={setVisibilityStateWms}
             visibilityStateWms={visibilityStateWms}
+            appConfig={appConfig}
+            mapConfig={mapConfig}
+            setAppConfig={setAppConfig}
           />
         ) : (
           <Typography>Les couches WMS ne sont pas encore chargées</Typography>

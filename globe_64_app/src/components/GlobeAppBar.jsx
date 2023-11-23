@@ -66,7 +66,6 @@ export default function GlobeAppBar({
 
   const eraseMeasurements = () => {
     setRemoveMeasures(removeMeasures + 1);
-    //setMeasurePointLayer(null);
   }
 
   return (
@@ -172,21 +171,73 @@ export default function GlobeAppBar({
         </MenuItem>
       </Menu>
       { leftClickAction === 'measure' ?
+      <>
+       <Tooltip title="Mesure objets 3D">
+       <IconButton
+         size="large"
+         edge="start"
+         color={leftClickAction === 'measure' ? 'warning':'inherit'}
+         aria-label="menu"
+         sx={{ ml: 1 }}
+       >
+         <SquareFootIcon fontSize={'large'}   sx={{ mr: 1 }}/>
+       </IconButton>
+       </Tooltip>
         <Tooltip title="Supprime mesurements">
         <IconButton
           size="small"
           edge="end"
           color= 'warning'
           aria-label="menu"
-          sx={{ ml: 4 }}
+          sx={{ ml: 1 }}
           onClick={() => eraseMeasurements()}
         >
           <BackspaceIcon fontSize={'large'}/>
         </IconButton>
-        </Tooltip> : null}
+        </Tooltip> </>: null}
+        { leftClickAction === 'pick' ?
+      
+      <Tooltip title="Mesure XYZ sur terre">
+      <IconButton
+        size="large"
+        edge="start"
+        color={'warning'}
+        aria-label="menu"
+        sx={{ ml: 1 }}
+      >
+        <ColorizeIcon fontSize={'large'} />
+      </IconButton>
+      </Tooltip>
+: null}
+        { leftClickAction === 'fps' ?
+      
+      <Tooltip title="Entrez en mode FPS. Clique-droite pour sortir">
+      <IconButton
+        size="large"
+        edge="start"
+        color={'warning'}
+        aria-label="menu"
+        sx={{ ml: 1 }}
+      >
+        <TravelExploreIcon fontSize={'large'} />
+      </IconButton>
+      </Tooltip>
+: null}
+        { leftClickAction === 'info' ?
+      
+      <Tooltip title="Cliquez sur objets 3D pour infos">
 
-
-
+      <IconButton
+        size="large"
+        edge="start"
+        color={'warning'}
+        aria-label="menu"
+        sx={{ ml: 1 }}
+      >
+        <AdsClickIcon fontSize={'large'}  />
+      </IconButton>
+      </Tooltip>
+: null}
         <Typography
           variant="h6"
           align="center"

@@ -61,12 +61,14 @@ function App() {
   const [tileLayers, setTileLayers] = useState([]);
   const [leftClickAction, setLeftClickAction] = useState("info");
   const [removeMeasures, setRemoveMeasures] = useState(0);
+  //do we want appconfig to use state? probably not, only read on load
   const [appConfig, setAppConfig] = useState();
   const ref = useRef(null);
   const collectionRef = useRef(null);
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
   };
+    //do we want mapconfig to use state? might be useful if we want to change config in app otherwise not really 
   const [mapConfig, setMapConfig] = useState();
 
   useEffect(() => {
@@ -106,6 +108,7 @@ function App() {
         const layers = await fetchWmsLayers(appConfig[mapConfig]["wms"]["url"]);
         console.log("layers", layers);
         setWmsLayers((prev) => [...prev, ...layers]);
+        console.log("wmsLayers", wmsLayers)
       }
       initApp();
     }
@@ -121,24 +124,19 @@ function App() {
           right: 0,
           bottom: 0,
         }}
-        //ref={e => { viewer = e ? e.cesiumElement : undefined; }}
         ref={ref}
         creditContainer={dummyCredit}
         terrainProvider={terrain}
-        //selectionIndicator={false}
         //infoBox={false} - this needs to be kept on because other code (not investigated deeper) depends on it. = replace with similar
         baseLayerPicker={false}
         imageryProvider={false}
         baseLayer={false}
         geocoder={false}
-        //geocoder={new banGeocoder(ref)}
         animation={false}
         timeline={false}
         homeButton={false}
         fullscreenButton={false}
         navigationHelpButton={false}
-        //baseLayerPicker= {false}
-        //shadows={Cesium.ShadowMode.DISABLED}
         scene3DOnly={true}
         requestRenderMode={false} //substitute this with true + rerender viewer ref in useeffect on visibilityState ?
         maximumRenderTimeChange={"Infinity"}
@@ -149,7 +147,7 @@ function App() {
           setLeftClickAction={setLeftClickAction}
           removeMeasures={removeMeasures}
         ></CustomEventHandlers>
-        <Scene pickTranslucentDepth={true} useDepthPicking={true} />
+        <Scene pickTranslucentDepth={true} useDepthPicking={true} sun={new Cesium.Sun()} skyAtmosphere={new Cesium.SkyAtmosphere()}/>
 
         <Globe depthTestAgainstTerrain={true} />
 
@@ -207,6 +205,9 @@ function App() {
           wmtsBaseLayers={wmtsBaseLayers}
           addedWmsLayers={addedWmsLayers}
           wmsLayersArray={wmsLayersArray}
+          appConfig={appConfig}
+          mapConfig={mapConfig}
+          setAppConfig={setAppConfig}
         />
       ) : null}
     </ThemeProvider>
