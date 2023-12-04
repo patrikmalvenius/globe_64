@@ -1,5 +1,4 @@
 import { Cesium3DTileset } from "resium";
-import { memo } from "react";
 import * as Cesium from "cesium";
 const bUrl = "https://apgl64.geomatika.fr/releves/apgl64/terrain/";
 
@@ -47,4 +46,4 @@ function Tilesets({ tileLayers, visibilityStateTile, tilesetLoaded }) {
   }
 }
 
-export default memo(Tilesets);
+export default Tilesets;
