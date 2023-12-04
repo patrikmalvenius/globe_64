@@ -1,5 +1,5 @@
 //expanded from https://stackoverflow.com/questions/75688118/how-to-toggle-layers-in-mapbox-gl-js-using-react
-import { memo, useCallback } from "react";
+
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -7,7 +7,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
-import Checkbox from '@mui/material/Checkbox';
+import Checkbox from "@mui/material/Checkbox";
 import { useTheme } from "@mui/material/styles";
 
 function TilesetLayerControl({
@@ -43,8 +43,9 @@ function TilesetLayerControl({
     >
       {Object.entries(tileLayers).map((a) => {
         return (
-          <ListItem key={a[1]["title"]}  dense>
-            <ListItemButton  divider
+          <ListItem key={a[1]["title"]} dense>
+            <ListItemButton
+              divider
               sx={{
                 bgcolor: visibilityStateTile[a[0]]
                   ? theme.palette.primary.light
@@ -54,18 +55,21 @@ function TilesetLayerControl({
                 onVisibilityChange(a[0], !visibilityStateTile[a[0]])
               }
             >
-            <Checkbox
-                  edge="start"
-                  checked={visibilityStateTile[a[0]]}
-                  tabIndex={-1}
-                  disableRipple
-                  sx={{padding: 0.5}}
-                />
+              <Checkbox
+                edge="start"
+                checked={visibilityStateTile[a[0]]}
+                tabIndex={-1}
+                disableRipple
+                sx={{ padding: 0.5 }}
+              />
               <ListItemText primary={a[1]["title"]} />
             </ListItemButton>
 
             <ListItemIcon>
-              <FlightTakeoffIcon onClick={() => onClick2(a[0])} sx={{padding: 0.5}}/>
+              <FlightTakeoffIcon
+                onClick={() => onClick2(a[0])}
+                sx={{ padding: 0.5 }}
+              />
             </ListItemIcon>
           </ListItem>
         );

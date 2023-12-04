@@ -1,6 +1,4 @@
 import * as Cesium from "cesium";
-import { useCesium } from "resium";
-import { memo, useEffect, useRef } from "react";
 import banGeocoderService from "./banGeocoderService";
 
 function viewerBanGeocoderMixin(viewer) {

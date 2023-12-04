@@ -1,5 +1,5 @@
 import { Cesium3DTileset } from "resium";
-import { useMemo, memo } from "react";
+import { memo } from "react";
 import * as Cesium from "cesium";
 const bUrl = "https://apgl64.geomatika.fr/releves/apgl64/terrain/";
 

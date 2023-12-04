@@ -1,5 +1,4 @@
-import { useState, useReducer, useEffect } from "react";
-import { useCesium } from "resium";
+import { useState, useEffect } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -24,22 +23,18 @@ function LayerControlContainer({
   wmsLayersArray,
   appConfig,
   setAppConfig,
-  mapConfig
+  mapConfig,
 }) {
-  console.log("wmsLayerswmsLayerswmsLayerswmsLayers", wmsLayers);
-
-  useEffect(()=>{
-    console.log("WMSLAYERS IN FUNCTION", wmsLayers)
-    if (addedWmsLayers.length>0) {
+  useEffect(() => {
+    console.log("WMSLAYERS IN FUNCTION", wmsLayers);
+    if (addedWmsLayers.length > 0) {
       addedWmsLayers = [];
       wmsLayers.forEach((lyr) => {
         addedWmsLayers[lyr["Name"]] = false;
         wmsLayersArray.push(lyr["Name"]);
-      })
+      });
     }
-
-
-  }, [wmsLayers])
+  }, [wmsLayers]);
 
   const [value, setValue] = useState(0);
 

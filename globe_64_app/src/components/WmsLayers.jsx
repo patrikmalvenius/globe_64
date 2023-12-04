@@ -1,5 +1,5 @@
-import { ImageryLayerCollection, ImageryLayer, useCesium } from "resium";
-import { memo, useEffect, useRef } from "react";
+import { useCesium } from "resium";
+import { useEffect } from "react";
 import * as Cesium from "cesium";
 import viewerBanGeocoderMixin from "../models/viewerBanGeocoderMixin";
 function WmsLayers({ wmsUrl, visibilityStateWms, collectionRef, wmsLayers }) {
@@ -12,13 +12,8 @@ function WmsLayers({ wmsUrl, visibilityStateWms, collectionRef, wmsLayers }) {
     viewer.extend(Cesium.viewerDragDropMixin);
     //viewer.extend(Cesium.viewerCesiumInspectorMixin);
     //viewer.extend(Cesium.viewerCesium3DTilesInspectorMixin);
-
   }, []);
-  /*wmsLayers ? 
-  wmsLayers.forEach((lyr) => {
-    addedWmsLayers[lyr["Name"]] = false;
-    wmsLayersArray.push(lyr["Name"]);
-  }) : null;*/
+
   useEffect(() => {
     const visibleLayers = {};
     Object.keys(visibilityStateWms).forEach(

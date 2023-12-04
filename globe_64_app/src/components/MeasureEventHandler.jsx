@@ -1,27 +1,27 @@
-import { ScreenSpaceEvent, ScreenSpaceEventHandler } from "resium";
-import { useEffect, useState } from "react";
+import { ScreenSpaceEvent } from "resium";
+import { useEffect } from "react";
 import * as Cesium from "cesium";
 
-export const MeasureEventHandler = ({ viewRef, removeMeasures}) => {
-
+export const MeasureEventHandler = ({ viewRef, removeMeasures }) => {
   let geodesic = new Cesium.EllipsoidGeodesic();
 
-  //let point1, point2;
-  let point1GeoPosition, point2GeoPosition
-  const distanceLabel = []
-  const verticalLabel = []
-  //let distanceLabel, verticalLabel, horizontalLabel;
+  let point1GeoPosition, point2GeoPosition;
+  const distanceLabel = [];
+  const verticalLabel = [];
+
   let LINEPOINTCOLOR = Cesium.Color.BLACK;
   const viewer = viewRef.current.cesiumElement;
   const scene = viewer.scene;
-  const clickedPositions = []
+  const clickedPositions = [];
   let collectionCounter = 0;
-  const points = []
-  const polylines = []
-  points[collectionCounter] = scene.primitives.add(new Cesium.PointPrimitiveCollection());
-  polylines[collectionCounter] = viewer.scene.primitives.add(new Cesium.PolylineCollection({show: true}));
-
-
+  const points = [];
+  const polylines = [];
+  points[collectionCounter] = scene.primitives.add(
+    new Cesium.PointPrimitiveCollection()
+  );
+  polylines[collectionCounter] = viewer.scene.primitives.add(
+    new Cesium.PolylineCollection({ show: true })
+  );
 
   const ellipsoid = scene.mapProjection.ellipsoid;
   useEffect(() => {
@@ -39,7 +39,6 @@ export const MeasureEventHandler = ({ viewRef, removeMeasures}) => {
       for (const label in verticalLabel) {
         viewer.entities.remove(verticalLabel[label]);
       }
-      //viewer.entities.remove(horizontalLabel);
       viewer.entities.remove(verticalLabel);
     };
 
@@ -75,11 +74,8 @@ export const MeasureEventHandler = ({ viewRef, removeMeasures}) => {
     });
   };
 
-
   const getVerticalDistanceString = () => {
-    //var heights = [point1GeoPosition.height, point2GeoPosition.height];
-    //var meters = Math.max.apply(Math, heights) - Math.min.apply(Math, heights);
-    var meters = point2GeoPosition.height - point1GeoPosition.height
+    var meters = point2GeoPosition.height - point1GeoPosition.height;
     if (meters >= 1000) {
       return (meters / 1000).toFixed(1) + " KM";
     }
@@ -116,53 +112,53 @@ export const MeasureEventHandler = ({ viewRef, removeMeasures}) => {
 
   const finishMeasureAction = () => {
     //on doubleclick -> create new primitivecollections to store the new measurements in
-    collectionCounter += 1
-    points[collectionCounter] = scene.primitives.add(new Cesium.PointPrimitiveCollection());
-    polylines[collectionCounter] = viewer.scene.primitives.add(new Cesium.PolylineCollection({show: true}));
-
-  }
+    collectionCounter += 1;
+    points[collectionCounter] = scene.primitives.add(
+      new Cesium.PointPrimitiveCollection()
+    );
+    polylines[collectionCounter] = viewer.scene.primitives.add(
+      new Cesium.PolylineCollection({ show: true })
+    );
+  };
 
   const measureAction = (click) => {
-
-
     if (scene.mode !== Cesium.SceneMode.MORPHING) {
       var pickedObject = scene.pick(click.position);
-      console.log("click.position", click.position)
-      console.log("pickedObject", pickedObject)
-      console.log("scene", scene)
-      if (scene.pickPositionSupported ) {
-
+      console.log("click.position", click.position);
+      console.log("pickedObject", pickedObject);
+      console.log("scene", scene);
+      if (scene.pickPositionSupported) {
         var cartesian = scene.pickPosition(click.position);
-        console.log("cartesian", cartesian)
+        console.log("cartesian", cartesian);
 
         if (Cesium.defined(cartesian)) {
-          clickedPositions.push(cartesian)
-          console.log("clickedPositions", clickedPositions)
-
- 
-
+          clickedPositions.push(cartesian);
+          console.log("clickedPositions", clickedPositions);
 
           points[collectionCounter].add({
-              position: new Cesium.Cartesian3(
-                cartesian.x,
-                cartesian.y,
-                cartesian.z
-              ),
-              color: LINEPOINTCOLOR,
-              pixelSize: 12
-            });
-            if (points[collectionCounter].length>1) {
-              console.log("points", points[collectionCounter])
-              console.log("points.length", points[collectionCounter].length)
-            let point1 = points[collectionCounter].get(points[collectionCounter].length-2)
-            let point2 = points[collectionCounter].get(points[collectionCounter].length-1)
+            position: new Cesium.Cartesian3(
+              cartesian.x,
+              cartesian.y,
+              cartesian.z
+            ),
+            color: LINEPOINTCOLOR,
+            pixelSize: 12,
+          });
+          if (points[collectionCounter].length > 1) {
+            console.log("points", points[collectionCounter]);
+            console.log("points.length", points[collectionCounter].length);
+            let point1 = points[collectionCounter].get(
+              points[collectionCounter].length - 2
+            );
+            let point2 = points[collectionCounter].get(
+              points[collectionCounter].length - 1
+            );
             point1GeoPosition = Cesium.Cartographic.fromCartesian(
               point1.position
             );
             point2GeoPosition = Cesium.Cartographic.fromCartesian(
               point2.position
             );
-
 
             let pl1Positions = [
               new Cesium.Cartesian3.fromRadians(
@@ -177,8 +173,6 @@ export const MeasureEventHandler = ({ viewRef, removeMeasures}) => {
               ),
             ];
 
-
-      
             var labelZ;
             if (point2GeoPosition.height >= point1GeoPosition.height) {
               labelZ =
@@ -190,33 +184,35 @@ export const MeasureEventHandler = ({ viewRef, removeMeasures}) => {
                 (point1GeoPosition.height - point2GeoPosition.height) / 2.0;
             }
             polylines[collectionCounter].add({
-              positions: pl1Positions,            
+              positions: pl1Positions,
               width: 8,
               loop: false,
               material: new Cesium.Material({
                 fabric: {
-                  type: 'Color',
+                  type: "Color",
                   uniforms: {
-                    color: new Cesium.Color(1.0, 1.0, 0.0, 1.0)
-                  }
-                }
-              })
-            })
-            addDistanceLabel(point1, point2, labelZ, point2GeoPosition.height);}
+                    color: new Cesium.Color(1.0, 1.0, 0.0, 1.0),
+                  },
+                },
+              }),
+            });
+            addDistanceLabel(point1, point2, labelZ, point2GeoPosition.height);
           }
         }
       }
     }
-  
+  };
+
   return (
     <>
-    <ScreenSpaceEvent
-      action={measureAction}
-      type={Cesium.ScreenSpaceEventType.LEFT_CLICK}
-    />
-    <ScreenSpaceEvent
-    action={finishMeasureAction}
-    type={Cesium.ScreenSpaceEventType.RIGHT_CLICK}
-  /></>
+      <ScreenSpaceEvent
+        action={measureAction}
+        type={Cesium.ScreenSpaceEventType.LEFT_CLICK}
+      />
+      <ScreenSpaceEvent
+        action={finishMeasureAction}
+        type={Cesium.ScreenSpaceEventType.RIGHT_CLICK}
+      />
+    </>
   );
 };

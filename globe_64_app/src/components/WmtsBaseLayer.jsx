@@ -1,5 +1,4 @@
-import { ImageryLayer, ImageryLayerCollection } from "resium";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import * as Cesium from "cesium";
 
 function WmtsBaseLayers({
