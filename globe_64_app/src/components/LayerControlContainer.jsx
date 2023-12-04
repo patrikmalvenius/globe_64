@@ -20,7 +20,6 @@ function LayerControlContainer({
   visibilityStateWmtsBaselayer,
   wmtsBaseLayers,
   wmsLayers,
-  wmsLayersArray,
   appConfig,
   setAppConfig,
   mapConfig,
@@ -30,7 +29,6 @@ function LayerControlContainer({
 
     wmsLayers.forEach((lyr) => {
       addedWmsLayers[lyr["Name"]] = false;
-      wmsLayersArray.push(lyr["Name"]);
     });
   }, [wmsLayers]);
 

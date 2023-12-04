@@ -1,15 +1,11 @@
 import {
   Viewer,
-  Entity,
-  PointGraphics,
-  EntityDescription,
   Scene,
   Globe,
   CameraFlyTo,
-  useCesium,
   ImageryLayerCollection,
 } from "resium";
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Tilesets from "./components/Tilesets";
 import WmsLayers from "./components/WmsLayers";
 import WmtsBaseLayer from "./components/WmtsBaseLayer";
@@ -18,7 +14,6 @@ import * as Cesium from "cesium";
 import { fetchWmsLayers } from "./models/queryWMS";
 import { CustomEventHandlers } from "./components/CustomEventHandlers";
 import GlobeAppBar from "./components/GlobeAppBar";
-//import wmtsBaseLayers from "./data/wmts.json";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const themeOptions = {
@@ -46,7 +41,6 @@ const initVisibilityTile = {};
 const initVisibilityWmtsBaseLayers = {};
 const addedTilesets = {};
 const addedWmsLayers = {};
-const wmsLayersArray = [];
 const dummyCredit = document.createElement("div");
 
 function App() {
@@ -55,7 +49,7 @@ function App() {
   const [layersControlVisible, setLayersControlVisible] = useState(false);
   const [visibilityStateWmtsBaselayer, setVisibilityStateWmtsBaselayer] =
     useState();
-    //do we want the layers to use state? might be useful to add/remove content in client otherwise not really
+  //do we want the layers to use state? might be useful to add/remove content in client otherwise not really
   const [wmsLayers, setWmsLayers] = useState([]);
   const [wmtsBaseLayers, setWmtsBaseLayers] = useState();
   const [tileLayers, setTileLayers] = useState([]);
@@ -68,19 +62,19 @@ function App() {
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
   };
-    //do we want mapconfig to use state? might be useful if we want to change config in app otherwise not really 
+  //do we want mapconfig to use state? might be useful if we want to change config in app otherwise not really
   const [mapConfig, setMapConfig] = useState();
 
   useEffect(() => {
     async function fetchConfig() {
       let urlParams = new URLSearchParams(window.location.search);
       const conf = urlParams.get("conf");
-      console.log("conf", conf)
+      console.log("conf", conf);
       const fetchAppConfig = await fetch("/appConfig.json");
       const result = await fetchAppConfig.json();
       conf in result ? setMapConfig(conf) : setMapConfig("standard");
       setAppConfig(result);
-      console.log("mapConfig", mapConfig)
+      console.log("mapConfig", mapConfig);
     }
     fetchConfig();
   }, []);
@@ -88,8 +82,8 @@ function App() {
   useEffect(() => {
     if (appConfig) {
       async function initApp() {
-        console.log("mapConfig", mapConfig)
-        console.log("appConfig", appConfig)
+        console.log("mapConfig", mapConfig);
+        console.log("appConfig", appConfig);
         Object.entries(appConfig[mapConfig].basemaps).forEach(([k, v]) => {
           initVisibilityWmtsBaseLayers[k] = v["show"];
         });
@@ -103,12 +97,14 @@ function App() {
           initVisibilityTile[k] = v["show"];
         });
 
-        setWmtsBaseLayers(appConfig[mapConfig].basemaps)
+        setWmtsBaseLayers(appConfig[mapConfig].basemaps);
         setVisibilityStateTile(initVisibilityTile);
         const layers = await fetchWmsLayers(appConfig[mapConfig]["wms"]["url"]);
         console.log("layers", layers);
-        setWmsLayers((prev) => [...prev, ...layers]);
-        console.log("wmsLayers", wmsLayers)
+        //setWmsLayers((prev) => [...prev, ...layers]);
+        setWmsLayers(layers);
+
+        console.log("wmsLayersINUSEEFFECT", wmsLayers);
       }
       initApp();
     }
@@ -147,7 +143,12 @@ function App() {
           setLeftClickAction={setLeftClickAction}
           removeMeasures={removeMeasures}
         ></CustomEventHandlers>
-        <Scene pickTranslucentDepth={true} useDepthPicking={true} sun={new Cesium.Sun()} skyAtmosphere={new Cesium.SkyAtmosphere()}/>
+        <Scene
+          pickTranslucentDepth={true}
+          useDepthPicking={true}
+          sun={new Cesium.Sun()}
+          skyAtmosphere={new Cesium.SkyAtmosphere()}
+        />
 
         <Globe depthTestAgainstTerrain={true} />
 
@@ -159,7 +160,6 @@ function App() {
         <ImageryLayerCollection ref={collectionRef}></ImageryLayerCollection>
         <WmsLayers
           wmsLayers={wmsLayers}
-          wmsLayersArray={wmsLayersArray}
           wmsUrl={appConfig ? appConfig[mapConfig].wms.url : null}
           visibilityStateWms={visibilityStateWms}
           collectionRef={collectionRef}
@@ -204,7 +204,6 @@ function App() {
           visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
           wmtsBaseLayers={wmtsBaseLayers}
           addedWmsLayers={addedWmsLayers}
-          wmsLayersArray={wmsLayersArray}
           appConfig={appConfig}
           mapConfig={mapConfig}
           setAppConfig={setAppConfig}
