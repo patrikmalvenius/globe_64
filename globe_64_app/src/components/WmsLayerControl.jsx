@@ -44,17 +44,48 @@ function WmsLayerControl({
   };
 
   return (
-    <List
-      sx={{ width: "100%", bgcolor: "background.paper" }}
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          Couches WMS
-        </ListSubheader>
-      }
-    >
+    <>
+      <List
+        sx={{ width: "100%", bgcolor: "background.paper", padding: "0 0 10px" }}
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        subheader={
+          <ListSubheader component="div" id="nested-list-subheader">
+            Couches WMS
+          </ListSubheader>
+        }
+      >
+        {Object.entries(addedWmsLayers).map((a) => {
+          return (
+            <ListItem key={a[0]} dense>
+              <ListItemButton
+                divider
+                sx={{
+                  bgcolor: visibilityStateWms[a[0]]
+                    ? theme.palette.primary.light
+                    : theme.palette.secondary.light,
+                }}
+                onClick={() =>
+                  onVisibilityChange(a[0], !visibilityStateWms[a[0]])
+                }
+              >
+                <Checkbox
+                  edge="start"
+                  checked={visibilityStateWms[a[0]]}
+                  tabIndex={-1}
+                  disableRipple
+                  sx={{ padding: 0.5 }}
+                />
+                <ListItemText primary={a} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
+      </List>
       <TextField
+        sx={{
+          padding: 1,
+        }}
         id="inputChangeWms"
         label="Changer URL pour le WMS"
         value={url}
@@ -74,33 +105,7 @@ function WmsLayerControl({
           <BackspaceIcon fontSize={"large"} />
         </IconButton>
       </Tooltip>
-      {Object.entries(addedWmsLayers).map((a) => {
-        return (
-          <ListItem key={a[0]} dense>
-            <ListItemButton
-              divider
-              sx={{
-                bgcolor: visibilityStateWms[a[0]]
-                  ? theme.palette.primary.light
-                  : theme.palette.secondary.light,
-              }}
-              onClick={() =>
-                onVisibilityChange(a[0], !visibilityStateWms[a[0]])
-              }
-            >
-              <Checkbox
-                edge="start"
-                checked={visibilityStateWms[a[0]]}
-                tabIndex={-1}
-                disableRipple
-                sx={{ padding: 0.5 }}
-              />
-              <ListItemText primary={a} />
-            </ListItemButton>
-          </ListItem>
-        );
-      })}
-    </List>
+    </>
   );
 }
 
