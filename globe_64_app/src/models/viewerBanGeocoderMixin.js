@@ -5,6 +5,9 @@ function viewerBanGeocoderMixin(viewer) {
   const mapProjection = viewer.scene.mapProjection;
   const ellipsoid = mapProjection.ellipsoid;
   const destinationFound = function (viewModel, destination) {
+    console.log("viewModel", viewModel);
+    console.log("destination", destination);
+
     const destinationCartographic =
       ellipsoid.cartesianToCartographic(destination);
     const destZoomTo = ellipsoid.cartographicToCartesian({
@@ -18,25 +21,28 @@ function viewerBanGeocoderMixin(viewer) {
 
     viewer.camera.flyTo({
       destination: destZoomTo,
-    });
-    viewer.entities.removeById("searchresult");
-    viewer.entities.add({
-      name: viewModel.searchText,
-      position: destMarker,
-      id: "searchresult",
-      point: {
-        pixelSize: 10,
-        color: Cesium.Color.RED,
-        outlineColor: Cesium.Color.WHITE,
-        outlineWidth: 2,
-      },
-      label: {
-        text: viewModel.searchText,
-        font: "14pt monospace",
-        style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-        outlineWidth: 2,
-        verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-        pixelOffset: new Cesium.Cartesian2(0, -9),
+      complete: () => {
+        viewer.entities.removeById("searchresult");
+
+        viewer.entities.add({
+          name: viewModel.searchText,
+          position: destMarker,
+          id: "searchresult",
+          point: {
+            pixelSize: 10,
+            color: Cesium.Color.RED,
+            outlineColor: Cesium.Color.WHITE,
+            outlineWidth: 2,
+          },
+          label: {
+            text: viewModel.searchText,
+            font: "14pt monospace",
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            outlineWidth: 2,
+            verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+            pixelOffset: new Cesium.Cartesian2(0, -9),
+          },
+        });
       },
     });
   };
