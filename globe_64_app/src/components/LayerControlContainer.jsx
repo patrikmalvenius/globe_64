@@ -27,13 +27,11 @@ function LayerControlContainer({
 }) {
   useEffect(() => {
     console.log("WMSLAYERS IN FUNCTION", wmsLayers);
-    if (addedWmsLayers.length > 0) {
-      addedWmsLayers = [];
-      wmsLayers.forEach((lyr) => {
-        addedWmsLayers[lyr["Name"]] = false;
-        wmsLayersArray.push(lyr["Name"]);
-      });
-    }
+
+    wmsLayers.forEach((lyr) => {
+      addedWmsLayers[lyr["Name"]] = false;
+      wmsLayersArray.push(lyr["Name"]);
+    });
   }, [wmsLayers]);
 
   const [value, setValue] = useState(0);
