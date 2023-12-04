@@ -28,19 +28,22 @@ function viewerBanGeocoderMixin(viewer) {
           name: viewModel.searchText,
           position: destMarker,
           id: "searchresult",
-          point: {
-            pixelSize: 10,
+          billboard: {
+            scale: 0.8,
+            image:
+              "https://apgl64.geomatika.fr/releves/apgl64/template/icones/adressage.svg",
             color: Cesium.Color.RED,
-            outlineColor: Cesium.Color.WHITE,
-            outlineWidth: 2,
+            verticalOrigin: 1,
           },
           label: {
             text: viewModel.searchText,
             font: "14pt monospace",
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-            outlineWidth: 2,
+            fillColor: Cesium.Color.GHOSTWHITE,
+            outlineColor: Cesium.Color.DARKSLATEGREY,
+            outlineWidth: 8,
             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-            pixelOffset: new Cesium.Cartesian2(0, -9),
+            pixelOffset: new Cesium.Cartesian2(0, -60),
           },
         });
       },
