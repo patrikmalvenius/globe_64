@@ -14,6 +14,7 @@ function LayerControlContainer({
   viewer,
   addedTilesets,
   addedWmsLayers,
+  setAddedWmsLayers,
   visibilityStateWms,
   setVisibilityStateWms,
   setVisibilityStateWmtsBaselayer,
@@ -26,10 +27,15 @@ function LayerControlContainer({
 }) {
   useEffect(() => {
     console.log("WMSLAYERS IN FUNCTION", wmsLayers);
-
+    console.log("addedWmsLayers IN FUNCTION", addedWmsLayers);
+    let tempWmsLayers = {};
+    //addedWmsLayers = {};
     wmsLayers.forEach((lyr) => {
-      addedWmsLayers[lyr["Name"]] = false;
+      tempWmsLayers[lyr["Name"]] = false;
     });
+    setAddedWmsLayers(tempWmsLayers);
+    setVisibilityStateWms(tempWmsLayers);
+    console.log("addedWmsLayers IN FUNCTION 22222", addedWmsLayers);
   }, [wmsLayers]);
 
   const [value, setValue] = useState(0);
@@ -72,6 +78,7 @@ function LayerControlContainer({
         {wmsLayers ? (
           <WmsLayerControl
             addedWmsLayers={addedWmsLayers}
+            setAddedWmsLayers={setAddedWmsLayers}
             setVisibilityStateWms={setVisibilityStateWms}
             visibilityStateWms={visibilityStateWms}
             appConfig={appConfig}

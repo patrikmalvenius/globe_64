@@ -16,6 +16,7 @@ function WmsLayerControl({
   setVisibilityStateWms,
   visibilityStateWms,
   addedWmsLayers,
+  setAddedWmsLayers,
   appConfig,
   setAppConfig,
   mapConfig,
@@ -29,6 +30,7 @@ function WmsLayerControl({
   };
 
   const onWmsUrlChange = () => {
+    setAddedWmsLayers({});
     setAppConfig((prevState) => ({
       ...prevState,
       [mapConfig]: {

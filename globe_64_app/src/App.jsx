@@ -40,10 +40,11 @@ const position = Cesium.Cartesian3.fromDegrees(-0.359818, 43.309767, 300);
 const initVisibilityTile = {};
 const initVisibilityWmtsBaseLayers = {};
 const addedTilesets = {};
-const addedWmsLayers = {};
+
 const dummyCredit = document.createElement("div");
 
 function App() {
+  const [addedWmsLayers, setAddedWmsLayers] = useState({});
   const [visibilityStateTile, setVisibilityStateTile] = useState();
   const [visibilityStateWms, setVisibilityStateWms] = useState(addedWmsLayers);
   const [layersControlVisible, setLayersControlVisible] = useState(false);
@@ -204,6 +205,7 @@ function App() {
           visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
           wmtsBaseLayers={wmtsBaseLayers}
           addedWmsLayers={addedWmsLayers}
+          setAddedWmsLayers={setAddedWmsLayers}
           appConfig={appConfig}
           mapConfig={mapConfig}
           setAppConfig={setAppConfig}
