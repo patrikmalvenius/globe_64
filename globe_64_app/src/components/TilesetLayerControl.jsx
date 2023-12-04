@@ -6,7 +6,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
+import TelegramIcon from "@mui/icons-material/Telegram";
 import Checkbox from "@mui/material/Checkbox";
 import { useTheme } from "@mui/material/styles";
 
@@ -66,7 +66,7 @@ function TilesetLayerControl({
             </ListItemButton>
 
             <ListItemIcon>
-              <FlightTakeoffIcon
+              <TelegramIcon
                 onClick={() => onClick2(a[0])}
                 sx={{ padding: 0.5 }}
               />

@@ -8,7 +8,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import { useTheme } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
-import BackspaceIcon from "@mui/icons-material/Backspace";
+import GavelIcon from "@mui/icons-material/Gavel";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 
@@ -102,7 +102,7 @@ function WmsLayerControl({
           sx={{ ml: 1 }}
           onClick={() => onWmsUrlChange()}
         >
-          <BackspaceIcon fontSize={"large"} />
+          <GavelIcon fontSize={"large"} />
         </IconButton>
       </Tooltip>
     </>

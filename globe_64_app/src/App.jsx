@@ -104,7 +104,7 @@ function App() {
         console.log("layers", layers);
         //setWmsLayers((prev) => [...prev, ...layers]);
         setWmsLayers(layers);
-
+        setVisibilityStateWms;
         console.log("wmsLayersINUSEEFFECT", wmsLayers);
       }
       initApp();
