@@ -70,6 +70,7 @@ function WmtsBaseLayerControl({
                 checked={visibilityStateWmtsBaselayer[a[0]]}
                 tabIndex={-1}
                 disableRipple
+                color="secondary"
                 sx={{ padding: 0.5 }}
               />
               <ListItemText primary={a[1]["nom"]} />

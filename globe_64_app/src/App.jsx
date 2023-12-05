@@ -36,8 +36,8 @@ const altThemeOptions = {
   palette: {
     mode: "light",
     primary: {
-      main: "#65c3d2",
-      light: "#F6F7E3",
+      main: "#388E9B",
+      light: "#F0F0E9",
       off: "#f6acb7",
       dark: "#423734",
     },
@@ -48,10 +48,10 @@ const altThemeOptions = {
       dark: "#8b0055",
     },
     warning: {
-      main: "#65c3d2",
+      main: "#388E9B",
     },
     third: {
-      main: "#65c3d2",
+      main: "#388E9B",
     },
   },
 };

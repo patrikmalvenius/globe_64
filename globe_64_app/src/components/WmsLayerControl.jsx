@@ -90,6 +90,7 @@ function WmsLayerControl({
                   checked={visibilityStateWms[a[0]]}
                   tabIndex={-1}
                   disableRipple
+                  color="secondary"
                   sx={{ padding: 0.5 }}
                 />
                 <ListItemText primary={a} />
