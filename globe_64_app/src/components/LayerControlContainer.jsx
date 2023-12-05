@@ -7,6 +7,8 @@ import TilesetLayerControl from "./TilesetLayerControl";
 import WmsLayerControl from "./WmsLayerControl";
 import WmtsBaseLayerControl from "./WmtsBaseLayerControl";
 import { Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+
 function LayerControlContainer({
   visibilityStateTile,
   setVisibilityStateTile,
@@ -37,7 +39,7 @@ function LayerControlContainer({
     setVisibilityStateWms(tempWmsLayers);
     console.log("addedWmsLayers IN FUNCTION 22222", addedWmsLayers);
   }, [wmsLayers]);
-
+  const theme = useTheme();
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -49,8 +51,11 @@ function LayerControlContainer({
       sx={{
         width: "20%",
         minWidth: "400px",
-        bgcolor: "background.paper",
         position: "absolute",
+        border: 2,
+        bgcolor: "primary.light",
+        borderColor: "primary.dark",
+        borderRadius: 1,
       }}
     >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

@@ -16,6 +16,8 @@ import Menu from "@mui/material/Menu";
 import ListItemText from "@mui/material/ListItemText";
 import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
+import { useTheme } from "@mui/material/styles";
+
 import "../assets/searchbar.css";
 
 export default function GlobeAppBar({
@@ -53,15 +55,22 @@ export default function GlobeAppBar({
   const eraseMeasurements = () => {
     setRemoveMeasures(removeMeasures + 1);
   };
-
+  const theme = useTheme();
   return (
     <AppBar position="static">
-      <Toolbar sx={{ bgcolor: "grey.800" }}>
+      <Toolbar
+        sx={{
+          bgcolor: "primary.light",
+          border: 2,
+          borderColor: "primary.dark",
+          borderRadius: 1,
+        }}
+      >
         <Tooltip title="Ouvrir contrôle de couches">
           <IconButton
             size="large"
             edge="start"
-            color={layersControlVisible ? "warning" : "inherit"}
+            color={layersControlVisible ? "third" : "primary.dark"}
             aria-label="menu"
             sx={{ mr: 2 }}
             onClick={() => onVisibilityChange()}
@@ -78,7 +87,7 @@ export default function GlobeAppBar({
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <BuildIcon style={{ color: "white" }} fontSize={"large"} />
+            <BuildIcon style={{ color: "primary.dark" }} fontSize={"large"} />
           </IconButton>
         </Tooltip>
 
@@ -220,9 +229,10 @@ export default function GlobeAppBar({
           </Tooltip>
         ) : null}
         <Typography
-          variant="h6"
+          variant="h5"
           align="center"
           component="div"
+          color="primary.dark"
           sx={{ flexGrow: 1 }}
         >
           Globe-64

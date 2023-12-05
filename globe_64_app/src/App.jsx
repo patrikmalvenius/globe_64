@@ -32,7 +32,31 @@ const themeOptions = {
   },
 };
 
-const theme = createTheme(themeOptions);
+const altThemeOptions = {
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#65c3d2",
+      light: "#F6F7E3",
+      off: "#f6acb7",
+      dark: "#423734",
+    },
+    secondary: {
+      main: "#a6c894",
+      light: "#65c3d2",
+      blue: "#a6d9e1",
+      dark: "#8b0055",
+    },
+    warning: {
+      main: "#65c3d2",
+    },
+    third: {
+      main: "#65c3d2",
+    },
+  },
+};
+
+const theme = createTheme(altThemeOptions);
 const localTerrainUrl =
   "https://apgl64.geomatika.fr/releves/apgl64/terrain/test/terrain";
 const terrain = await Cesium.CesiumTerrainProvider.fromUrl(localTerrainUrl);

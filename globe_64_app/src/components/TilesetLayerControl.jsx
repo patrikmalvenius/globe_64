@@ -35,11 +35,26 @@ function TilesetLayerControl({
   };
   return (
     <List
-      sx={{ width: "100%", bgcolor: "background.paper" }}
+      sx={{
+        width: "100%",
+        bgcolor: "primary.light",
+        border: 1,
+        borderColor: "primary.dark",
+        borderRadius: 1,
+        maxHeight: 500,
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
+        <ListSubheader
+          component="div"
+          id="nested-list-subheader"
+          sx={{
+            bgcolor: "primary.light",
+          }}
+        >
           Layers
         </ListSubheader>
       }
@@ -51,8 +66,8 @@ function TilesetLayerControl({
               divider
               sx={{
                 bgcolor: visibilityStateTile[a[0]]
-                  ? theme.palette.primary.light
-                  : theme.palette.secondary.light,
+                  ? "background.paper"
+                  : theme.palette.primary.off,
               }}
               onClick={() =>
                 onVisibilityChange(a[0], !visibilityStateTile[a[0]])
@@ -63,6 +78,7 @@ function TilesetLayerControl({
                 checked={visibilityStateTile[a[0]]}
                 tabIndex={-1}
                 disableRipple
+                color="secondary"
                 sx={{ padding: 0.5 }}
               />
               <ListItemText primary={a[1]["title"]} />
@@ -74,6 +90,7 @@ function TilesetLayerControl({
                 aria-label="menu"
                 onClick={() => onClick2(a[0])}
                 sx={{ padding: 0.5 }}
+                color="third"
               >
                 {" "}
                 <TelegramIcon />

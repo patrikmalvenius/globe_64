@@ -46,11 +46,26 @@ function WmsLayerControl({
   return (
     <>
       <List
-        sx={{ width: "100%", bgcolor: "background.paper", padding: "0 0 10px" }}
+        sx={{
+          width: "100%",
+          bgcolor: "primary.light",
+          border: 1,
+          borderColor: "primary.dark",
+          borderRadius: 1,
+          maxHeight: 500,
+          overflowY: "auto",
+          overflowX: "hidden",
+        }}
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
+          <ListSubheader
+            component="div"
+            id="nested-list-subheader"
+            sx={{
+              bgcolor: "primary.light",
+            }}
+          >
             Couches WMS
           </ListSubheader>
         }
@@ -62,8 +77,9 @@ function WmsLayerControl({
                 divider
                 sx={{
                   bgcolor: visibilityStateWms[a[0]]
-                    ? theme.palette.primary.light
-                    : theme.palette.secondary.light,
+                    ? "background.paper"
+                    : theme.palette.primary.off,
+                  width: "90%",
                 }}
                 onClick={() =>
                   onVisibilityChange(a[0], !visibilityStateWms[a[0]])
@@ -84,7 +100,8 @@ function WmsLayerControl({
       </List>
       <TextField
         sx={{
-          padding: 1,
+          marginTop: 5,
+          width: "80%",
         }}
         id="inputChangeWms"
         label="Changer URL pour le WMS"
@@ -98,7 +115,7 @@ function WmsLayerControl({
           size="small"
           edge="end"
           aria-label="menu"
-          sx={{ ml: 1 }}
+          sx={{ ml: 1, marginTop: 5 }}
           onClick={() => onWmsUrlChange()}
         >
           <GavelIcon fontSize={"large"} />
