@@ -49,9 +49,7 @@ function WmsLayerControl({
         sx={{
           width: "100%",
           bgcolor: "primary.light",
-          border: 1,
-          borderColor: "primary.dark",
-          borderRadius: 1,
+
           maxHeight: 500,
           overflowY: "auto",
           overflowX: "hidden",
