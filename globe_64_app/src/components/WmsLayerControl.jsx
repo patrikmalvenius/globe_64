@@ -97,7 +97,6 @@ function WmsLayerControl({
         <IconButton
           size="small"
           edge="end"
-          color="warning"
           aria-label="menu"
           sx={{ ml: 1 }}
           onClick={() => onWmsUrlChange()}

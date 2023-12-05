@@ -8,6 +8,9 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import Checkbox from "@mui/material/Checkbox";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+
 import { useTheme } from "@mui/material/styles";
 
 function TilesetLayerControl({
@@ -64,13 +67,18 @@ function TilesetLayerControl({
               />
               <ListItemText primary={a[1]["title"]} />
             </ListItemButton>
-
-            <ListItemIcon>
-              <TelegramIcon
+            <Tooltip title="Zoom sur couche">
+              <IconButton
+                size="small"
+                edge="end"
+                aria-label="menu"
                 onClick={() => onClick2(a[0])}
                 sx={{ padding: 0.5 }}
-              />
-            </ListItemIcon>
+              >
+                {" "}
+                <TelegramIcon />
+              </IconButton>
+            </Tooltip>
           </ListItem>
         );
       })}
