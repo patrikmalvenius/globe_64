@@ -30,6 +30,9 @@
         "flyTo": true
       }
     },
+    "geojson": {
+      "url": "./src/assets/gpstracks.json"
+    },
     "basemaps": {
       "wmts_2": {
         "nom": "Photographies aériennes",
@@ -71,4 +74,5 @@
         "show": true
       }
     }
-  }}
+  }
+}

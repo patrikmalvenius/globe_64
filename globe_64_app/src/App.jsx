@@ -113,21 +113,39 @@ function App() {
   useEffect(() => {
     if (appConfig) {
       async function initApp() {
-        Object.entries(appConfig[mapConfig].basemaps).forEach(([k, v]) => {
-          initVisibilityWmtsBaseLayers[k] = v["show"];
-        });
-        setVisibilityStateWmtsBaselayer(initVisibilityWmtsBaseLayers);
+        if (appConfig[mapConfig].basemaps) {
+          Object.entries(appConfig[mapConfig].basemaps).forEach(([k, v]) => {
+            initVisibilityWmtsBaseLayers[k] = v["show"];
+          });
+          setVisibilityStateWmtsBaselayer(initVisibilityWmtsBaseLayers);
+          setWmtsBaseLayers(appConfig[mapConfig].basemaps);
+        }
 
-        setTileLayers(appConfig[mapConfig].tilesets);
-        Object.entries(appConfig[mapConfig].tilesets).forEach(([k, v]) => {
-          initVisibilityTile[k] = v["show"];
-        });
+        if (appConfig[mapConfig].tilesets) {
+          setTileLayers(appConfig[mapConfig].tilesets);
+          Object.entries(appConfig[mapConfig].tilesets).forEach(([k, v]) => {
+            initVisibilityTile[k] = v["show"];
+          });
 
-        setWmtsBaseLayers(appConfig[mapConfig].basemaps);
-        setVisibilityStateTile(initVisibilityTile);
-        const layers = await fetchWmsLayers(appConfig[mapConfig]["wms"]["url"]);
+          setVisibilityStateTile(initVisibilityTile);
+        }
+        if (appConfig[mapConfig].wms) {
+          const layers = await fetchWmsLayers(appConfig[mapConfig].wms.url);
 
-        setWmsLayers(layers);
+          setWmsLayers(layers);
+        }
+
+        if (appConfig[mapConfig].geojson) {
+          const geoJsonFile = await fetch(appConfig[mapConfig].geojson.url);
+          const geoJsonObj = await geoJsonFile.json();
+          const dataSource = await Cesium.GeoJsonDataSource.load(geoJsonObj, {
+            stroke: Cesium.Color.BROWN,
+            clampToGround: true,
+          });
+          ref.current.cesiumElement
+            ? ref.current.cesiumElement.dataSources.add(dataSource)
+            : null;
+        }
       }
       initApp();
     }
