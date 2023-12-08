@@ -92,6 +92,9 @@ function App() {
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
   };
+  //we use this to track if we have added entities by searching, measuring etc
+  //if we have addedEntity, we show button to delete all addedEntities
+  const [addedEntity, setAddedEntity] = useState(false);
   //do we want mapconfig to use state? might be useful if we want to change config in app otherwise not really
   const [mapConfig, setMapConfig] = useState();
 
@@ -139,6 +142,11 @@ function App() {
     setVisibilityStateWms(tempWmsLayers);
   }, [wmsLayers]);
 
+  const eraseEntities = () => {
+    ref.current.cesiumElement
+      ? ref.current.cesiumElement.entities.removeAll()
+      : null;
+  };
   return (
     <ThemeProvider theme={theme}>
       <Viewer
@@ -171,6 +179,7 @@ function App() {
           leftClickAction={leftClickAction}
           setLeftClickAction={setLeftClickAction}
           removeMeasures={removeMeasures}
+          setAddedEntity={setAddedEntity}
         ></CustomEventHandlers>
         <Scene
           pickTranslucentDepth={true}
@@ -192,6 +201,7 @@ function App() {
           wmsUrl={appConfig ? appConfig[mapConfig].wms.url : null}
           visibilityStateWms={visibilityStateWms}
           collectionRef={collectionRef}
+          setAddedEntity={setAddedEntity}
         />
         <WmtsBaseLayer
           wmtsBaseLayers={wmtsBaseLayers}
@@ -218,6 +228,9 @@ function App() {
         removeMeasures={removeMeasures}
         wmsLayers={wmsLayers}
         viewRef={ref}
+        addedEntity={addedEntity}
+        setAddedEntity={setAddedEntity}
+        eraseEntities={eraseEntities}
       />
       {layersControlVisible ? (
         <LayerControlContainer

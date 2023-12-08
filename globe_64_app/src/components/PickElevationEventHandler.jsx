@@ -1,7 +1,7 @@
 import { ScreenSpaceEvent } from "resium";
 import * as Cesium from "cesium";
 
-export const PickElevationEventHandler = ({ viewRef }) => {
+export const PickElevationEventHandler = ({ viewRef, setAddedEntity }) => {
   const terrainProvider = viewRef.current.cesiumElement.terrainProvider;
   const scene = viewRef.current.cesiumElement.scene;
 
@@ -53,6 +53,7 @@ export const PickElevationEventHandler = ({ viewRef }) => {
           zIgn["elevations"][0]["z"] +
           "|" +
           zIgn["elevations"][0]["acc"]);
+      setAddedEntity(true);
     });
   };
 

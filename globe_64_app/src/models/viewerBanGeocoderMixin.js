@@ -1,7 +1,7 @@
 import * as Cesium from "cesium";
 import banGeocoderService from "./banGeocoderService";
 
-function viewerBanGeocoderMixin(viewer) {
+function viewerBanGeocoderMixin(viewer, opts) {
   const mapProjection = viewer.scene.mapProjection;
   const ellipsoid = mapProjection.ellipsoid;
   const destinationFound = function (viewModel, destination) {
@@ -46,6 +46,7 @@ function viewerBanGeocoderMixin(viewer) {
             pixelOffset: new Cesium.Cartesian2(0, -60),
           },
         });
+        opts.setAddedEntity(true);
       },
     });
   };

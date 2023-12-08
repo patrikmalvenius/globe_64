@@ -15,6 +15,7 @@ import BuildIcon from "@mui/icons-material/Build";
 import Menu from "@mui/material/Menu";
 import ListItemText from "@mui/material/ListItemText";
 import Tooltip from "@mui/material/Tooltip";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 
@@ -27,6 +28,9 @@ export default function GlobeAppBar({
   setLeftClickAction,
   setRemoveMeasures,
   removeMeasures,
+  addedEntity,
+  setAddedEntity,
+  eraseEntities,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -54,6 +58,11 @@ export default function GlobeAppBar({
 
   const eraseMeasurements = () => {
     setRemoveMeasures(removeMeasures + 1);
+  };
+
+  const eraseAllEntites = () => {
+    eraseEntities();
+    setAddedEntity(false);
   };
   const theme = useTheme();
   return (
@@ -225,6 +234,20 @@ export default function GlobeAppBar({
               sx={{ ml: 1 }}
             >
               <AdsClickIcon fontSize={"large"} />
+            </IconButton>
+          </Tooltip>
+        ) : null}
+        {addedEntity ? (
+          <Tooltip title="Supprime">
+            <IconButton
+              size="large"
+              edge="start"
+              color={"warning"}
+              aria-label="menu"
+              sx={{ ml: 1 }}
+              onClick={() => eraseAllEntites()}
+            >
+              <RemoveCircleIcon fontSize={"large"} />
             </IconButton>
           </Tooltip>
         ) : null}

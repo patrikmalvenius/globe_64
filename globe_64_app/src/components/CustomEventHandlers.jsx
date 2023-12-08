@@ -9,6 +9,7 @@ export const CustomEventHandlers = ({
   viewRef,
   leftClickAction,
   removeMeasures,
+  setAddedEntity,
 }) => {
   if (viewRef.current && viewRef.current.cesiumElement) {
     //not sure if i need this but felt safer
@@ -29,7 +30,10 @@ export const CustomEventHandlers = ({
         />
       ) : null}
       {leftClickAction === "pick" ? (
-        <PickElevationEventHandler viewRef={viewRef} />
+        <PickElevationEventHandler
+          viewRef={viewRef}
+          setAddedEntity={setAddedEntity}
+        />
       ) : null}
       {leftClickAction === "info" ? (
         <InfoClickEventHandler viewRef={viewRef} />
