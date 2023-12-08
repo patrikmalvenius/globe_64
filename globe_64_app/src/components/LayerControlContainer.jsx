@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -27,19 +27,6 @@ function LayerControlContainer({
   setAppConfig,
   mapConfig,
 }) {
-  useEffect(() => {
-    console.log("WMSLAYERS IN FUNCTION", wmsLayers);
-    console.log("addedWmsLayers IN FUNCTION", addedWmsLayers);
-    let tempWmsLayers = {};
-    //addedWmsLayers = {};
-    wmsLayers.forEach((lyr) => {
-      tempWmsLayers[lyr["Name"]] = false;
-    });
-    setAddedWmsLayers(tempWmsLayers);
-    setVisibilityStateWms(tempWmsLayers);
-    console.log("addedWmsLayers IN FUNCTION 22222", addedWmsLayers);
-  }, [wmsLayers]);
-  const theme = useTheme();
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {

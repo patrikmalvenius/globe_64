@@ -128,12 +128,21 @@ function App() {
         console.log("layers", layers);
         //setWmsLayers((prev) => [...prev, ...layers]);
         setWmsLayers(layers);
-        setVisibilityStateWms;
+        //setVisibilityStateWms;
         console.log("wmsLayersINUSEEFFECT", wmsLayers);
       }
       initApp();
     }
   }, [appConfig]);
+
+  useEffect(() => {
+    let tempWmsLayers = {};
+    wmsLayers.forEach((lyr) => {
+      tempWmsLayers[lyr["Name"]] = false;
+    });
+    setAddedWmsLayers(tempWmsLayers);
+    setVisibilityStateWms(tempWmsLayers);
+  }, [wmsLayers]);
 
   return (
     <ThemeProvider theme={theme}>
