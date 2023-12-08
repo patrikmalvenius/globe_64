@@ -68,19 +68,24 @@ const addedTilesets = {};
 const dummyCredit = document.createElement("div");
 
 function App() {
+  //wmsLayers = array with the layers we get from getCapabilities on the WMS
+  //we change the contents here when we change WMS url in app
+  const [wmsLayers, setWmsLayers] = useState([]);
+  //addedwmslayers = object used to initialize the wmslayercontainer for on/off
+  // and  visibilityStateWms
+  //we change the contents here when we change WMS url in app
   const [addedWmsLayers, setAddedWmsLayers] = useState({});
-  const [visibilityStateTile, setVisibilityStateTile] = useState();
+  //visibilityStateWms = holds the state of the added wmslayers (visible/not visible)
   const [visibilityStateWms, setVisibilityStateWms] = useState(addedWmsLayers);
+  const [visibilityStateTile, setVisibilityStateTile] = useState();
   const [layersControlVisible, setLayersControlVisible] = useState(false);
   const [visibilityStateWmtsBaselayer, setVisibilityStateWmtsBaselayer] =
     useState();
-  //do we want the layers to use state? might be useful to add/remove content in client otherwise not really
-  const [wmsLayers, setWmsLayers] = useState([]);
   const [wmtsBaseLayers, setWmtsBaseLayers] = useState();
   const [tileLayers, setTileLayers] = useState([]);
   const [leftClickAction, setLeftClickAction] = useState("info");
   const [removeMeasures, setRemoveMeasures] = useState(0);
-  //do we want appconfig to use state? probably not, only read on load
+  //
   const [appConfig, setAppConfig] = useState();
   const ref = useRef(null);
   const collectionRef = useRef(null);
@@ -94,12 +99,10 @@ function App() {
     async function fetchConfig() {
       let urlParams = new URLSearchParams(window.location.search);
       const conf = urlParams.get("conf");
-      console.log("conf", conf);
       const fetchAppConfig = await fetch("/appConfig.json");
       const result = await fetchAppConfig.json();
       conf in result ? setMapConfig(conf) : setMapConfig("standard");
       setAppConfig(result);
-      console.log("mapConfig", mapConfig);
     }
     fetchConfig();
   }, []);
@@ -107,16 +110,11 @@ function App() {
   useEffect(() => {
     if (appConfig) {
       async function initApp() {
-        console.log("mapConfig", mapConfig);
-        console.log("appConfig", appConfig);
         Object.entries(appConfig[mapConfig].basemaps).forEach(([k, v]) => {
           initVisibilityWmtsBaseLayers[k] = v["show"];
         });
         setVisibilityStateWmtsBaselayer(initVisibilityWmtsBaseLayers);
-        console.log(
-          "appConfig.standard.basemaps",
-          appConfig[mapConfig].basemaps
-        );
+
         setTileLayers(appConfig[mapConfig].tilesets);
         Object.entries(appConfig[mapConfig].tilesets).forEach(([k, v]) => {
           initVisibilityTile[k] = v["show"];
@@ -125,11 +123,8 @@ function App() {
         setWmtsBaseLayers(appConfig[mapConfig].basemaps);
         setVisibilityStateTile(initVisibilityTile);
         const layers = await fetchWmsLayers(appConfig[mapConfig]["wms"]["url"]);
-        console.log("layers", layers);
-        //setWmsLayers((prev) => [...prev, ...layers]);
+
         setWmsLayers(layers);
-        //setVisibilityStateWms;
-        console.log("wmsLayersINUSEEFFECT", wmsLayers);
       }
       initApp();
     }
