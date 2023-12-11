@@ -216,6 +216,7 @@ function App() {
         <Geojsons
           geoJsonLayers={geoJsonLayers}
           visibilityStateGeoJson={visibilityStateGeoJson}
+          viewRef={ref}
         />
         <ImageryLayerCollection ref={collectionRef}></ImageryLayerCollection>
         <WmsLayers
