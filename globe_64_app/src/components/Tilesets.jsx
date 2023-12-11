@@ -1,10 +1,16 @@
-import { Cesium3DTileset } from "resium";
+import { Cesium3DTileset, GeoJsonDataSource } from "resium";
 import * as Cesium from "cesium";
 const bUrl = "https://apgl64.geomatika.fr/releves/apgl64/terrain/";
 
-function Tilesets({ tileLayers, visibilityStateTile, tilesetLoaded }) {
+function Tilesets({
+  tileLayers,
+
+  visibilityStateTile,
+  tilesetLoaded,
+}) {
+  let tilesets;
   if (visibilityStateTile) {
-    const tilesets = Object.entries(tileLayers).map((a) => {
+    tilesets = Object.entries(tileLayers).map((a) => {
       return (
         <Cesium3DTileset
           key={a[0]}

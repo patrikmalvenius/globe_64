@@ -9,6 +9,7 @@ import { useState, useRef, useEffect } from "react";
 import Tilesets from "./components/Tilesets";
 import WmsLayers from "./components/WmsLayers";
 import WmtsBaseLayer from "./components/WmtsBaseLayer";
+import Geojsons from "./components/Geojsons";
 import LayerControlContainer from "./components/LayerControlContainer";
 import * as Cesium from "cesium";
 import { fetchWmsLayers } from "./models/queryWMS";
@@ -87,7 +88,8 @@ function App() {
   const [removeMeasures, setRemoveMeasures] = useState(0);
   //
   const [appConfig, setAppConfig] = useState();
-  const [geoJsonObj, setGeoJsonObj] = useState();
+  const [geoJsonLayers, setGeoJsonLayers] = useState();
+  const [visibilityStateGeoJson, setVisibilityStateGeoJson] = useState();
   const ref = useRef(null);
   const collectionRef = useRef(null);
   const tilesetLoaded = (name, value) => {
@@ -139,16 +141,10 @@ function App() {
         if (appConfig[mapConfig].geojson) {
           const geoJsonFile = await fetch(appConfig[mapConfig].geojson.url);
           let geoJson = await geoJsonFile.json();
-
-          const dataSource = await Cesium.GeoJsonDataSource.load(geoJson, {
-            stroke: Cesium.Color.BROWN,
-            clampToGround: true,
-          });
-          setGeoJsonObj(dataSource.entities);
+          console.log("geoJsongeoJsongeoJsongeoJsongeoJson", geoJson);
+          setGeoJsonLayers(geoJson);
+          setVisibilityStateGeoJson(true);
           geoJson = null;
-          ref.current.cesiumElement
-            ? ref.current.cesiumElement.dataSources.add(dataSource)
-            : null;
         }
       }
       initApp();
@@ -202,7 +198,6 @@ function App() {
           setLeftClickAction={setLeftClickAction}
           removeMeasures={removeMeasures}
           setAddedEntity={setAddedEntity}
-          geoJsonObj={geoJsonObj}
         ></CustomEventHandlers>
         <Scene
           pickTranslucentDepth={true}
@@ -217,6 +212,10 @@ function App() {
           tileLayers={tileLayers}
           visibilityStateTile={visibilityStateTile}
           tilesetLoaded={tilesetLoaded}
+        />
+        <Geojsons
+          geoJsonLayers={geoJsonLayers}
+          visibilityStateGeoJson={visibilityStateGeoJson}
         />
         <ImageryLayerCollection ref={collectionRef}></ImageryLayerCollection>
         <WmsLayers
