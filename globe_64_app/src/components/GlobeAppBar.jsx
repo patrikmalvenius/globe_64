@@ -55,6 +55,9 @@ export default function GlobeAppBar({
   const activateInfo = () => {
     setLeftClickAction("info");
   };
+  const activateWalkTool = () => {
+    setLeftClickAction("walk");
+  };
 
   const eraseMeasurements = () => {
     setRemoveMeasures(removeMeasures + 1);
@@ -151,6 +154,21 @@ export default function GlobeAppBar({
               >
                 <TravelExploreIcon fontSize={"large"} sx={{ mr: 2 }} />
                 <ListItemText primary={"Mode FPS"} />
+              </IconButton>
+            </Tooltip>
+          </MenuItem>
+          <MenuItem>
+            <Tooltip title="Take a walk">
+              <IconButton
+                size="large"
+                edge="start"
+                color={leftClickAction === "walk" ? "warning" : "inherit"}
+                aria-label="menu"
+                sx={{ mr: 1 }}
+                onClick={() => activateWalkTool()}
+              >
+                <SquareFootIcon fontSize={"large"} sx={{ mr: 2 }} />
+                <ListItemText primary={"Take a walk"} />
               </IconButton>
             </Tooltip>
           </MenuItem>

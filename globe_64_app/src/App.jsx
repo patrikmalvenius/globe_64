@@ -87,6 +87,7 @@ function App() {
   const [removeMeasures, setRemoveMeasures] = useState(0);
   //
   const [appConfig, setAppConfig] = useState();
+  const [geoJsonObj, setGeoJsonObj] = useState();
   const ref = useRef(null);
   const collectionRef = useRef(null);
   const tilesetLoaded = (name, value) => {
@@ -137,11 +138,14 @@ function App() {
 
         if (appConfig[mapConfig].geojson) {
           const geoJsonFile = await fetch(appConfig[mapConfig].geojson.url);
-          const geoJsonObj = await geoJsonFile.json();
-          const dataSource = await Cesium.GeoJsonDataSource.load(geoJsonObj, {
+          let geoJson = await geoJsonFile.json();
+
+          const dataSource = await Cesium.GeoJsonDataSource.load(geoJson, {
             stroke: Cesium.Color.BROWN,
             clampToGround: true,
           });
+          setGeoJsonObj(dataSource.entities);
+          geoJson = null;
           ref.current.cesiumElement
             ? ref.current.cesiumElement.dataSources.add(dataSource)
             : null;
@@ -198,6 +202,7 @@ function App() {
           setLeftClickAction={setLeftClickAction}
           removeMeasures={removeMeasures}
           setAddedEntity={setAddedEntity}
+          geoJsonObj={geoJsonObj}
         ></CustomEventHandlers>
         <Scene
           pickTranslucentDepth={true}
