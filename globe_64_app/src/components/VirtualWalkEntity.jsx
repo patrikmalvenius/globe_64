@@ -20,7 +20,9 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
   function addPolyline() {
     var arrayPos = rCoords; //rCoords must be x,y only, i e geojson = 2D
 
-    arrayOfPositions = Cesium.Cartesian3.fromDegreesArray(arrayPos.flat());
+    arrayOfPositions = Cesium.Cartesian3.fromDegreesArrayHeights(
+      arrayPos.flat()
+    );
 
     var lastPos = null;
     //calculate the totaldistance. we need this to....?
@@ -34,19 +36,6 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
     }
 
     console.log("totalDistance:" + totalDistance);
-    /*
-    polyEntity = viewer.entities.add({
-      polyline: {
-        positions: arrayOfPositions,
-        width: 2.0,
-        material: new Cesium.PolylineOutlineMaterialProperty({
-          color: Cesium.Color.YELLOW,
-          outlineColor: Cesium.Color.WHITE,
-          outlineWidth: 0,
-        }),
-        clampToGround: true,
-      },
-    });*/
   }
 
   function addPointEntity() {
@@ -258,9 +247,9 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
     myup = CC3.cross(myrig, mydir, new CC3());
 
     //raise camera up 333 meters, put back 333 meters
-    CC3.multiplyByScalar(GC_UP, 30, GC_UP);
+    CC3.multiplyByScalar(GC_UP, 2, GC_UP);
     CC3.add(GC_UP, currPos, currPos);
-    CC3.subtract(currPos, CC3.multiplyByScalar(mydir, 30, new CC3()), currPos);
+    CC3.subtract(currPos, CC3.multiplyByScalar(mydir, 2, new CC3()), currPos);
     viewer.scene.camera.position = currPos;
     function rotateVector(rotatee, rotater, angleRad) {
       var CC3 = Cesium.Cartesian3;
@@ -275,8 +264,8 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
       var rotated = CC3.add(temp, cy, new CC3());
       return rotated;
     }
-    mydir = rotateVector(mydir, myrig, (-45 * Math.PI) / 180);
-    myup = rotateVector(myup, myrig, (-45 * Math.PI) / 180);
+    //mydir = rotateVector(mydir, myrig, (-45 * Math.PI) / 180);
+    //myup = rotateVector(myup, myrig, (-45 * Math.PI) / 180);
 
     //orient camera using rot mat
     viewer.scene.camera.direction = mydir;
@@ -299,10 +288,9 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
             new Cesium.PolylineOutlineMaterialProperty({
               color: Cesium.Color.RED,
               outlineColor: Cesium.Color.WHITE,
-              outlineWidth: 2,
+              outlineWidth: 20,
             })
           }
-          clampToGround={true}
         />
       </Entity>
       <Entity
