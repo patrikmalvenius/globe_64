@@ -1,6 +1,15 @@
 import { GeoJsonDataSource } from "resium";
 import * as Cesium from "cesium";
 
+/*
+This component is only intended to be used for adding "virtual walks" and therefore has functions specific for this. 
+
+I would prefer to use 3Dtiles for the randonnees, because with the geojson approach i keep it all in memory. 3Dtiles however would imply tiling them with a true Z value 
+created from my terrain data and that pipeline doesn't exist. Yet.
+The alternative to clamp them to the ground clientside via tileset transform doesn't seem feasible from an accuracy point of view
+
+So, this approach will most likely be changed to a 3Dtile-based one in the future, when the pipeline is up to the task
+*/
 function Geojsons({ geoJsonLayers, visibilityStateGeoJson, viewRef }) {
   let geojsons;
 
@@ -25,12 +34,13 @@ function Geojsons({ geoJsonLayers, visibilityStateGeoJson, viewRef }) {
             40;
           }}
           onClick={(e, t) => {
-            console.log(e);
-            console.log(t);
-            console.log(t.primitive);
-            console.log(t.id.properties.getValue(new Cesium.JulianDate()));
             console.log(t.id.properties.getValue(new Cesium.JulianDate()).id);
             console.log(geoJsonLayers);
+            const rId = t.id.properties.getValue(new Cesium.JulianDate()).id;
+            const rando = geoJsonLayers.features.find((r) => r.id === rId);
+            console.log(rando);
+            const rCoords = rando.geometry.coordinates;
+            console.log(rCoords);
           }}
         />
       );
