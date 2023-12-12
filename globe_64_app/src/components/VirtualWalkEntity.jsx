@@ -1,7 +1,9 @@
 // https://community.cesium.com/t/tracked-entity-camera-heading/10497/3
-import { GeoJsonDataSource } from "resium";
+import { Entity, PolylineGraphics, PointGraphics } from "resium";
 import * as Cesium from "cesium";
-function VirtualWalkEntity({ rCoords, viewRef }) {
+function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
+  console.log("ENTERING WALK");
+  console.log(rCoords);
   const viewer = viewRef.current.cesiumElement;
   var positionProperty = new Cesium.SampledPositionProperty();
   var arrayOfPositions = null;
@@ -16,9 +18,9 @@ function VirtualWalkEntity({ rCoords, viewRef }) {
   var animationAltitude = 300;
   var totalDistance = 0;
   function addPolyline() {
-    var arrayPos = rCoords; //we have z also in rCoords - look later in code if this will pose a problem
+    var arrayPos = rCoords; //rCoords must be x,y only, i e geojson = 2D
 
-    arrayOfPositions = Cesium.Cartesian3.fromDegreesArray(arrayPos.flat()); //z will pose a problem after this operation. the array. the Cartesian3 will be all wrong
+    arrayOfPositions = Cesium.Cartesian3.fromDegreesArray(arrayPos.flat());
 
     var lastPos = null;
     //calculate the totaldistance. we need this to....?
@@ -32,7 +34,7 @@ function VirtualWalkEntity({ rCoords, viewRef }) {
     }
 
     console.log("totalDistance:" + totalDistance);
-
+    /*
     polyEntity = viewer.entities.add({
       polyline: {
         positions: arrayOfPositions,
@@ -44,22 +46,26 @@ function VirtualWalkEntity({ rCoords, viewRef }) {
         }),
         clampToGround: true,
       },
-    });
+    });*/
   }
 
   function addPointEntity() {
-    animationStart = Cesium.JulianDate.fromDate(new Date(2020, 8, 6, 23));
+    animationStart = Cesium.JulianDate.fromDate(new Date());
     animationStop = Cesium.JulianDate.addSeconds(
       animationStart,
       animationDuration,
       new Cesium.JulianDate()
     );
-
+    console.log("animationStart", animationStart);
+    console.log("animationDuration", animationDuration);
+    console.log("animationStop", animationStop);
     var lastTime = null;
     var lastPos = null;
     var heading = 0;
 
     for (var i = 0; i < arrayOfPositions.length; i++) {
+      console.log("lastPos", lastPos);
+      console.log("lastTime", lastTime);
       if (i === 0) {
         lastTime = animationStart;
         lastPos = arrayOfPositions[0];
@@ -78,24 +84,6 @@ function VirtualWalkEntity({ rCoords, viewRef }) {
 
       positionProperty.addSample(lastTime, lastPos);
     }
-
-    pointEntity = viewer.entities.add({
-      name: "point",
-      availability: new Cesium.TimeIntervalCollection([
-        new Cesium.TimeInterval({
-          start: animationStart,
-          stop: animationStop,
-        }),
-      ]),
-      position: positionProperty,
-      orientation: new Cesium.VelocityOrientationProperty(positionProperty),
-      point: {
-        pixelSize: 10,
-        color: Cesium.Color.RED,
-        heightReference: Cesium.HeightReference.RELATIVE_TO_GROUND,
-      } /*,
-    viewFrom : new Cesium.Cartesian3(-500, -500, 1000)*/,
-    });
   }
 
   function setArrayHeadings() {
@@ -108,6 +96,7 @@ function VirtualWalkEntity({ rCoords, viewRef }) {
   }
 
   function getHeading(cart1, cart2) {
+    console.log("GETHEADING");
     var CC3 = Cesium.Cartesian3;
     let pathDir = new CC3();
     let temp = new CC3();
@@ -171,10 +160,12 @@ function VirtualWalkEntity({ rCoords, viewRef }) {
     );
     var i = Math.floor(arrayOfPositions.length * (secs / animationDuration));
     var virgule = (arrayOfPositions.length * (secs / animationDuration)) % 1;
-
+    console.log("secs", secs);
+    console.log("i", i);
     if (i < arrayHeadings.length) {
       curH = arrayHeadings[i];
-
+      console.log("curH", curH);
+      console.log("arrayHeadings", arrayHeadings);
       if (i < arrayHeadings.length - 1) {
         nextH = arrayHeadings[i + 1];
         deltaH = virgule * (nextH - curH);
@@ -188,7 +179,7 @@ function VirtualWalkEntity({ rCoords, viewRef }) {
 
     viewer
       .zoomTo(
-        pointEntity,
+        viewer.entities.getById("randopointidentifier"),
         new Cesium.HeadingPitchRange(
           curH + deltaH,
           -Cesium.Math.toRadians(45),
@@ -198,6 +189,7 @@ function VirtualWalkEntity({ rCoords, viewRef }) {
       .then((res) => {
         //console.log('zoomTo finished for', res, i, Cesium.Math.toDegrees(curH + deltaH));
       });
+    followCamera();
   });
 
   var stopListener = viewer.clock.onStop.addEventListener(function (clock) {
@@ -209,15 +201,15 @@ function VirtualWalkEntity({ rCoords, viewRef }) {
   });
 
   // Add a reset button, for convenience.
-  Sandcastle.addToolbarButton("Play", function () {
+  /* Sandcastle.addToolbarButton("Play", function () {
     viewer.clock.startTime = animationStart.clone();
     viewer.clock.stopTime = animationStop.clone();
     viewer.clock.currentTime = animationStart.clone();
 
     viewer.clock.shouldAnimate = true;
-  });
+  });*/
 
-  Sandcastle.addToolbarButton("Position/Orient camera", function () {
+  function followCamera() {
     var secs = Cesium.JulianDate.secondsDifference(
       viewer.clock.currentTime,
       viewer.clock.startTime
@@ -266,9 +258,9 @@ function VirtualWalkEntity({ rCoords, viewRef }) {
     myup = CC3.cross(myrig, mydir, new CC3());
 
     //raise camera up 333 meters, put back 333 meters
-    CC3.multiplyByScalar(GC_UP, 333, GC_UP);
+    CC3.multiplyByScalar(GC_UP, 30, GC_UP);
     CC3.add(GC_UP, currPos, currPos);
-    CC3.subtract(currPos, CC3.multiplyByScalar(mydir, 333, new CC3()), currPos);
+    CC3.subtract(currPos, CC3.multiplyByScalar(mydir, 30, new CC3()), currPos);
     viewer.scene.camera.position = currPos;
     function rotateVector(rotatee, rotater, angleRad) {
       var CC3 = Cesium.Cartesian3;
@@ -290,7 +282,54 @@ function VirtualWalkEntity({ rCoords, viewRef }) {
     viewer.scene.camera.direction = mydir;
     viewer.scene.camera.right = myrig;
     viewer.scene.camera.up = myup;
-  });
+  }
+  //setWalk(false);
+  viewer.clock.startTime = animationStart.clone();
+  viewer.clock.stopTime = animationStop.clone();
+  viewer.clock.currentTime = animationStart.clone();
+  viewer.clock.shouldAnimate = true;
+
+  return (
+    <>
+      <Entity>
+        <PolylineGraphics
+          positions={arrayOfPositions}
+          width={5.0}
+          material={
+            new Cesium.PolylineOutlineMaterialProperty({
+              color: Cesium.Color.RED,
+              outlineColor: Cesium.Color.WHITE,
+              outlineWidth: 2,
+            })
+          }
+          clampToGround={true}
+        />
+      </Entity>
+      <Entity
+        name={"point"}
+        id={"randopointidentifier"}
+        availability={
+          new Cesium.TimeIntervalCollection([
+            new Cesium.TimeInterval({
+              start: animationStart,
+              stop: animationStop,
+            }),
+          ])
+        }
+        position={positionProperty}
+        orientation={new Cesium.VelocityOrientationProperty(positionProperty)}
+      >
+        {" "}
+        <PointGraphics
+          pixelSize={20}
+          color={Cesium.Color.RED}
+          outlineColor={Cesium.Color.BLACK}
+          outlineWidth={10}
+          heightReference={Cesium.HeightReference.CLAMP_TO_GROUND}
+        />
+      </Entity>
+    </>
+  );
 }
 
 export default VirtualWalkEntity;

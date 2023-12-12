@@ -10,9 +10,17 @@ The alternative to clamp them to the ground clientside via tileset transform doe
 
 So, this approach will most likely be changed to a 3Dtile-based one in the future, when the pipeline is up to the task
 */
-function Geojsons({ geoJsonLayers, visibilityStateGeoJson, viewRef }) {
+function Geojsons({
+  geoJsonLayers,
+  visibilityStateGeoJson,
+  viewRef,
+  setRCoords,
+  setWalk,
+}) {
   let geojsons;
-
+  //let walk = false;
+  //const [walk, setWalk] = useState(false);
+  //const [rCoords, setRCoords] = useState(null);
   if (visibilityStateGeoJson) {
     geojsons = geoJsonLayers.features.map((a) => {
       return (
@@ -22,7 +30,6 @@ function Geojsons({ geoJsonLayers, visibilityStateGeoJson, viewRef }) {
           key={a["id"]}
           clampToGround={true}
           onLoad={(g) => {
-            console.log("gggggggggggggggggggggggggggggggggggggggg", g);
             const entities = g.entities.values;
 
             for (let i = 0; i < entities.length; i++) {
@@ -39,8 +46,8 @@ function Geojsons({ geoJsonLayers, visibilityStateGeoJson, viewRef }) {
             const rId = t.id.properties.getValue(new Cesium.JulianDate()).id;
             const rando = geoJsonLayers.features.find((r) => r.id === rId);
             console.log(rando);
-            const rCoords = rando.geometry.coordinates;
-            console.log(rCoords);
+            setRCoords(rando.geometry.coordinates[0]);
+            setWalk(true);
           }}
         />
       );

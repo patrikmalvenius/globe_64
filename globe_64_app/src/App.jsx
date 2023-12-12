@@ -16,6 +16,7 @@ import { fetchWmsLayers } from "./models/queryWMS";
 import { CustomEventHandlers } from "./components/CustomEventHandlers";
 import GlobeAppBar from "./components/GlobeAppBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import VirtualWalkEntity from "./components/VirtualWalkEntity";
 
 const themeOptions = {
   palette: {
@@ -100,6 +101,8 @@ function App() {
   const [addedEntity, setAddedEntity] = useState(false);
   //do we want mapconfig to use state? might be useful if we want to change config in app otherwise not really
   const [mapConfig, setMapConfig] = useState();
+  const [walk, setWalk] = useState(false);
+  const [rCoords, setRCoords] = useState(null);
 
   useEffect(() => {
     async function fetchConfig() {
@@ -207,7 +210,14 @@ function App() {
         />
 
         <Globe depthTestAgainstTerrain={true} />
-
+        {walk ? (
+          <VirtualWalkEntity
+            viewRef={ref}
+            rCoords={rCoords}
+            walk={walk}
+            setWalk={setWalk}
+          />
+        ) : null}
         <Tilesets
           tileLayers={tileLayers}
           visibilityStateTile={visibilityStateTile}
@@ -217,7 +227,10 @@ function App() {
           geoJsonLayers={geoJsonLayers}
           visibilityStateGeoJson={visibilityStateGeoJson}
           viewRef={ref}
+          setWalk={setWalk}
+          setRCoords={setRCoords}
         />
+
         <ImageryLayerCollection ref={collectionRef}></ImageryLayerCollection>
         <WmsLayers
           wmsLayers={wmsLayers}
