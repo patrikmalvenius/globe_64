@@ -13,7 +13,7 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
   var lastCurrentTime = null;
   var polyEntity = null;
   var arrayPos;
-  var animationDuration = 60;
+  var animationDuration;
   var animationStart;
   var animationStop;
   var animationAltitude = 300;
@@ -62,6 +62,10 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
         }
         lastPos = arrayOfPositions[j];
       }
+      //we set the walking speed to 25 km/h
+      animationDuration = (totalDistance / 1000) * 144;
+      console.log("totalDistance", totalDistance);
+      console.log("animationDuration", animationDuration);
     }
 
     function addPointEntity() {
@@ -171,12 +175,10 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
       );
       var i = Math.floor(arrayOfPositions.length * (secs / animationDuration));
       var virgule = (arrayOfPositions.length * (secs / animationDuration)) % 1;
-      console.log("secs", secs);
-      console.log("i", i);
+
       if (i < arrayHeadings.length) {
         curH = arrayHeadings[i];
-        console.log("curH", curH);
-        console.log("arrayHeadings", arrayHeadings);
+
         if (i < arrayHeadings.length - 1) {
           nextH = arrayHeadings[i + 1];
           deltaH = virgule * (nextH - curH);
