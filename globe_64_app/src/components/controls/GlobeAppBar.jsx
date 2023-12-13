@@ -19,7 +19,7 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 
-import "../assets/searchbar.css";
+import "../../assets/searchbar.css";
 
 export default function GlobeAppBar({
   layersControlVisible,

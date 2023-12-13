@@ -6,17 +6,17 @@ import {
   ImageryLayerCollection,
 } from "resium";
 import { useState, useRef, useEffect } from "react";
-import Tilesets from "./components/Tilesets";
-import WmsLayers from "./components/WmsLayers";
-import WmtsBaseLayer from "./components/WmtsBaseLayer";
-import Geojsons from "./components/Geojsons";
-import LayerControlContainer from "./components/LayerControlContainer";
+import Tilesets from "./components/layers/Tilesets";
+import WmsLayers from "./components/layers/WmsLayers";
+import WmtsBaseLayer from "./components/layers/WmtsBaseLayer";
+import Geojsons from "./components/layers/Geojsons";
+import LayerControlContainer from "./components/controls/LayerControlContainer";
 import * as Cesium from "cesium";
 import { fetchWmsLayers } from "./models/queryWMS";
-import { CustomEventHandlers } from "./components/CustomEventHandlers";
-import GlobeAppBar from "./components/GlobeAppBar";
+import { CustomEventHandlers } from "./components/eventhandlers/CustomEventHandlers";
+import GlobeAppBar from "./components/controls/GlobeAppBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import VirtualWalkEntity from "./components/VirtualWalkEntity";
+import VirtualWalkEntity from "./components/layers/VirtualWalkEntity";
 
 const themeOptions = {
   palette: {
