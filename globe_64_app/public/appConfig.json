@@ -31,7 +31,7 @@
       }
     },
     "geojson": {
-      "url": "./src/assets/gpstracks.json"
+      "url": "./src/assets/gpstracks5m.json"
     },
     "basemaps": {
       "wmts_2": {
