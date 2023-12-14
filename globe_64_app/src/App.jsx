@@ -17,50 +17,10 @@ import { CustomEventHandlers } from "./components/eventhandlers/CustomEventHandl
 import GlobeAppBar from "./components/controls/GlobeAppBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import VirtualWalkEntity from "./components/layers/VirtualWalkEntity";
+import { themeOptions } from "./styles/theme";
 
-const themeOptions = {
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#00a948",
-      light: "#baf8d5",
-      dark: "#008832",
-    },
-    secondary: {
-      main: "#ef2c81",
-      light: "#f8b9d3",
-      dark: "#8b0055",
-    },
-  },
-};
-
-const altThemeOptions = {
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#388E9B",
-      light: "#F0F0E9",
-      off: "#f6acb7",
-      dark: "#423734",
-    },
-    secondary: {
-      main: "#a6c894",
-      light: "#65c3d2",
-      blue: "#a6d9e1",
-      dark: "#8b0055",
-    },
-    warning: {
-      main: "#388E9B",
-    },
-    third: {
-      main: "#388E9B",
-    },
-  },
-};
-
-const theme = createTheme(altThemeOptions);
-const localTerrainUrl =
-  "https://apgl64.geomatika.fr/releves/apgl64/terrain/test/terrain";
+const theme = createTheme(themeOptions);
+const localTerrainUrl = "localhost:8888/data/terrain";
 const terrain = await Cesium.CesiumTerrainProvider.fromUrl(localTerrainUrl);
 const position = Cesium.Cartesian3.fromDegrees(-0.359818, 43.309767, 300);
 const initVisibilityTile = {};

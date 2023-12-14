@@ -1,6 +1,6 @@
 import { Cesium3DTileset, GeoJsonDataSource } from "resium";
 import * as Cesium from "cesium";
-const bUrl = "https://apgl64.geomatika.fr/releves/apgl64/terrain/";
+const bUrl = "localhost:8888/data/tiles/";
 
 function Tilesets({
   tileLayers,

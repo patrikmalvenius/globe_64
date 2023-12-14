@@ -30,8 +30,7 @@ function viewerBanGeocoderMixin(viewer, opts) {
           id: "searchresult",
           billboard: {
             scale: 0.8,
-            image:
-              "https://apgl64.geomatika.fr/releves/apgl64/template/icones/adressage.svg",
+            image: "localhost:8888/data/icones/adressage.svg",
             color: Cesium.Color.RED,
             verticalOrigin: 1,
           },
