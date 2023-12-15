@@ -113,6 +113,7 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
     function getHeading(cart1, cart2) {
       console.log("GETHEADING");
       var CC3 = Cesium.Cartesian3;
+      const CC3_0 = new CC3(0, 0, 0);
       let pathDir = new CC3();
       let temp = new CC3();
       let GD_transform = new Cesium.Matrix4();
@@ -124,16 +125,25 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
       let east = new CC3(GD_transform[0], GD_transform[1], GD_transform[2]);
       let north = new CC3(GD_transform[4], GD_transform[5], GD_transform[6]);
       let up = new CC3(GD_transform[8], GD_transform[9], GD_transform[10]);
-
       //pathDir is 1st leg projected onto horizontal plane
-      CC3.subtract(cart1, cart2, pathDir); //seems backwards
-      CC3.normalize(pathDir, pathDir);
+
+      if (!CC3.equals(cart1, cart2)) {
+        CC3.subtract(cart1, cart2, pathDir);
+
+        CC3.normalize(pathDir, pathDir);
+      }
       let scale = CC3.dot(up, pathDir);
       CC3.multiplyByScalar(up, scale, temp);
       CC3.subtract(pathDir, temp, pathDir);
+      //get ang from north, but only if pathDir != 0,0,0
+      let ang;
+      if (!CC3.equals(CC3_0, pathDir)) {
+        ang = CC3.angleBetween(north, pathDir); //I assume always positive
+      } else {
+        ang = 0;
+      }
 
-      //get ang from north
-      let ang = CC3.angleBetween(north, pathDir); //I assume always positive
+      console.log("ang", ang);
 
       if (CC3.dot(east, pathDir) < 0) {
         ang *= -1;

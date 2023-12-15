@@ -20,7 +20,7 @@ import VirtualWalkEntity from "./components/layers/VirtualWalkEntity";
 import { themeOptions } from "./styles/theme";
 
 const theme = createTheme(themeOptions);
-const localTerrainUrl = "localhost:8888/data/terrain";
+const localTerrainUrl = "http://localhost:8888/data/terrain";
 const terrain = await Cesium.CesiumTerrainProvider.fromUrl(localTerrainUrl);
 const position = Cesium.Cartesian3.fromDegrees(-0.359818, 43.309767, 300);
 const initVisibilityTile = {};
