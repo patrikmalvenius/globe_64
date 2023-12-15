@@ -126,24 +126,20 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
       let north = new CC3(GD_transform[4], GD_transform[5], GD_transform[6]);
       let up = new CC3(GD_transform[8], GD_transform[9], GD_transform[10]);
       //pathDir is 1st leg projected onto horizontal plane
-
+      let ang;
+      // if we have two identical coordinates passed in this will break, therefore this check
+      // and in that case we are fine returning an angle of 0
       if (!CC3.equals(cart1, cart2)) {
         CC3.subtract(cart1, cart2, pathDir);
 
         CC3.normalize(pathDir, pathDir);
-      }
-      let scale = CC3.dot(up, pathDir);
-      CC3.multiplyByScalar(up, scale, temp);
-      CC3.subtract(pathDir, temp, pathDir);
-      //get ang from north, but only if pathDir != 0,0,0
-      let ang;
-      if (!CC3.equals(CC3_0, pathDir)) {
+        let scale = CC3.dot(up, pathDir);
+        CC3.multiplyByScalar(up, scale, temp);
+        CC3.subtract(pathDir, temp, pathDir);
         ang = CC3.angleBetween(north, pathDir); //I assume always positive
       } else {
         ang = 0;
       }
-
-      console.log("ang", ang);
 
       if (CC3.dot(east, pathDir) < 0) {
         ang *= -1;
