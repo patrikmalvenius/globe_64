@@ -26,7 +26,64 @@
         "assetid": "arbres/tileset.json",
         "color": "blue",
         "show": true,
+        "type": "model",
+        "flyTo": true
+      },
+      "layer_4": {
+        "title": "Vegetation",
+        "assetid": "veg_pau/tileset.json",
+        "color": "blue",
+        "show": false,
         "type": "lidar",
+        "flyTo": true
+      },
+      "layer_5": {
+        "title": "Vegetation ION",
+        "assetid": "veg_color/tileset.json",
+        "color": "blue",
+        "show": false,
+        "type": "lidar",
+        "flyTo": true
+      },
+      "layer_6": {
+        "title": "Bati color",
+        "assetid": "bati_pau/tileset.json",
+        "color": "blue",
+        "show": false,
+        "type": "lidar",
+        "flyTo": true
+      },
+      "layer_7": {
+        "title": "Bati ION",
+        "assetid": "bati_color/tileset.json",
+        "color": "blue",
+        "show": false,
+        "type": "lidar",
+        "flyTo": true
+      },
+      "layer_8": {
+        "title": "Bati Roquiague",
+        "assetid": "roq_bati/tileset.json",
+        "color": "blue",
+        "show": false,
+        "type": "lidar",
+        "flyTo": true
+      },
+      "layer_9": {
+        "title": "Veg Roquiage",
+        "assetid": "roq_veg/tileset.json",
+        "color": "blue",
+        "show": false,
+        "type": "lidar",
+        "flyTo": true
+      },
+
+      "layer_10": {
+        "title": "Bati buff",
+        "assetid": "bati_buff/tileset.json",
+        "color": "blue",
+        "show": false,
+        "type": "IGN",
         "flyTo": true
       }
     },

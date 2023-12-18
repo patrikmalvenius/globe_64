@@ -43,6 +43,14 @@ function Tilesets({
               );
               e.modelMatrix = Cesium.Matrix4.fromTranslation(translation);
             }
+            if (a[1].type === "lidar") {
+              e.style = new Cesium.Cesium3DTileStyle({
+                pointSize: "3",
+              });
+              e.pointCloudShading.attenuation = true;
+              e.pointCloudShading.maximumAttenuation = 20;
+              e.pointCloudShading.baseResolution = 5;
+            }
           }}
         />
       );
