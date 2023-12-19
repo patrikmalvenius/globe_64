@@ -9,51 +9,41 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
   var positionProperty = new Cesium.SampledPositionProperty();
   var arrayOfPositions = null;
   var arrayHeadings = [];
-  var pointEntity = null;
-  var lastCurrentTime = null;
-  var polyEntity = null;
-  var arrayPos;
   var animationDuration;
   var animationStart;
   var animationStop;
-  var animationAltitude = 300;
+  var animationAltitude = 2;
   var totalDistance = 0;
 
   useMemo(() => {
     async function getZValues() {
+      //we pick z-values for the walk from the actual terrain to avoid mismatch between z in walk and z on terrain
       const arrayCartographic = rCoords.map((coord) =>
         Cesium.Cartographic.fromDegrees(coord[0], coord[1])
       );
-      console.log("arrayCartographic", arrayCartographic);
       const arrayPosTerrainLoaded = await Cesium.sampleTerrainMostDetailed(
         viewer.terrainProvider,
         arrayCartographic,
         true
       );
 
-      arrayPos = arrayPosTerrainLoaded.map((carto) => {
+      arrayOfPositions = arrayPosTerrainLoaded.map((carto) => {
         const carte = Cesium.Cartographic.toCartesian(carto);
         return carte;
       });
-      console.log("arrayPosarrayPosarrayPos", arrayPos);
-      console.log(
-        "wantrthis",
-        Cesium.Cartesian3.fromDegreesArray([-115.0, 37.0, -107.0, 33.0])
-      );
-      doAllTogether();
+
+      createAnimation();
     }
     getZValues();
   }, [rCoords]);
-  function doAllTogether() {
-    function addPolyline() {
-      //var arrayPos = rCoords; //rCoords must be x,y only, i e geojson = 2D
-
-      arrayOfPositions = arrayPos; //Cesium.Cartesian3.fromDegreesArrayHeights(
-      // arrayPos.flat()
-      // );
-
+  function createAnimation() {
+    function calcDistanceAndSpeed() {
+      //calculate total distance of the walk + animationduration which essentially sets the speed
+      //this approach implies that the vertices of the walks need to be equi...distansical
+      //the test data is chopped in 5 m segments
+      //but i will consider doing this clientside instead
       var lastPos = null;
-      //calculate the totaldistance. we need this to....?
+      //calculate the totaldistance.
       for (var j = 0; j < arrayOfPositions.length; j++) {
         if (lastPos) {
           var d = Cesium.Cartesian3.distance(lastPos, arrayOfPositions[j]);
@@ -64,11 +54,11 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
       }
       //we set the walking speed to 25 km/h
       animationDuration = (totalDistance / 1000) * 144;
-      console.log("totalDistance", totalDistance);
-      console.log("animationDuration", animationDuration);
     }
 
-    function addPointEntity() {
+    function createAnimationData() {
+      //populate the SamplePositionProperty that is used to animate the walk with data
+      //this is an object with a Time and a Position
       animationStart = Cesium.JulianDate.fromDate(new Date());
       animationStop = Cesium.JulianDate.addSeconds(
         animationStart,
@@ -76,17 +66,16 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
         new Cesium.JulianDate()
       );
 
-      var lastTime = null;
-      var lastPos = null;
-      var heading = 0;
+      let lastTime = null;
+      let lastPos = null;
 
       for (var i = 0; i < arrayOfPositions.length; i++) {
         if (i === 0) {
           lastTime = animationStart;
           lastPos = arrayOfPositions[0];
         } else {
-          var d = Cesium.Cartesian3.distance(lastPos, arrayOfPositions[i]);
-          var stepTime = (d * animationDuration) / totalDistance;
+          let d = Cesium.Cartesian3.distance(lastPos, arrayOfPositions[i]);
+          let stepTime = (d * animationDuration) / totalDistance;
 
           lastTime = Cesium.JulianDate.addSeconds(
             lastTime,
@@ -96,22 +85,21 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
 
           lastPos = arrayOfPositions[i];
         }
-
         positionProperty.addSample(lastTime, lastPos);
       }
     }
 
     function setArrayHeadings() {
-      var heading = 0;
-
       for (var i = 0; i < arrayOfPositions.length - 1; i++) {
-        heading = getHeading(arrayOfPositions[i], arrayOfPositions[i + 1]);
+        const heading = getHeading(
+          arrayOfPositions[i],
+          arrayOfPositions[i + 1]
+        );
         arrayHeadings.push(heading);
       }
     }
 
     function getHeading(cart1, cart2) {
-      console.log("GETHEADING");
       var CC3 = Cesium.Cartesian3;
       const CC3_0 = new CC3(0, 0, 0);
       let pathDir = new CC3();
@@ -159,8 +147,8 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
       viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
     }
 
-    addPolyline();
-    addPointEntity();
+    calcDistanceAndSpeed();
+    createAnimationData();
 
     var transform = Cesium.Transforms.eastNorthUpToFixedFrame(
       arrayOfPositions[0]
@@ -169,11 +157,13 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
 
     setArrayHeadings(); //set heading for every position in arrayOfPositions
 
-    var curH = 0;
-    var deltaH = 0;
-    var nextH = 0;
-
     var listener = viewer.clock.onTick.addEventListener(function (clock) {
+      //i have no idea what this does compared to the camera settings below, in followCamera
+      //here we do a viewer.zoomTo, and in followCamera we set the camera position
+      //do a test to find out what does what and if one can be deleted!
+      var curH = 0;
+      var deltaH = 0;
+      var nextH = 0;
       //compute index of arrayHeadings relative to clock currentTime
       var secs = Cesium.JulianDate.secondsDifference(
         clock.currentTime,
@@ -193,8 +183,6 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
           deltaH = 0;
         }
       }
-
-      //console.log('i, virgule, curH, realH', i, virgule, Cesium.Math.toDegrees(curH), Cesium.Math.toDegrees(curH + deltaH));
 
       viewer
         .zoomTo(
@@ -277,28 +265,15 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
       myrig = CC3.cross(mydir, GC_UP, new CC3());
       myup = CC3.cross(myrig, mydir, new CC3());
 
-      //raise camera up 333 meters, put back 333 meters
-      CC3.multiplyByScalar(GC_UP, 2, GC_UP);
+      CC3.multiplyByScalar(GC_UP, animationAltitude, GC_UP);
       CC3.add(GC_UP, currPos, currPos);
-      CC3.subtract(currPos, CC3.multiplyByScalar(mydir, 2, new CC3()), currPos);
+      CC3.subtract(
+        currPos,
+        CC3.multiplyByScalar(mydir, animationAltitude, new CC3()),
+        currPos
+      );
       viewer.scene.camera.position = currPos;
-      function rotateVector(rotatee, rotater, angleRad) {
-        var CC3 = Cesium.Cartesian3;
-        var rotated = new CC3();
-        var dotS = CC3.dot(rotatee, rotater);
-        var base = CC3.multiplyByScalar(rotater, dotS, new CC3());
-        var vpa = CC3.subtract(rotatee, base, new CC3());
-        var cx = CC3.multiplyByScalar(vpa, Math.cos(angleRad), new CC3());
-        var vppa = CC3.cross(rotater, vpa, new CC3());
-        var cy = CC3.multiplyByScalar(vppa, Math.sin(angleRad), new CC3());
-        var temp = CC3.add(base, cx, new CC3());
-        var rotated = CC3.add(temp, cy, new CC3());
-        return rotated;
-      }
-      //mydir = rotateVector(mydir, myrig, (-45 * Math.PI) / 180);
-      //myup = rotateVector(myup, myrig, (-45 * Math.PI) / 180);
 
-      //orient camera using rot mat
       viewer.scene.camera.direction = mydir;
       viewer.scene.camera.right = myrig;
       viewer.scene.camera.up = myup;
