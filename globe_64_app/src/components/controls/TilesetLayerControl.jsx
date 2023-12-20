@@ -53,7 +53,7 @@ function TilesetLayerControl({
             bgcolor: "primary.light",
           }}
         >
-          Layers
+          Couches des modèles
         </ListSubheader>
       }
     >

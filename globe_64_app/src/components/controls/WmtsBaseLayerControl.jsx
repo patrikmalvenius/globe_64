@@ -45,7 +45,7 @@ function WmtsBaseLayerControl({
             bgcolor: "primary.light",
           }}
         >
-          Layers
+          Couches de fonds de plan
         </ListSubheader>
       }
     >

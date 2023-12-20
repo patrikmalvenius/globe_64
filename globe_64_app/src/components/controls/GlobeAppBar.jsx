@@ -11,6 +11,7 @@ import ColorizeIcon from "@mui/icons-material/Colorize";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import BackspaceIcon from "@mui/icons-material/Backspace";
+import Paper from "@mui/material/Paper";
 import BuildIcon from "@mui/icons-material/Build";
 import Menu from "@mui/material/Menu";
 import ListItemText from "@mui/material/ListItemText";
@@ -18,6 +19,10 @@ import Tooltip from "@mui/material/Tooltip";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Box from "@mui/material/Box";
+import ListSubheader from "@mui/material/ListSubheader";
 
 import "../../assets/searchbar.css";
 
@@ -32,16 +37,16 @@ export default function GlobeAppBar({
   setAddedEntity,
   eraseEntities,
 }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [showToolMenu, setShowToolMenu] = useState(false);
+  const open = Boolean(showToolMenu);
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setShowToolMenu(!showToolMenu);
+    layersControlVisible ? setLayersControlVisible(false) : null;
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
   const onVisibilityChange = () => {
     setLayersControlVisible(!layersControlVisible);
+    showToolMenu ? setShowToolMenu(false) : null;
   };
   const activateMeasureTool = () => {
     setLeftClickAction("measure");
@@ -94,93 +99,123 @@ export default function GlobeAppBar({
           <BuildIcon style={{ color: "primary.dark" }} fontSize={"large"} />
         </IconButton>
       </Tooltip>
+      {showToolMenu ? (
+        <Box
+          sx={{
+            width: "20%",
+            minWidth: "400px",
+            position: "absolute",
+            border: 2,
+            bgcolor: "primary.light",
+            borderColor: "primary.dark",
+            borderRadius: 1,
+            mt: 60,
+          }}
+          onClick={handleClick}
+        >
+          {" "}
+          <List
+            sx={{
+              width: "100%",
+              bgcolor: "primary.light",
 
-      <Menu
-        anchorEl={anchorEl}
-        id="outils-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      >
-        <MenuItem>
-          <Tooltip title="Mesure objets 3D">
-            <IconButton
-              size="large"
-              edge="start"
-              color={leftClickAction === "measure" ? "third" : "inherit"}
-              aria-label="menu"
-              sx={{ mr: 1 }}
-              onClick={() => activateMeasureTool()}
-            >
-              <SquareFootIcon fontSize={"large"} sx={{ mr: 2 }} />
-              <ListItemText primary={"Mesure objets 3D"} />
-            </IconButton>
-          </Tooltip>
-        </MenuItem>
-        <MenuItem>
-          <Tooltip title="Mesure XYZ sur terre">
-            <IconButton
-              size="large"
-              edge="start"
-              color={leftClickAction === "pick" ? "third" : "inherit"}
-              aria-label="menu"
-              sx={{ mr: 1 }}
-              onClick={() => activateGroundPicker()}
-            >
-              <ColorizeIcon fontSize={"large"} sx={{ mr: 2 }} />
-              <ListItemText primary={"Mesure XYZ sur terre"} />
-            </IconButton>
-          </Tooltip>
-        </MenuItem>
-        <MenuItem>
-          <Tooltip title="Entrez en mode FPS. Clique-droite pour sortir">
-            <IconButton
-              size="large"
-              edge="start"
-              color={leftClickAction === "fps" ? "third" : "inherit"}
-              aria-label="menu"
-              sx={{ mr: 1 }}
-              onClick={() => activateFPS()}
-            >
-              <TravelExploreIcon fontSize={"large"} sx={{ mr: 2 }} />
-              <ListItemText primary={"Mode FPS"} />
-            </IconButton>
-          </Tooltip>
-        </MenuItem>
-        <MenuItem>
-          <Tooltip title="Take a walk">
-            <IconButton
-              size="large"
-              edge="start"
-              color={leftClickAction === "walk" ? "third" : "inherit"}
-              aria-label="menu"
-              sx={{ mr: 1 }}
-              onClick={() => activateWalkTool()}
-            >
-              <SquareFootIcon fontSize={"large"} sx={{ mr: 2 }} />
-              <ListItemText primary={"Take a walk"} />
-            </IconButton>
-          </Tooltip>
-        </MenuItem>
-        <Divider />
-        <MenuItem>
-          <Tooltip title="Cliquez sur objets 3D pour infos">
-            <IconButton
-              size="large"
-              edge="start"
-              color={leftClickAction === "info" ? "third" : "inherit"}
-              aria-label="menu"
-              sx={{ mr: 1 }}
-              onClick={() => activateInfo()}
-            >
-              <AdsClickIcon fontSize={"large"} sx={{ mr: 1 }} />
-              <ListItemText primary={"Cliquez modèle pour infos"} />
-            </IconButton>
-          </Tooltip>
-        </MenuItem>
-      </Menu>
+              maxHeight: 500,
+              overflowY: "auto",
+              overflowX: "hidden",
+            }}
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+            subheader={
+              <ListSubheader
+                component="div"
+                id="nested-list-subheader"
+                sx={{
+                  bgcolor: "primary.light",
+                }}
+              >
+                Outils
+              </ListSubheader>
+            }
+          >
+            <ListItem key={"mesure"} dense>
+              <Tooltip title="Mesure objets 3D">
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color={leftClickAction === "measure" ? "third" : "inherit"}
+                  aria-label="menu"
+                  sx={{ mr: 1 }}
+                  onClick={() => activateMeasureTool()}
+                >
+                  <SquareFootIcon fontSize={"large"} sx={{ mr: 2 }} />
+                  <ListItemText primary={"Mesure objets 3D"} />
+                </IconButton>
+              </Tooltip>
+            </ListItem>
+            <ListItem key={"mesureterre"} dense>
+              <Tooltip title="Mesure XYZ sur terre">
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color={leftClickAction === "pick" ? "third" : "inherit"}
+                  aria-label="menu"
+                  sx={{ mr: 1 }}
+                  onClick={() => activateGroundPicker()}
+                >
+                  <ColorizeIcon fontSize={"large"} sx={{ mr: 2 }} />
+                  <ListItemText primary={"Mesure XYZ sur terre"} />
+                </IconButton>
+              </Tooltip>
+            </ListItem>
+            <ListItem key={"fps"} dense>
+              <Tooltip title="Entrez en mode FPS. Clique-droite pour sortir">
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color={leftClickAction === "fps" ? "third" : "inherit"}
+                  aria-label="menu"
+                  sx={{ mr: 1 }}
+                  onClick={() => activateFPS()}
+                >
+                  <TravelExploreIcon fontSize={"large"} sx={{ mr: 2 }} />
+                  <ListItemText primary={"Mode FPS"} />
+                </IconButton>
+              </Tooltip>
+            </ListItem>
+            <ListItem key={"walk"} dense>
+              <Tooltip title="Take a walk">
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color={leftClickAction === "walk" ? "third" : "inherit"}
+                  aria-label="menu"
+                  sx={{ mr: 1 }}
+                  onClick={() => activateWalkTool()}
+                >
+                  <SquareFootIcon fontSize={"large"} sx={{ mr: 2 }} />
+                  <ListItemText primary={"Take a walk"} />
+                </IconButton>
+              </Tooltip>
+            </ListItem>
+            <Divider />
+            <ListItem key={"info"} dense>
+              <Tooltip title="Cliquez sur objets 3D pour infos">
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color={leftClickAction === "info" ? "third" : "inherit"}
+                  aria-label="menu"
+                  sx={{ mr: 1 }}
+                  onClick={() => activateInfo()}
+                >
+                  <AdsClickIcon fontSize={"large"} sx={{ mr: 1 }} />
+                  <ListItemText primary={"Cliquez modèle pour infos"} />
+                </IconButton>
+              </Tooltip>
+            </ListItem>
+          </List>
+        </Box>
+      ) : null}
       {leftClickAction === "measure" ? (
         <>
           <Tooltip title="Mesure objets 3D">
@@ -267,7 +302,6 @@ export default function GlobeAppBar({
           </IconButton>
         </Tooltip>
       ) : null}
-
       <div id="globe64toolbar" sx={{ marginLeft: "auto", padding: 8 }}></div>
     </Toolbar>
   );
