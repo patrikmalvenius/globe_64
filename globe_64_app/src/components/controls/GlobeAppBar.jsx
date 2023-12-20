@@ -69,217 +69,206 @@ export default function GlobeAppBar({
   };
   const theme = useTheme();
   return (
-    <AppBar position="static">
-      <Toolbar
-        sx={{
-          bgcolor: "primary.light",
-          border: 2,
-          borderColor: "primary.dark",
-          borderRadius: 1,
-        }}
-      >
-        <Tooltip title="Ouvrir contrôle de couches">
-          <IconButton
-            size="large"
-            edge="start"
-            color={layersControlVisible ? "third" : "primary.dark"}
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={() => onVisibilityChange()}
-          >
-            <LayersIcon fontSize={"large"} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Outils">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? "outils-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-          >
-            <BuildIcon style={{ color: "primary.dark" }} fontSize={"large"} />
-          </IconButton>
-        </Tooltip>
-
-        <Menu
-          anchorEl={anchorEl}
-          id="outils-menu"
-          open={open}
-          onClose={handleClose}
-          onClick={handleClose}
-          transformOrigin={{ horizontal: "right", vertical: "top" }}
-          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+    <Toolbar color="transparent" elevation={0} variant={"dense"}>
+      <Tooltip title="Ouvrir contrôle de couches">
+        <IconButton
+          size="large"
+          edge="start"
+          color={layersControlVisible ? "third" : "primary.dark"}
+          aria-label="menu"
+          sx={{ backgroundColor: "primary.light" }}
+          onClick={() => onVisibilityChange()}
         >
-          <MenuItem>
-            <Tooltip title="Mesure objets 3D">
-              <IconButton
-                size="large"
-                edge="start"
-                color={leftClickAction === "measure" ? "warning" : "inherit"}
-                aria-label="menu"
-                sx={{ mr: 1 }}
-                onClick={() => activateMeasureTool()}
-              >
-                <SquareFootIcon fontSize={"large"} sx={{ mr: 2 }} />
-                <ListItemText primary={"Mesure objets 3D"} />
-              </IconButton>
-            </Tooltip>
-          </MenuItem>
-          <MenuItem>
-            <Tooltip title="Mesure XYZ sur terre">
-              <IconButton
-                size="large"
-                edge="start"
-                color={leftClickAction === "pick" ? "warning" : "inherit"}
-                aria-label="menu"
-                sx={{ mr: 1 }}
-                onClick={() => activateGroundPicker()}
-              >
-                <ColorizeIcon fontSize={"large"} sx={{ mr: 2 }} />
-                <ListItemText primary={"Mesure XYZ sur terre"} />
-              </IconButton>
-            </Tooltip>
-          </MenuItem>
-          <MenuItem>
-            <Tooltip title="Entrez en mode FPS. Clique-droite pour sortir">
-              <IconButton
-                size="large"
-                edge="start"
-                color={leftClickAction === "fps" ? "warning" : "inherit"}
-                aria-label="menu"
-                sx={{ mr: 1 }}
-                onClick={() => activateFPS()}
-              >
-                <TravelExploreIcon fontSize={"large"} sx={{ mr: 2 }} />
-                <ListItemText primary={"Mode FPS"} />
-              </IconButton>
-            </Tooltip>
-          </MenuItem>
-          <MenuItem>
-            <Tooltip title="Take a walk">
-              <IconButton
-                size="large"
-                edge="start"
-                color={leftClickAction === "walk" ? "warning" : "inherit"}
-                aria-label="menu"
-                sx={{ mr: 1 }}
-                onClick={() => activateWalkTool()}
-              >
-                <SquareFootIcon fontSize={"large"} sx={{ mr: 2 }} />
-                <ListItemText primary={"Take a walk"} />
-              </IconButton>
-            </Tooltip>
-          </MenuItem>
-          <Divider />
-          <MenuItem>
-            <Tooltip title="Cliquez sur objets 3D pour infos">
-              <IconButton
-                size="large"
-                edge="start"
-                color={leftClickAction === "info" ? "warning" : "inherit"}
-                aria-label="menu"
-                sx={{ mr: 1 }}
-                onClick={() => activateInfo()}
-              >
-                <AdsClickIcon fontSize={"large"} sx={{ mr: 1 }} />
-                <ListItemText primary={"Cliquez modèle pour infos"} />
-              </IconButton>
-            </Tooltip>
-          </MenuItem>
-        </Menu>
-        {leftClickAction === "measure" ? (
-          <>
-            <Tooltip title="Mesure objets 3D">
-              <IconButton
-                size="large"
-                edge="start"
-                color={leftClickAction === "measure" ? "warning" : "inherit"}
-                aria-label="menu"
-                sx={{ ml: 1 }}
-              >
-                <SquareFootIcon fontSize={"large"} sx={{ mr: 1 }} />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Supprime mesurements">
-              <IconButton
-                size="small"
-                edge="end"
-                color="warning"
-                aria-label="menu"
-                sx={{ ml: 1 }}
-                onClick={() => eraseMeasurements()}
-              >
-                <BackspaceIcon fontSize={"large"} />
-              </IconButton>
-            </Tooltip>{" "}
-          </>
-        ) : null}
-        {leftClickAction === "pick" ? (
+          <LayersIcon fontSize={"large"} />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Outils">
+        <IconButton
+          onClick={handleClick}
+          size="large"
+          sx={{ ml: 2, backgroundColor: "primary.light" }}
+          aria-controls={open ? "outils-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+        >
+          <BuildIcon style={{ color: "primary.dark" }} fontSize={"large"} />
+        </IconButton>
+      </Tooltip>
+
+      <Menu
+        anchorEl={anchorEl}
+        id="outils-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <MenuItem>
+          <Tooltip title="Mesure objets 3D">
+            <IconButton
+              size="large"
+              edge="start"
+              color={leftClickAction === "measure" ? "third" : "inherit"}
+              aria-label="menu"
+              sx={{ mr: 1 }}
+              onClick={() => activateMeasureTool()}
+            >
+              <SquareFootIcon fontSize={"large"} sx={{ mr: 2 }} />
+              <ListItemText primary={"Mesure objets 3D"} />
+            </IconButton>
+          </Tooltip>
+        </MenuItem>
+        <MenuItem>
           <Tooltip title="Mesure XYZ sur terre">
             <IconButton
               size="large"
               edge="start"
-              color={"warning"}
+              color={leftClickAction === "pick" ? "third" : "inherit"}
               aria-label="menu"
-              sx={{ ml: 1 }}
+              sx={{ mr: 1 }}
+              onClick={() => activateGroundPicker()}
             >
-              <ColorizeIcon fontSize={"large"} />
+              <ColorizeIcon fontSize={"large"} sx={{ mr: 2 }} />
+              <ListItemText primary={"Mesure XYZ sur terre"} />
             </IconButton>
           </Tooltip>
-        ) : null}
-        {leftClickAction === "fps" ? (
+        </MenuItem>
+        <MenuItem>
           <Tooltip title="Entrez en mode FPS. Clique-droite pour sortir">
             <IconButton
               size="large"
               edge="start"
-              color={"warning"}
+              color={leftClickAction === "fps" ? "third" : "inherit"}
               aria-label="menu"
-              sx={{ ml: 1 }}
+              sx={{ mr: 1 }}
+              onClick={() => activateFPS()}
             >
-              <TravelExploreIcon fontSize={"large"} />
+              <TravelExploreIcon fontSize={"large"} sx={{ mr: 2 }} />
+              <ListItemText primary={"Mode FPS"} />
             </IconButton>
           </Tooltip>
-        ) : null}
-        {leftClickAction === "info" ? (
+        </MenuItem>
+        <MenuItem>
+          <Tooltip title="Take a walk">
+            <IconButton
+              size="large"
+              edge="start"
+              color={leftClickAction === "walk" ? "third" : "inherit"}
+              aria-label="menu"
+              sx={{ mr: 1 }}
+              onClick={() => activateWalkTool()}
+            >
+              <SquareFootIcon fontSize={"large"} sx={{ mr: 2 }} />
+              <ListItemText primary={"Take a walk"} />
+            </IconButton>
+          </Tooltip>
+        </MenuItem>
+        <Divider />
+        <MenuItem>
           <Tooltip title="Cliquez sur objets 3D pour infos">
             <IconButton
               size="large"
               edge="start"
-              color={"warning"}
+              color={leftClickAction === "info" ? "third" : "inherit"}
               aria-label="menu"
-              sx={{ ml: 1 }}
+              sx={{ mr: 1 }}
+              onClick={() => activateInfo()}
             >
-              <AdsClickIcon fontSize={"large"} />
+              <AdsClickIcon fontSize={"large"} sx={{ mr: 1 }} />
+              <ListItemText primary={"Cliquez modèle pour infos"} />
             </IconButton>
           </Tooltip>
-        ) : null}
-        {addedEntity ? (
-          <Tooltip title="Supprime">
+        </MenuItem>
+      </Menu>
+      {leftClickAction === "measure" ? (
+        <>
+          <Tooltip title="Mesure objets 3D">
             <IconButton
               size="large"
               edge="start"
-              color={"warning"}
+              color={leftClickAction === "measure" ? "third" : "inherit"}
               aria-label="menu"
-              sx={{ ml: 1 }}
-              onClick={() => eraseAllEntites()}
+              sx={{
+                ml: 2,
+                backgroundColor: "primary.light",
+              }}
             >
-              <RemoveCircleIcon fontSize={"large"} />
+              <SquareFootIcon fontSize={"large"} sx={{ mr: 1 }} />
             </IconButton>
           </Tooltip>
-        ) : null}
-        <Typography
-          variant="h5"
-          align="center"
-          component="div"
-          color="primary.dark"
-          sx={{ flexGrow: 1 }}
-        >
-          Globe-64
-        </Typography>
-      </Toolbar>
-      <IconButton id="globe64toolbar"></IconButton>
-    </AppBar>
+          <Tooltip title="Supprime mesurements">
+            <IconButton
+              size="large"
+              edge="end"
+              color="third"
+              aria-label="menu"
+              sx={{
+                ml: 2,
+                backgroundColor: "primary.light",
+              }}
+              onClick={() => eraseMeasurements()}
+            >
+              <BackspaceIcon fontSize={"medium"} />
+            </IconButton>
+          </Tooltip>{" "}
+        </>
+      ) : null}
+      {leftClickAction === "pick" ? (
+        <Tooltip title="Mesure XYZ sur terre">
+          <IconButton
+            size="large"
+            edge="start"
+            color={"third"}
+            aria-label="menu"
+            sx={{ ml: 2, backgroundColor: "primary.light" }}
+          >
+            <ColorizeIcon fontSize={"large"} />
+          </IconButton>
+        </Tooltip>
+      ) : null}
+      {leftClickAction === "fps" ? (
+        <Tooltip title="Entrez en mode FPS. Clique-droite pour sortir">
+          <IconButton
+            size="large"
+            edge="start"
+            color={"third"}
+            aria-label="menu"
+            sx={{ ml: 2, backgroundColor: "primary.light" }}
+          >
+            <TravelExploreIcon fontSize={"large"} />
+          </IconButton>
+        </Tooltip>
+      ) : null}
+      {leftClickAction === "info" ? (
+        <Tooltip title="Cliquez sur objets 3D pour infos">
+          <IconButton
+            size="large"
+            edge="start"
+            color={"third"}
+            aria-label="menu"
+            sx={{ ml: 2, backgroundColor: "primary.light" }}
+          >
+            <AdsClickIcon fontSize={"large"} />
+          </IconButton>
+        </Tooltip>
+      ) : null}
+      {addedEntity ? (
+        <Tooltip title="Supprime">
+          <IconButton
+            size="large"
+            edge="start"
+            color={"third"}
+            aria-label="menu"
+            sx={{ ml: 2, backgroundColor: "primary.light" }}
+            onClick={() => eraseAllEntites()}
+          >
+            <RemoveCircleIcon fontSize={"large"} />
+          </IconButton>
+        </Tooltip>
+      ) : null}
+
+      <div id="globe64toolbar" sx={{ marginLeft: "auto", padding: 8 }}></div>
+    </Toolbar>
   );
 }

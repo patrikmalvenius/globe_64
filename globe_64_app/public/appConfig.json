@@ -135,16 +135,24 @@
     },
     "tilesets": {
       "layer_1": {
-        "title": "Bâtiment en bloc",
-        "assetid": "bati_os_v2/tileset.json",
+        "title": "Bâtiment buff",
+        "assetid": "bati_buff/tileset.json",
         "color": "blue",
         "show": true,
         "type": "BatiIGN",
         "flyTo": true
       },
       "layer_3": {
-        "title": "Arbres",
-        "assetid": "arbres/tileset.json",
+        "title": "Bati Sauv",
+        "assetid": "sauv_bati/tileset.json",
+        "color": "blue",
+        "show": true,
+        "type": "lidar",
+        "flyTo": true
+      },
+      "layer_4": {
+        "title": "Veg Sauv",
+        "assetid": "sauv_veg/tileset.json",
         "color": "blue",
         "show": true,
         "type": "lidar",
@@ -152,7 +160,7 @@
       }
     },
     "geojson": {
-      "url": "./src/assets/gpstracks5m.json"
+      "url": "./src/assets/route_velo_5m.json"
     },
     "basemaps": {
       "wmts_2": {

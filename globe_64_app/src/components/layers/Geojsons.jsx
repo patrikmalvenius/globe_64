@@ -46,7 +46,7 @@ function Geojsons({
             const rId = t.id.properties.getValue(new Cesium.JulianDate()).id;
             const rando = geoJsonLayers.features.find((r) => r.id === rId);
             console.log(rando);
-            setRCoords(rando.geometry.coordinates[0]);
+            setRCoords(rando.geometry.coordinates);
             setWalk(true);
           }}
         />
