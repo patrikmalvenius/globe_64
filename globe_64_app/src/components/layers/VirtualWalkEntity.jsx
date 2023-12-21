@@ -52,8 +52,8 @@ function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
         }
         lastPos = arrayOfPositions[j];
       }
-      //we set the walking speed to 25 km/h
-      animationDuration = (totalDistance / 1000) * 144;
+      //we set the walking speed to 200 km/h
+      animationDuration = (totalDistance / 1000) * 14;
     }
 
     function createAnimationData() {

@@ -222,6 +222,7 @@ export default function GlobeAppBar({
             <IconButton
               size="large"
               edge="start"
+              disableRipple={true}
               color={leftClickAction === "measure" ? "third" : "inherit"}
               aria-label="menu"
               sx={{
@@ -254,6 +255,7 @@ export default function GlobeAppBar({
           <IconButton
             size="large"
             edge="start"
+            disableRipple={true}
             color={"third"}
             aria-label="menu"
             sx={{ ml: 2, backgroundColor: "primary.light" }}
@@ -267,6 +269,7 @@ export default function GlobeAppBar({
           <IconButton
             size="large"
             edge="start"
+            disableRipple={true}
             color={"third"}
             aria-label="menu"
             sx={{ ml: 2, backgroundColor: "primary.light" }}
@@ -280,6 +283,7 @@ export default function GlobeAppBar({
           <IconButton
             size="large"
             edge="start"
+            disableRipple={true}
             color={"third"}
             aria-label="menu"
             sx={{ ml: 2, backgroundColor: "primary.light" }}
