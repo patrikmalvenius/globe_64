@@ -55,7 +55,7 @@
   cursor: pointer;
 }
 #globe64toolbar .search-results ul li.active {
-  background: #48b;
+  background-color: "#423734";
 }
 .cesium-geocoder-searchButton {
   background-color: #f0f0e9;
@@ -70,11 +70,10 @@
   border-radius: 50%;
 }
 .cesium-geocoder-searchButton:hover {
-  background-color: #388e9b;
+  background-color: #423734;
+  opacity: 0.2;
+  fill: white;
 }
 .cesium-svgPath-svg {
   transform: scale(0.75);
-  width: "28";
-  height: "28";
 }
-/*0 0 28 29*/

@@ -5,9 +5,6 @@ function viewerBanGeocoderMixin(viewer, opts) {
   const mapProjection = viewer.scene.mapProjection;
   const ellipsoid = mapProjection.ellipsoid;
   const destinationFound = function (viewModel, destination) {
-    console.log("viewModel", viewModel);
-    console.log("destination", destination);
-
     const destinationCartographic =
       ellipsoid.cartesianToCartographic(destination);
     const destZoomTo = ellipsoid.cartographicToCartesian({
@@ -46,6 +43,7 @@ function viewerBanGeocoderMixin(viewer, opts) {
           },
         });
         opts.setAddedEntity(true);
+        viewModel.searchText = "";
       },
     });
   };

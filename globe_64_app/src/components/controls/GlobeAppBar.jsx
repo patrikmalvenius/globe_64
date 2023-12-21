@@ -91,6 +91,7 @@ export default function GlobeAppBar({
         <IconButton
           onClick={handleClick}
           size="large"
+          color={showToolMenu ? "third" : "primary.dark"}
           sx={{ ml: 2, backgroundColor: "primary.light" }}
           aria-controls={open ? "outils-menu" : undefined}
           aria-haspopup="true"
@@ -225,10 +226,7 @@ export default function GlobeAppBar({
               disableRipple={true}
               color={leftClickAction === "measure" ? "third" : "inherit"}
               aria-label="menu"
-              sx={{
-                ml: 2,
-                backgroundColor: "primary.light",
-              }}
+              sx={{ ml: 2, backgroundColor: "primary.light", cursor: "auto" }}
             >
               <SquareFootIcon fontSize={"large"} sx={{ mr: 1 }} />
             </IconButton>
@@ -258,7 +256,7 @@ export default function GlobeAppBar({
             disableRipple={true}
             color={"third"}
             aria-label="menu"
-            sx={{ ml: 2, backgroundColor: "primary.light" }}
+            sx={{ ml: 2, backgroundColor: "primary.light", cursor: "auto" }}
           >
             <ColorizeIcon fontSize={"large"} />
           </IconButton>
@@ -272,7 +270,7 @@ export default function GlobeAppBar({
             disableRipple={true}
             color={"third"}
             aria-label="menu"
-            sx={{ ml: 2, backgroundColor: "primary.light" }}
+            sx={{ ml: 2, backgroundColor: "primary.light", cursor: "auto" }}
           >
             <TravelExploreIcon fontSize={"large"} />
           </IconButton>
@@ -286,7 +284,7 @@ export default function GlobeAppBar({
             disableRipple={true}
             color={"third"}
             aria-label="menu"
-            sx={{ ml: 2, backgroundColor: "primary.light" }}
+            sx={{ ml: 2, backgroundColor: "primary.light", cursor: "auto" }}
           >
             <AdsClickIcon fontSize={"large"} />
           </IconButton>
