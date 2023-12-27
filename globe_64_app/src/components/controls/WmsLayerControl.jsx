@@ -23,7 +23,7 @@ function WmsLayerControl({
 }) {
   const theme = useTheme();
 
-  const [url, setUrl] = useState(appConfig[mapConfig].wms.url);
+  const [url, setUrl] = useState(appConfig["configs"][mapConfig].wms.url);
 
   const onVisibilityChange = (name, value) => {
     setVisibilityStateWms({ ...visibilityStateWms, [name]: value });

@@ -70,7 +70,7 @@ function App() {
       const conf = urlParams.get("conf");
       const fetchAppConfig = await fetch("/appConfig.json");
       const result = await fetchAppConfig.json();
-      conf in result ? setMapConfig(conf) : setMapConfig("standard");
+      conf in result.configs ? setMapConfig(conf) : setMapConfig("standard");
       setAppConfig(result);
     }
     fetchConfig();
@@ -79,30 +79,38 @@ function App() {
   useEffect(() => {
     if (appConfig) {
       async function initApp() {
-        if (appConfig[mapConfig].basemaps) {
-          Object.entries(appConfig[mapConfig].basemaps).forEach(([k, v]) => {
-            initVisibilityWmtsBaseLayers[k] = v["show"];
-          });
+        if (appConfig["configs"][mapConfig].basemaps) {
+          Object.entries(appConfig["configs"][mapConfig].basemaps).forEach(
+            ([k, v]) => {
+              initVisibilityWmtsBaseLayers[k] = v["show"];
+            }
+          );
           setVisibilityStateWmtsBaselayer(initVisibilityWmtsBaseLayers);
-          setWmtsBaseLayers(appConfig[mapConfig].basemaps);
+          setWmtsBaseLayers(appConfig["configs"][mapConfig].basemaps);
         }
 
-        if (appConfig[mapConfig].tilesets) {
-          setTileLayers(appConfig[mapConfig].tilesets);
-          Object.entries(appConfig[mapConfig].tilesets).forEach(([k, v]) => {
-            initVisibilityTile[k] = v["show"];
-          });
+        if (appConfig["configs"][mapConfig].tilesets) {
+          setTileLayers(appConfig["configs"][mapConfig].tilesets);
+          Object.entries(appConfig["configs"][mapConfig].tilesets).forEach(
+            ([k, v]) => {
+              initVisibilityTile[k] = v["show"];
+            }
+          );
 
           setVisibilityStateTile(initVisibilityTile);
         }
-        if (appConfig[mapConfig].wms) {
-          const layers = await fetchWmsLayers(appConfig[mapConfig].wms.url);
+        if (appConfig["configs"][mapConfig].wms) {
+          const layers = await fetchWmsLayers(
+            appConfig["configs"][mapConfig].wms.url
+          );
 
           setWmsLayers(layers);
         }
 
-        if (appConfig[mapConfig].geojson) {
-          const geoJsonFile = await fetch(appConfig[mapConfig].geojson.url);
+        if (appConfig["configs"][mapConfig].geojson) {
+          const geoJsonFile = await fetch(
+            appConfig["configs"][mapConfig].geojson.url
+          );
           let geoJson = await geoJsonFile.json();
           console.log("geoJsongeoJsongeoJsongeoJsongeoJson", geoJson);
           setGeoJsonLayers(geoJson);
@@ -191,7 +199,7 @@ function App() {
 
         <ImageryLayerCollection ref={collectionRef}></ImageryLayerCollection>
         <WmsLayers
-          wmsUrl={appConfig ? appConfig[mapConfig].wms.url : null}
+          wmsUrl={appConfig ? appConfig["configs"][mapConfig].wms.url : null}
           visibilityStateWms={visibilityStateWms}
           collectionRef={collectionRef}
           setAddedEntity={setAddedEntity}

@@ -1,197 +1,200 @@
 {
-  "standard": {
-    "wms": {
-      "url": "https://wxs.ign.fr/inspire/inspire/v/wms?"
-    },
-    "tilesets": {
-      "layer_1": {
-        "title": "Bâtiment en bloc",
-        "assetid": "bati_os_v2/tileset.json",
-        "color": "blue",
-        "show": true,
-        "type": "BatiIGN",
-        "flyTo": true
+  "base": {},
+  "configs": {
+    "standard": {
+      "wms": {
+        "url": "https://wxs.ign.fr/inspire/inspire/v/wms?"
       },
-      "layer_2": {
-        "title": "Eglise de Roquiague",
-        "assetid": "eglise_de_roquiague/tileset.json",
-        "color": "blue",
-        "show": true,
-        "type": "Metashape",
-        "flyTo": true,
-        "translatez": 56.2
-      },
-      "layer_3": {
-        "title": "Arbres",
-        "assetid": "arbres/tileset.json",
-        "color": "blue",
-        "show": true,
-        "type": "model",
-        "flyTo": true
-      },
-      "layer_4": {
-        "title": "Vegetation",
-        "assetid": "veg_pau/tileset.json",
-        "color": "blue",
-        "show": false,
-        "type": "lidar",
-        "flyTo": true
-      },
-      "layer_5": {
-        "title": "Vegetation ION",
-        "assetid": "veg_color/tileset.json",
-        "color": "blue",
-        "show": false,
-        "type": "lidar",
-        "flyTo": true
-      },
-      "layer_6": {
-        "title": "Bati color",
-        "assetid": "bati_pau/tileset.json",
-        "color": "blue",
-        "show": false,
-        "type": "lidar",
-        "flyTo": true
-      },
-      "layer_7": {
-        "title": "Bati ION",
-        "assetid": "bati_color/tileset.json",
-        "color": "blue",
-        "show": false,
-        "type": "lidar",
-        "flyTo": true
-      },
-      "layer_8": {
-        "title": "Bati Roquiague",
-        "assetid": "roq_bati/tileset.json",
-        "color": "blue",
-        "show": false,
-        "type": "lidar",
-        "flyTo": true
-      },
-      "layer_9": {
-        "title": "Veg Roquiage",
-        "assetid": "roq_veg/tileset.json",
-        "color": "blue",
-        "show": false,
-        "type": "lidar",
-        "flyTo": true
-      },
+      "tilesets": {
+        "layer_1": {
+          "title": "Bâtiment en bloc",
+          "assetid": "bati_os_v2/tileset.json",
+          "color": "blue",
+          "show": true,
+          "type": "BatiIGN",
+          "flyTo": true
+        },
+        "layer_2": {
+          "title": "Eglise de Roquiague",
+          "assetid": "eglise_de_roquiague/tileset.json",
+          "color": "blue",
+          "show": true,
+          "type": "Metashape",
+          "flyTo": true,
+          "translatez": 56.2
+        },
+        "layer_3": {
+          "title": "Arbres",
+          "assetid": "arbres/tileset.json",
+          "color": "blue",
+          "show": true,
+          "type": "model",
+          "flyTo": true
+        },
+        "layer_4": {
+          "title": "Vegetation",
+          "assetid": "veg_pau/tileset.json",
+          "color": "blue",
+          "show": false,
+          "type": "lidar",
+          "flyTo": true
+        },
+        "layer_5": {
+          "title": "Vegetation ION",
+          "assetid": "veg_color/tileset.json",
+          "color": "blue",
+          "show": false,
+          "type": "lidar",
+          "flyTo": true
+        },
+        "layer_6": {
+          "title": "Bati color",
+          "assetid": "bati_pau/tileset.json",
+          "color": "blue",
+          "show": false,
+          "type": "lidar",
+          "flyTo": true
+        },
+        "layer_7": {
+          "title": "Bati ION",
+          "assetid": "bati_color/tileset.json",
+          "color": "blue",
+          "show": false,
+          "type": "lidar",
+          "flyTo": true
+        },
+        "layer_8": {
+          "title": "Bati Roquiague",
+          "assetid": "roq_bati/tileset.json",
+          "color": "blue",
+          "show": false,
+          "type": "lidar",
+          "flyTo": true
+        },
+        "layer_9": {
+          "title": "Veg Roquiage",
+          "assetid": "roq_veg/tileset.json",
+          "color": "blue",
+          "show": false,
+          "type": "lidar",
+          "flyTo": true
+        },
 
-      "layer_10": {
-        "title": "Bati buff",
-        "assetid": "bati_buff/tileset.json",
-        "color": "blue",
-        "show": false,
-        "type": "IGN",
-        "flyTo": true
+        "layer_10": {
+          "title": "Bati buff",
+          "assetid": "bati_buff/tileset.json",
+          "color": "blue",
+          "show": false,
+          "type": "IGN",
+          "flyTo": true
+        }
+      },
+      "basemaps": {
+        "wmts_2": {
+          "nom": "Photographies aériennes",
+          "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
+          "layer": "ORTHOIMAGERY.ORTHOPHOTOS",
+          "format": "image/jpeg",
+          "show": true
+        },
+        "wmts_1": {
+          "nom": "Plan IGN v2",
+          "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
+          "layer": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+          "format": "image/png",
+          "show": false
+        }
       }
     },
-    "basemaps": {
-      "wmts_2": {
-        "nom": "Photographies aériennes",
-        "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
-        "layer": "ORTHOIMAGERY.ORTHOPHOTOS",
-        "format": "image/jpeg",
-        "show": true
+    "test": {
+      "wms": {
+        "url": "https://wxs.ign.fr/inspire/inspire/v/wms?"
       },
-      "wmts_1": {
-        "nom": "Plan IGN v2",
-        "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
-        "layer": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
-        "format": "image/png",
-        "show": false
-      }
-    }
-  },
-  "test": {
-    "wms": {
-      "url": "https://wxs.ign.fr/inspire/inspire/v/wms?"
-    },
-    "tilesets": {
-      "layer_2": {
-        "title": "Eglise de Roquiague",
-        "assetid": "eglise_de_roquiague/tileset.json",
-        "color": "blue",
-        "show": true,
-        "type": "Metashape",
-        "flyTo": true,
-        "translatez": 56.2
+      "tilesets": {
+        "layer_2": {
+          "title": "Eglise de Roquiague",
+          "assetid": "eglise_de_roquiague/tileset.json",
+          "color": "blue",
+          "show": true,
+          "type": "Metashape",
+          "flyTo": true,
+          "translatez": 56.2
+        }
+      },
+      "basemaps": {
+        "wmts_2": {
+          "nom": "Photographies aériennes",
+          "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
+          "layer": "ORTHOIMAGERY.ORTHOPHOTOS",
+          "format": "image/jpeg",
+          "show": true
+        }
       }
     },
-    "basemaps": {
-      "wmts_2": {
-        "nom": "Photographies aériennes",
-        "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
-        "layer": "ORTHOIMAGERY.ORTHOPHOTOS",
-        "format": "image/jpeg",
-        "show": true
-      }
-    }
-  },
-  "rando": {
-    "wms": {
-      "url": "https://wxs.ign.fr/inspire/inspire/v/wms?"
-    },
-    "tilesets": {
-      "layer_1": {
-        "title": "Bâtiment buff",
-        "assetid": "bati_buff/tileset.json",
-        "color": "blue",
-        "show": true,
-        "type": "BatiIGN",
-        "flyTo": true
+    "rando": {
+      "wms": {
+        "url": "https://wxs.ign.fr/inspire/inspire/v/wms?"
       },
-      "layer_3": {
-        "title": "Bati Sauv",
-        "assetid": "sauv_bati/tileset.json",
-        "color": "blue",
-        "show": true,
-        "type": "lidar",
-        "flyTo": true
+      "tilesets": {
+        "layer_1": {
+          "title": "Bâtiment buff",
+          "assetid": "bati_buff/tileset.json",
+          "color": "blue",
+          "show": true,
+          "type": "BatiIGN",
+          "flyTo": true
+        },
+        "layer_3": {
+          "title": "Bati Sauv",
+          "assetid": "sauv_bati/tileset.json",
+          "color": "blue",
+          "show": true,
+          "type": "lidar",
+          "flyTo": true
+        },
+        "layer_4": {
+          "title": "Veg Sauv",
+          "assetid": "sauv_veg/tileset.json",
+          "color": "blue",
+          "show": true,
+          "type": "lidar",
+          "flyTo": true
+        },
+        "layer_5": {
+          "title": "Bati Ent",
+          "assetid": "bati_entwine/tileset.json",
+          "color": "blue",
+          "show": true,
+          "type": "lidar",
+          "flyTo": true
+        },
+        "layer_6": {
+          "title": "Veg Ent",
+          "assetid": "veg_entwine/tileset.json",
+          "color": "blue",
+          "show": true,
+          "type": "lidar",
+          "flyTo": true
+        }
       },
-      "layer_4": {
-        "title": "Veg Sauv",
-        "assetid": "sauv_veg/tileset.json",
-        "color": "blue",
-        "show": true,
-        "type": "lidar",
-        "flyTo": true
+      "geojson": {
+        "url": "./src/assets/route_velo_5m.json"
       },
-      "layer_5": {
-        "title": "Bati Ent",
-        "assetid": "bati_entwine/tileset.json",
-        "color": "blue",
-        "show": true,
-        "type": "lidar",
-        "flyTo": true
-      },
-      "layer_6": {
-        "title": "Veg Ent",
-        "assetid": "veg_entwine/tileset.json",
-        "color": "blue",
-        "show": true,
-        "type": "lidar",
-        "flyTo": true
-      }
-    },
-    "geojson": {
-      "url": "./src/assets/route_velo_5m.json"
-    },
-    "basemaps": {
-      "wmts_2": {
-        "nom": "Photographies aériennes",
-        "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
-        "layer": "ORTHOIMAGERY.ORTHOPHOTOS",
-        "format": "image/jpeg",
-        "show": true
-      },
-      "wmts_1": {
-        "nom": "Plan IGN v2",
-        "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
-        "layer": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
-        "format": "image/png",
-        "show": false
+      "basemaps": {
+        "wmts_2": {
+          "nom": "Photographies aériennes",
+          "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
+          "layer": "ORTHOIMAGERY.ORTHOPHOTOS",
+          "format": "image/jpeg",
+          "show": true
+        },
+        "wmts_1": {
+          "nom": "Plan IGN v2",
+          "url": "https://wxs.ign.fr/{s}/geoportail/wmts?SERVICE=WMTS",
+          "layer": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+          "format": "image/png",
+          "show": false
+        }
       }
     }
   }
