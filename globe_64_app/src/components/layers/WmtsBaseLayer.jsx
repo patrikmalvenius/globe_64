@@ -14,10 +14,6 @@ function WmtsBaseLayers({
       const prevLayer = collection.get(index);
       collection.remove(prevLayer);
       Object.entries(wmtsBaseLayers).map((a) => {
-        console.log(
-          "visibilityStateWmtsBaselayer[a[0]]",
-          visibilityStateWmtsBaselayer[a[0]]
-        );
         if (visibilityStateWmtsBaselayer[a[0]]) {
           const imageryprovider = new Cesium.WebMapTileServiceImageryProvider({
             subdomains: ["decouverte"],

@@ -1,13 +1,8 @@
-import { Cesium3DTileset, GeoJsonDataSource } from "resium";
+import { Cesium3DTileset } from "resium";
 import * as Cesium from "cesium";
 const bUrl = "http://localhost:8888/data/tiles/";
 
-function Tilesets({
-  tileLayers,
-
-  visibilityStateTile,
-  tilesetLoaded,
-}) {
+function Tilesets({ tileLayers, visibilityStateTile, tilesetLoaded }) {
   let tilesets;
   if (visibilityStateTile) {
     tilesets = Object.entries(tileLayers).map((a) => {
@@ -44,11 +39,6 @@ function Tilesets({
               e.modelMatrix = Cesium.Matrix4.fromTranslation(translation);
             }
             if (a[1].type === "lidar") {
-              console.log("LIIIIIIIDAR");
-              //e.pointCloudShading.attenuation = true;
-              //e.pointCloudShading.maximumAttenuation = 2;
-              //e.pointCloudShading.baseResolution = 1;
-              console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", e);
               e.style = new Cesium.Cesium3DTileStyle({
                 pointSize: "3",
               });

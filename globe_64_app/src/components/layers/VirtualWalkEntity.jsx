@@ -2,13 +2,13 @@
 import { Entity, PolylineGraphics, PointGraphics } from "resium";
 import { useMemo } from "react";
 import * as Cesium from "cesium";
-function VirtualWalkEntity({ rCoords, viewRef, walk, setWalk }) {
+function VirtualWalkEntity({ rCoords, viewRef, setWalk }) {
   console.log("ENTERING WALK");
   console.log(rCoords);
   const viewer = viewRef.current.cesiumElement;
   var positionProperty = new Cesium.SampledPositionProperty();
   var arrayOfPositions = null;
-  var arrayHeadings = [];
+
   var animationDuration;
   var animationStart;
   var animationStop;

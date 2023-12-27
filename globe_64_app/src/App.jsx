@@ -174,7 +174,6 @@ function App() {
           <VirtualWalkEntity
             viewRef={ref}
             rCoords={rCoords}
-            walk={walk}
             setWalk={setWalk}
           />
         ) : null}
@@ -186,14 +185,12 @@ function App() {
         <Geojsons
           geoJsonLayers={geoJsonLayers}
           visibilityStateGeoJson={visibilityStateGeoJson}
-          viewRef={ref}
           setWalk={setWalk}
           setRCoords={setRCoords}
         />
 
         <ImageryLayerCollection ref={collectionRef}></ImageryLayerCollection>
         <WmsLayers
-          wmsLayers={wmsLayers}
           wmsUrl={appConfig ? appConfig[mapConfig].wms.url : null}
           visibilityStateWms={visibilityStateWms}
           collectionRef={collectionRef}

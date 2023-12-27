@@ -13,7 +13,6 @@ So, this approach will most likely be changed to a 3Dtile-based one in the futur
 function Geojsons({
   geoJsonLayers,
   visibilityStateGeoJson,
-  viewRef,
   setRCoords,
   setWalk,
 }) {
