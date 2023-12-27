@@ -225,6 +225,7 @@ function App() {
       />
       {layersControlVisible ? (
         <LayerControlContainer
+          setLayersControlVisible={setLayersControlVisible}
           addedTilesets={addedTilesets}
           visibilityStateTile={visibilityStateTile}
           setVisibilityStateTile={setVisibilityStateTile}

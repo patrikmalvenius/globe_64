@@ -6,6 +6,8 @@ import LayerControlTabPanel from "./LayerControlTabPanel";
 import TilesetLayerControl from "./TilesetLayerControl";
 import WmsLayerControl from "./WmsLayerControl";
 import WmtsBaseLayerControl from "./WmtsBaseLayerControl";
+import { ClickAwayListener } from "@mui/base/ClickAwayListener";
+
 import { Typography } from "@mui/material";
 
 function LayerControlContainer({
@@ -25,6 +27,7 @@ function LayerControlContainer({
   appConfig,
   setAppConfig,
   mapConfig,
+  setLayersControlVisible,
 }) {
   const [value, setValue] = useState(0);
 
@@ -32,59 +35,64 @@ function LayerControlContainer({
     event.preventDefault();
     setValue(newValue);
   };
+  const handleClickAway = () => {
+    setLayersControlVisible(false);
+  };
   return (
-    <Box
-      sx={{
-        width: "20%",
-        minWidth: "400px",
-        position: "absolute",
-        border: 2,
-        bgcolor: "primary.light",
-        borderColor: "primary.dark",
-        borderRadius: 1,
-        mt: 2,
-      }}
-    >
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange} aria-label="globe tabs">
-          <Tab label="3Dtiles" />
-          <Tab label="2D" />
-          <Tab label="Fond de plan" />
-        </Tabs>
-      </Box>
-      <LayerControlTabPanel value={value} index={0}>
-        <TilesetLayerControl
-          addedTilesets={addedTilesets}
-          setVisibilityStateTile={setVisibilityStateTile}
-          visibilityStateTile={visibilityStateTile}
-          tileLayers={tileLayers}
-          viewer={viewer}
-        />
-      </LayerControlTabPanel>
-
-      <LayerControlTabPanel value={value} index={1}>
-        {wmsLayers ? (
-          <WmsLayerControl
-            addedWmsLayers={addedWmsLayers}
-            setAddedWmsLayers={setAddedWmsLayers}
-            setVisibilityStateWms={setVisibilityStateWms}
-            visibilityStateWms={visibilityStateWms}
-            appConfig={appConfig}
-            mapConfig={mapConfig}
-            setAppConfig={setAppConfig}
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <Box
+        sx={{
+          width: "20%",
+          minWidth: "400px",
+          position: "absolute",
+          border: 2,
+          bgcolor: "primary.light",
+          borderColor: "primary.dark",
+          borderRadius: 1,
+          mt: 2,
+        }}
+      >
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs value={value} onChange={handleChange} aria-label="globe tabs">
+            <Tab label="3Dtiles" />
+            <Tab label="2D" />
+            <Tab label="Fond de plan" />
+          </Tabs>
+        </Box>
+        <LayerControlTabPanel value={value} index={0}>
+          <TilesetLayerControl
+            addedTilesets={addedTilesets}
+            setVisibilityStateTile={setVisibilityStateTile}
+            visibilityStateTile={visibilityStateTile}
+            tileLayers={tileLayers}
+            viewer={viewer}
           />
-        ) : (
-          <Typography>Les couches WMS ne sont pas encore chargées</Typography>
-        )}
-      </LayerControlTabPanel>
-      <LayerControlTabPanel value={value} index={2}>
-        <WmtsBaseLayerControl
-          setVisibilityStateWmtsBaselayer={setVisibilityStateWmtsBaselayer}
-          visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
-          wmtsBaseLayers={wmtsBaseLayers}
-        />
-      </LayerControlTabPanel>
-    </Box>
+        </LayerControlTabPanel>
+
+        <LayerControlTabPanel value={value} index={1}>
+          {wmsLayers ? (
+            <WmsLayerControl
+              addedWmsLayers={addedWmsLayers}
+              setAddedWmsLayers={setAddedWmsLayers}
+              setVisibilityStateWms={setVisibilityStateWms}
+              visibilityStateWms={visibilityStateWms}
+              appConfig={appConfig}
+              mapConfig={mapConfig}
+              setAppConfig={setAppConfig}
+            />
+          ) : (
+            <Typography>Les couches WMS ne sont pas encore chargées</Typography>
+          )}
+        </LayerControlTabPanel>
+        <LayerControlTabPanel value={value} index={2}>
+          <WmtsBaseLayerControl
+            setVisibilityStateWmtsBaselayer={setVisibilityStateWmtsBaselayer}
+            visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
+            wmtsBaseLayers={wmtsBaseLayers}
+          />
+        </LayerControlTabPanel>
+      </Box>
+    </ClickAwayListener>
   );
 }
 export default LayerControlContainer;
