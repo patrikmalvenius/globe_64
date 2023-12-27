@@ -1,23 +1,13 @@
 import { ScreenSpaceEvent } from "resium";
-import { useEffect } from "react";
 import * as Cesium from "cesium";
 
+//not used yet, walkaction tied to click on geojson
 export const TakeAWalkEventHandler = ({ viewRef, geoJsonObj }) => {
   const viewer = viewRef.current.cesiumElement;
-  const updateNameOverlay = (pickedFeature, position) => {
-    if (Cesium.defined(pickedFeature)) {
-      console.log(pickedFeature);
-    }
-    // A feature was picked, so show its overlay content
-    nameOverlay.style.display = "block";
-    nameOverlay.style.bottom = `${viewer.canvas.clientHeight - position.y}px`;
-    nameOverlay.style.left = `${position.x}px`;
-    const name = pickedFeature.getProperty("BIN");
-    nameOverlay.textContent = name;
-  };
+
   const takeAWalkAction = (click) => {
     if (Cesium.defined(click)) {
-      console.log(click);
+      console.log("CLICKWALKEVENT", click);
       const pickedFeature = viewer.scene.pick(click.position);
       if (Cesium.defined(pickedFeature)) {
         console.log(pickedFeature);

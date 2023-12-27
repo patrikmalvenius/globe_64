@@ -2,7 +2,7 @@ import { ScreenSpaceEvent } from "resium";
 import { useEffect } from "react";
 import * as Cesium from "cesium";
 
-export const FpsEventHandler = ({ leftClick, viewRef, setLeftClick }) => {
+export const FpsEventHandler = ({ viewRef }) => {
   let viewer;
   let scene;
   let screenSpaceCameraController;
