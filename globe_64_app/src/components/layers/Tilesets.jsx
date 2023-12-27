@@ -45,9 +45,9 @@ function Tilesets({
             }
             if (a[1].type === "lidar") {
               console.log("LIIIIIIIDAR");
-              e.pointCloudShading.attenuation = true;
-              e.pointCloudShading.maximumAttenuation = 2;
-              e.pointCloudShading.baseResolution = 1;
+              //e.pointCloudShading.attenuation = true;
+              //e.pointCloudShading.maximumAttenuation = 2;
+              //e.pointCloudShading.baseResolution = 1;
               console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", e);
               e.style = new Cesium.Cesium3DTileStyle({
                 pointSize: "3",
