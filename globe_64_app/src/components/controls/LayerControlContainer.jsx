@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -7,7 +7,6 @@ import TilesetLayerControl from "./TilesetLayerControl";
 import WmsLayerControl from "./WmsLayerControl";
 import WmtsBaseLayerControl from "./WmtsBaseLayerControl";
 import { Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 
 function LayerControlContainer({
   visibilityStateTile,
@@ -47,11 +46,7 @@ function LayerControlContainer({
       }}
     >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
+        <Tabs value={value} onChange={handleChange} aria-label="globe tabs">
           <Tab label="3Dtiles" />
           <Tab label="2D" />
           <Tab label="Fond de plan" />

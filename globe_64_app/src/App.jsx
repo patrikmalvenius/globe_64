@@ -222,8 +222,6 @@ function App() {
         leftClickAction={leftClickAction}
         setRemoveMeasures={setRemoveMeasures}
         removeMeasures={removeMeasures}
-        wmsLayers={wmsLayers}
-        viewRef={ref}
         addedEntity={addedEntity}
         setAddedEntity={setAddedEntity}
         eraseEntities={eraseEntities}
