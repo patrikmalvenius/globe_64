@@ -5,7 +5,7 @@ import {
   CameraFlyTo,
   ImageryLayerCollection,
 } from "resium";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import Tilesets from "./components/layers/Tilesets";
 import WmsLayers from "./components/layers/WmsLayers";
 import WmtsBaseLayer from "./components/layers/WmtsBaseLayer";
@@ -20,9 +20,7 @@ import VirtualWalkEntity from "./components/layers/VirtualWalkEntity";
 import { themeOptions } from "./styles/theme";
 
 const theme = createTheme(themeOptions);
-const localTerrainUrl = "http://localhost:8888/data/terrain";
-const terrain = await Cesium.CesiumTerrainProvider.fromUrl(localTerrainUrl);
-const position = Cesium.Cartesian3.fromDegrees(-0.359818, 43.309767, 300);
+
 const initVisibilityTile = {};
 const initVisibilityWmtsBaseLayers = {};
 const addedTilesets = {};
@@ -79,6 +77,18 @@ function App() {
   useEffect(() => {
     if (appConfig) {
       async function initApp() {
+        if (appConfig["base"]["terrain"]["type"] === "local") {
+          ref.current.cesiumElement.terrainProvider =
+            await Cesium.CesiumTerrainProvider.fromUrl(
+              appConfig["base"]["terrain"]["url"]
+            );
+        } else if (appConfig["base"]["terrain"]["type"] === "ion") {
+          ref.current.cesiumElement.terrainProvider =
+            await Cesium.CesiumTerrainProvider.fromIonAssetId(
+              appConfig["base"]["terrain"]["url"]
+            );
+        }
+
         if (appConfig["configs"][mapConfig].basemaps) {
           Object.entries(appConfig["configs"][mapConfig].basemaps).forEach(
             ([k, v]) => {
@@ -148,7 +158,7 @@ function App() {
         }}
         ref={ref}
         creditContainer={dummyCredit}
-        terrainProvider={terrain}
+        terrainProvider={undefined}
         //infoBox={false} - this needs to be kept on because other code (not investigated deeper) depends on it. = replace with similar
         baseLayerPicker={false}
         imageryProvider={false}

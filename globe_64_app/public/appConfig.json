@@ -1,5 +1,7 @@
 {
-  "base": {},
+  "base": {
+    "terrain": { "url": "http://localhost:8888/data/terrain", "type": "local" }
+  },
   "configs": {
     "standard": {
       "wms": {
