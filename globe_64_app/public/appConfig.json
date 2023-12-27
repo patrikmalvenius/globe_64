@@ -157,6 +157,22 @@
         "show": true,
         "type": "lidar",
         "flyTo": true
+      },
+      "layer_5": {
+        "title": "Bati Ent",
+        "assetid": "bati_entwine/tileset.json",
+        "color": "blue",
+        "show": true,
+        "type": "lidar",
+        "flyTo": true
+      },
+      "layer_6": {
+        "title": "Veg Ent",
+        "assetid": "veg_entwine/tileset.json",
+        "color": "blue",
+        "show": true,
+        "type": "lidar",
+        "flyTo": true
       }
     },
     "geojson": {
