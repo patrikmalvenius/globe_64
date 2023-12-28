@@ -113,7 +113,6 @@ function App() {
             appConfig["configs"][mapConfig].geojson.url
           );
           let geoJson = await geoJsonFile.json();
-          console.log("geoJsongeoJsongeoJsongeoJsongeoJson", geoJson);
           setGeoJsonLayers(geoJson);
           setVisibilityStateGeoJson(true);
           geoJson = null;
@@ -121,11 +120,15 @@ function App() {
         const defaultExtent = [-0.363461, 43.306523, -0.355773, 43.3113];
         const extent =
           appConfig["configs"][mapConfig]["startExtent"] || defaultExtent;
-
+        // sets extent as "home" also, should be opssibly to use this if we want a fly to home button later. otherwise quite unnecessqry really
         Cesium.Rectangle.fromDegrees(
           ...extent,
           Cesium.Camera.DEFAULT_VIEW_RECTANGLE
         );
+        ref.current.cesiumElement.scene.camera.flyTo({
+          destination: Cesium.Camera.DEFAULT_VIEW_RECTANGLE,
+          duration: 0,
+        });
       }
       initApp();
     }

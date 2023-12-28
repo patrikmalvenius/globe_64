@@ -13,7 +13,7 @@ import WmtsBaseLayer from "./layers/WmtsBaseLayer";
 import Geojsons from "./layers/Geojsons";
 import { CustomEventHandlers } from "./eventhandlers/CustomEventHandlers";
 import VirtualWalkEntity from "./layers/VirtualWalkEntity";
-import { forwardRef, useRef } from "react";
+import { forwardRef, useRef, useMemo } from "react";
 
 const ViewerComponent = forwardRef(function ViewerComponent(
   {
@@ -36,12 +36,12 @@ const ViewerComponent = forwardRef(function ViewerComponent(
     visibilityStateWmtsBaselayer,
     walk,
     mapConfig,
+    extent,
   },
   ref
 ) {
   const collectionRef = useRef();
 
-  Cesium.Camera.DEFAULT_VIEW_FACTOR = 0;
   return (
     <Viewer
       style={{
@@ -68,7 +68,6 @@ const ViewerComponent = forwardRef(function ViewerComponent(
       requestRenderMode={false} //substitute this with true + rerender viewer ref in useeffect on visibilityState ?
       maximumRenderTimeChange={"Infinity"}
     >
-      {" "}
       <CustomEventHandlers
         viewRef={ref}
         leftClickAction={leftClickAction}
@@ -109,7 +108,6 @@ const ViewerComponent = forwardRef(function ViewerComponent(
         visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
         collectionRef={collectionRef}
       />
-      <CameraFlyHome duration={0}></CameraFlyHome>
     </Viewer>
   );
 });
