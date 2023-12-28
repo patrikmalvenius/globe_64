@@ -118,6 +118,14 @@ function App() {
           setVisibilityStateGeoJson(true);
           geoJson = null;
         }
+        const defaultExtent = [-0.363461, 43.306523, -0.355773, 43.3113];
+        const extent =
+          appConfig["configs"][mapConfig]["startExtent"] || defaultExtent;
+
+        Cesium.Rectangle.fromDegrees(
+          ...extent,
+          Cesium.Camera.DEFAULT_VIEW_RECTANGLE
+        );
       }
       initApp();
     }

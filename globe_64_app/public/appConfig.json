@@ -134,6 +134,7 @@
       }
     },
     "rando": {
+      "startExtent": [-0.947117, 43.3969, -0.937829, 43.399568],
       "wms": {
         "url": "https://wxs.ign.fr/inspire/inspire/v/wms?"
       },

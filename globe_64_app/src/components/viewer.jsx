@@ -4,7 +4,7 @@ import {
   Viewer,
   Scene,
   Globe,
-  CameraFlyTo,
+  CameraFlyHome,
   ImageryLayerCollection,
 } from "resium";
 import Tilesets from "./layers/Tilesets";
@@ -30,7 +30,6 @@ const ViewerComponent = forwardRef(function ViewerComponent(
     visibilityStateGeoJson,
     setRCoords,
     dummyCredit,
-
     appConfig,
     visibilityStateWms,
     wmtsBaseLayers,
@@ -41,6 +40,8 @@ const ViewerComponent = forwardRef(function ViewerComponent(
   ref
 ) {
   const collectionRef = useRef();
+
+  Cesium.Camera.DEFAULT_VIEW_FACTOR = 0;
   return (
     <Viewer
       style={{
@@ -108,16 +109,7 @@ const ViewerComponent = forwardRef(function ViewerComponent(
         visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
         collectionRef={collectionRef}
       />
-      <CameraFlyTo
-        destination={
-          new Cesium.Cartesian3(
-            4648690.8089348255,
-            -29158.155070096756,
-            4352934.020068386
-          )
-        }
-        once={true}
-      />
+      <CameraFlyHome duration={0}></CameraFlyHome>
     </Viewer>
   );
 });
