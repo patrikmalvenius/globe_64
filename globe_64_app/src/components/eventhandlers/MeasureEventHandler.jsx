@@ -124,16 +124,12 @@ export const MeasureEventHandler = ({ viewRef, removeMeasures }) => {
   const measureAction = (click) => {
     if (scene.mode !== Cesium.SceneMode.MORPHING) {
       var pickedObject = scene.pick(click.position);
-      console.log("click.position", click.position);
-      console.log("pickedObject", pickedObject);
-      console.log("scene", scene);
+
       if (scene.pickPositionSupported) {
         var cartesian = scene.pickPosition(click.position);
-        console.log("cartesian", cartesian);
 
         if (Cesium.defined(cartesian)) {
           clickedPositions.push(cartesian);
-          console.log("clickedPositions", clickedPositions);
 
           points[collectionCounter].add({
             position: new Cesium.Cartesian3(
@@ -145,8 +141,6 @@ export const MeasureEventHandler = ({ viewRef, removeMeasures }) => {
             pixelSize: 12,
           });
           if (points[collectionCounter].length > 1) {
-            console.log("points", points[collectionCounter]);
-            console.log("points.length", points[collectionCounter].length);
             let point1 = points[collectionCounter].get(
               points[collectionCounter].length - 2
             );

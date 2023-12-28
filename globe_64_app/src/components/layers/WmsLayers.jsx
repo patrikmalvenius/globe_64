@@ -26,7 +26,6 @@ function WmsLayers({
     );
     const layers = Object.keys(visibleLayers).join();
     const collection = collectionRef?.current?.cesiumElement;
-    console.log("collection", collection);
     if (collection) {
       const index = 1;
       const prevLayer = collection.get(index);

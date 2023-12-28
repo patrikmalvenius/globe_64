@@ -13,15 +13,19 @@ export const CustomEventHandlers = ({
   setAddedEntity,
   geoJsonObj,
 }) => {
-  if (viewRef.current && viewRef.current.cesiumElement) {
+  /* if (
+    viewRef.current &&
+    viewRef.current.cesiumElement &&
+    viewRef.current.cesiumElement.screenSpaceEventHandler
+  ) {
     //not sure if i need this but felt safer
-    viewRef.current.cesiumElement.screenSpaceEventHandler.removeInputAction(
+    viewRef.current?.cesiumElement?.screenSpaceEventHandler?.removeInputAction(
       Cesium.ScreenSpaceEventType.LEFT_CLICK
     );
-    viewRef.current.cesiumElement.screenSpaceEventHandler.removeInputAction(
+    viewRef.current?.cesiumElement?.screenSpaceEventHandler?.removeInputAction(
       Cesium.ScreenSpaceEventType.RIGHT_CLICK
     );
-  }
+  }*/
   return (
     <ScreenSpaceEventHandler>
       {leftClickAction === "fps" ? <FpsEventHandler viewRef={viewRef} /> : null}

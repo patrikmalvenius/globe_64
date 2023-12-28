@@ -33,9 +33,7 @@ export const PickElevationEventHandler = ({ viewRef, setAddedEntity }) => {
         ...groundPosition,
         ...{ z: groundPosition["z"] + 10 },
       };
-      console.log("zIgn", zIgn);
-      console.log("labelPosition", labelPosition);
-      console.log("newpoints", newpoints);
+
       entity.position = labelPosition;
 
       entity.label.show = true;
