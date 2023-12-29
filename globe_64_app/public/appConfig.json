@@ -10,7 +10,7 @@
       "tilesets": {
         "layer_1": {
           "title": "Bâtiment en bloc",
-          "assetid": "bati_os_v2/tileset.json",
+          "url": "http://localhost:8888/data/tiles/bati_os_v2/tileset.json",
           "color": "blue",
           "show": true,
           "type": "BatiIGN",
@@ -18,7 +18,7 @@
         },
         "layer_2": {
           "title": "Eglise de Roquiague",
-          "assetid": "eglise_de_roquiague/tileset.json",
+          "url": "http://localhost:8888/data/tiles/eglise_de_roquiague/tileset.json",
           "color": "blue",
           "show": true,
           "type": "Metashape",
@@ -27,7 +27,7 @@
         },
         "layer_3": {
           "title": "Arbres",
-          "assetid": "arbres/tileset.json",
+          "url": "http://localhost:8888/data/tiles/arbres/tileset.json",
           "color": "blue",
           "show": true,
           "type": "model",
@@ -35,7 +35,7 @@
         },
         "layer_4": {
           "title": "Vegetation",
-          "assetid": "veg_pau/tileset.json",
+          "url": "http://localhost:8888/data/tiles/veg_pau/tileset.json",
           "color": "blue",
           "show": false,
           "type": "lidar",
@@ -43,7 +43,7 @@
         },
         "layer_5": {
           "title": "Vegetation ION",
-          "assetid": "veg_color/tileset.json",
+          "url": "http://localhost:8888/data/tiles/veg_color/tileset.json",
           "color": "blue",
           "show": false,
           "type": "lidar",
@@ -51,7 +51,7 @@
         },
         "layer_6": {
           "title": "Bati color",
-          "assetid": "bati_pau/tileset.json",
+          "url": "http://localhost:8888/data/tiles/bati_pau/tileset.json",
           "color": "blue",
           "show": false,
           "type": "lidar",
@@ -59,7 +59,7 @@
         },
         "layer_7": {
           "title": "Bati ION",
-          "assetid": "bati_color/tileset.json",
+          "url": "http://localhost:8888/data/tiles/bati_color/tileset.json",
           "color": "blue",
           "show": false,
           "type": "lidar",
@@ -67,7 +67,7 @@
         },
         "layer_8": {
           "title": "Bati Roquiague",
-          "assetid": "roq_bati/tileset.json",
+          "url": "http://localhost:8888/data/tiles/roq_bati/tileset.json",
           "color": "blue",
           "show": false,
           "type": "lidar",
@@ -75,7 +75,7 @@
         },
         "layer_9": {
           "title": "Veg Roquiage",
-          "assetid": "roq_veg/tileset.json",
+          "url": "http://localhost:8888/data/tiles/roq_veg/tileset.json",
           "color": "blue",
           "show": false,
           "type": "lidar",
@@ -84,7 +84,7 @@
 
         "layer_10": {
           "title": "Bati buff",
-          "assetid": "bati_buff/tileset.json",
+          "url": "http://localhost:8888/data/tiles/bati_buff/tileset.json",
           "color": "blue",
           "show": false,
           "type": "IGN",
@@ -115,7 +115,7 @@
       "tilesets": {
         "layer_2": {
           "title": "Eglise de Roquiague",
-          "assetid": "eglise_de_roquiague/tileset.json",
+          "url": "http://localhost:8888/data/tiles/eglise_de_roquiague/tileset.json",
           "color": "blue",
           "show": true,
           "type": "Metashape",
@@ -141,7 +141,7 @@
       "tilesets": {
         "layer_1": {
           "title": "Bâtiment buff",
-          "assetid": "bati_buff/tileset.json",
+          "url": "http://localhost:8888/data/tiles/bati_buff/tileset.json",
           "color": "blue",
           "show": true,
           "type": "BatiIGN",
@@ -149,7 +149,7 @@
         },
         "layer_3": {
           "title": "Bati Sauv",
-          "assetid": "sauv_bati/tileset.json",
+          "url": "http://localhost:8888/data/tiles/sauv_bati/tileset.json",
           "color": "blue",
           "show": true,
           "type": "lidar",
@@ -157,7 +157,7 @@
         },
         "layer_4": {
           "title": "Veg Sauv",
-          "assetid": "sauv_veg/tileset.json",
+          "url": "http://localhost:8888/data/tiles/sauv_veg/tileset.json",
           "color": "blue",
           "show": true,
           "type": "lidar",
@@ -165,7 +165,7 @@
         },
         "layer_5": {
           "title": "Bati Ent",
-          "assetid": "bati_entwine/tileset.json",
+          "url": "http://localhost:8888/data/tiles/bati_entwine/tileset.json",
           "color": "blue",
           "show": true,
           "type": "lidar",
@@ -173,7 +173,7 @@
         },
         "layer_6": {
           "title": "Veg Ent",
-          "assetid": "veg_entwine/tileset.json",
+          "url": "http://localhost:8888/data/tiles/veg_entwine/tileset.json",
           "color": "blue",
           "show": true,
           "type": "lidar",

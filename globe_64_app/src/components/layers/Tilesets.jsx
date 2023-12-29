@@ -1,6 +1,5 @@
 import { Cesium3DTileset } from "resium";
 import * as Cesium from "cesium";
-const bUrl = "http://localhost:8888/data/tiles/";
 
 function Tilesets({ tileLayers, visibilityStateTile, tilesetLoaded }) {
   let tilesets;
@@ -9,7 +8,7 @@ function Tilesets({ tileLayers, visibilityStateTile, tilesetLoaded }) {
       return (
         <Cesium3DTileset
           key={a[0]}
-          url={bUrl + a[1]["assetid"]}
+          url={a[1]["url"]}
           showOutline={true}
           show={visibilityStateTile[a[0]]}
           maximumScreenSpaceError={4}
