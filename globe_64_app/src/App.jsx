@@ -68,6 +68,18 @@ function App() {
   useEffect(() => {
     if (appConfig) {
       async function initApp() {
+        const defaultExtent = [-0.363461, 43.306523, -0.355773, 43.3113];
+        const extent =
+          appConfig["configs"][mapConfig]["startExtent"] || defaultExtent;
+        // sets extent as "home" also, should be opssibly to use this if we want a fly to home button later. otherwise quite unnecessqry really
+        Cesium.Rectangle.fromDegrees(
+          ...extent,
+          Cesium.Camera.DEFAULT_VIEW_RECTANGLE
+        );
+        ref.current.cesiumElement.scene.camera.flyTo({
+          destination: Cesium.Camera.DEFAULT_VIEW_RECTANGLE,
+          duration: 0,
+        });
         if (appConfig["base"]["terrain"]["type"] === "local") {
           ref.current.cesiumElement.terrainProvider =
             await Cesium.CesiumTerrainProvider.fromUrl(
@@ -117,18 +129,6 @@ function App() {
           setVisibilityStateGeoJson(true);
           geoJson = null;
         }
-        const defaultExtent = [-0.363461, 43.306523, -0.355773, 43.3113];
-        const extent =
-          appConfig["configs"][mapConfig]["startExtent"] || defaultExtent;
-        // sets extent as "home" also, should be opssibly to use this if we want a fly to home button later. otherwise quite unnecessqry really
-        Cesium.Rectangle.fromDegrees(
-          ...extent,
-          Cesium.Camera.DEFAULT_VIEW_RECTANGLE
-        );
-        ref.current.cesiumElement.scene.camera.flyTo({
-          destination: Cesium.Camera.DEFAULT_VIEW_RECTANGLE,
-          duration: 0,
-        });
       }
       initApp();
     }
