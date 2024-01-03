@@ -1,6 +1,7 @@
 {
   "base": {
-    "terrain": { "url": "http://localhost:8888/data/terrain", "type": "local" }
+    "terrain": { "url": "http://localhost:8888/data/terrain", "type": "local" },
+    "baseUrl": "https://apgl64.geomatika.fr"
   },
   "configs": {
     "standard": {

@@ -56,10 +56,53 @@ function App() {
   useEffect(() => {
     async function fetchConfig() {
       let urlParams = new URLSearchParams(window.location.search);
+      console.log("URLPARAMS", urlParams);
       const conf = urlParams.get("conf");
       const fetchAppConfig = await fetch("/appConfig.json");
-      const result = await fetchAppConfig.json();
+      let result = await fetchAppConfig.json();
       conf in result.configs ? setMapConfig(conf) : setMapConfig("standard");
+      const urlParamsWms = urlParams.get("wms");
+      const urlParamsExtent = urlParams.get("extent").split(",");
+
+      if (urlParamsWms) {
+        if (urlParamsWms.startsWith(result.base.baseUrl)) {
+          result = {
+            ...result,
+            ["configs"]: {
+              ...result["configs"],
+              ["standard"]: {
+                ...result["configs"]["standard"],
+
+                ["wms"]: {
+                  ...result["configs"]["standard"]["wms"],
+                  ["url"]: urlParamsWms,
+                },
+              },
+            },
+          };
+        }
+      }
+      if (urlParamsExtent) {
+        console.log(urlParamsExtent);
+        console.log(typeof urlParamsExtent);
+        if (
+          typeof urlParamsExtent === "object" &&
+          urlParamsExtent.length === 4
+        ) {
+          result = {
+            ...result,
+            ["configs"]: {
+              ...result["configs"],
+              ["standard"]: {
+                ...result["configs"]["standard"],
+
+                ["startExtent"]: urlParamsExtent,
+              },
+            },
+          };
+        }
+      }
+      urlParamsWms || (urlParamsExtent && setMapConfig("standard"));
       setAppConfig(result);
     }
     fetchConfig();
