@@ -62,7 +62,7 @@ function App() {
       let result = await fetchAppConfig.json();
       conf in result.configs ? setMapConfig(conf) : setMapConfig("standard");
       const urlParamsWms = urlParams.get("wms");
-      const urlParamsExtent = urlParams.get("extent").split(",");
+      const urlParamsExtent = urlParams.get("extent")?.split(",");
 
       if (urlParamsWms) {
         if (urlParamsWms.startsWith(result.base.baseUrl)) {

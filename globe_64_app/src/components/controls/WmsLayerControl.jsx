@@ -30,14 +30,20 @@ function WmsLayerControl({
   };
 
   const onWmsUrlChange = () => {
+    console.log(appConfig);
+    console.log(mapConfig);
     setAddedWmsLayers({});
     setAppConfig((prevState) => ({
       ...prevState,
-      [mapConfig]: {
-        ...prevState[mapConfig],
-        wms: {
-          ...prevState[mapConfig].wms,
-          url: url,
+      ["configs"]: {
+        ...prevState["configs"],
+        ["standard"]: {
+          ...prevState["configs"][mapConfig],
+
+          ["wms"]: {
+            ...prevState["configs"][mapConfig]["wms"],
+            ["url"]: url,
+          },
         },
       },
     }));
