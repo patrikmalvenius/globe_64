@@ -19,7 +19,9 @@ import ListItem from "@mui/material/ListItem";
 import Box from "@mui/material/Box";
 import ListSubheader from "@mui/material/ListSubheader";
 import { ClickAwayListener } from "@mui/base/ClickAwayListener";
+import HelpTable from "./HelpTable";
 import "../../assets/searchbar.css";
+import HelpIcon from "@mui/icons-material/Help";
 
 export default function GlobeAppBar({
   layersControlVisible,
@@ -33,6 +35,7 @@ export default function GlobeAppBar({
   eraseEntities,
 }) {
   const [showToolMenu, setShowToolMenu] = useState(false);
+  const [helpTableVisible, setHelpTableVisible] = useState(false);
   const open = Boolean(showToolMenu);
   const handleClick = () => {
     setShowToolMenu(!showToolMenu);
@@ -40,6 +43,9 @@ export default function GlobeAppBar({
 
   const onVisibilityChange = () => {
     setLayersControlVisible(!layersControlVisible);
+  };
+  const showHelpTable = () => {
+    setHelpTableVisible(!helpTableVisible);
   };
   const activateMeasureTool = () => {
     setLeftClickAction("measure");
@@ -299,6 +305,23 @@ export default function GlobeAppBar({
           </IconButton>
         </Tooltip>
       ) : null}
+      <Tooltip title="Aide navigation">
+        <IconButton
+          onClick={showHelpTable}
+          size="large"
+          color="primary.dark"
+          sx={{ ml: 2, backgroundColor: "primary.light" }}
+          aria-controls={open ? "outils-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+        >
+          <HelpIcon style={{ color: "primary.dark" }} fontSize={"large"} />
+        </IconButton>
+      </Tooltip>
+      <HelpTable
+        helpTableVisible={helpTableVisible}
+        setHelpTableVisible={setHelpTableVisible}
+      />
       <div id="globe64toolbar" sx={{ marginLeft: "auto", padding: 8 }}></div>
     </Toolbar>
   );

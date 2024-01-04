@@ -20,6 +20,18 @@ const themeOptions = {
       main: "#388E9B",
     },
   },
+  components: {
+    MuiSvgIcon: {
+      variants: [
+        {
+          props: { variant: "huge" },
+          style: {
+            fontSize: "5rem",
+          },
+        },
+      ],
+    },
+  },
 };
 
 export { themeOptions };
