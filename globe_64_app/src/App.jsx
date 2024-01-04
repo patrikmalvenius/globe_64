@@ -7,7 +7,7 @@ import GlobeAppBar from "./components/controls/GlobeAppBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { themeOptions } from "./styles/theme";
 import ViewerComponent from "./components/viewer";
-
+import LoadIndicator from "./components/stuff/loadIndicator";
 const theme = createTheme(themeOptions);
 
 const initVisibilityTile = {};
@@ -41,6 +41,7 @@ function App() {
   const ref = useRef(null);
   const wmsCollectionRef = useRef(null);
   const wmtsCollectionRef = useRef(null);
+  const [loadProgress, setLoadProgress] = useState(0);
 
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
@@ -104,6 +105,7 @@ function App() {
       }
       urlParamsWms || (urlParamsExtent && setMapConfig("standard"));
       setAppConfig(result);
+      setLoadProgress(20);
     }
     fetchConfig();
   }, []);
@@ -134,7 +136,7 @@ function App() {
               appConfig["base"]["terrain"]["url"]
             );
         }
-
+        setLoadProgress(40);
         if (appConfig["configs"][mapConfig].basemaps) {
           Object.entries(appConfig["configs"][mapConfig].basemaps).forEach(
             ([k, v]) => {
@@ -144,7 +146,7 @@ function App() {
           setVisibilityStateWmtsBaselayer(initVisibilityWmtsBaseLayers);
           setWmtsBaseLayers(appConfig["configs"][mapConfig].basemaps);
         }
-
+        setLoadProgress(60);
         if (appConfig["configs"][mapConfig].tilesets) {
           setTileLayers(appConfig["configs"][mapConfig].tilesets);
           Object.entries(appConfig["configs"][mapConfig].tilesets).forEach(
@@ -159,7 +161,7 @@ function App() {
           const layers = await fetchWmsLayers(
             appConfig["configs"][mapConfig].wms.url
           );
-
+          setLoadProgress(80);
           setWmsLayers(layers);
         }
 
@@ -172,6 +174,7 @@ function App() {
           setVisibilityStateGeoJson(true);
           geoJson = null;
         }
+        setLoadProgress(100);
       }
       initApp();
     }
@@ -250,6 +253,7 @@ function App() {
           setAppConfig={setAppConfig}
         />
       ) : null}
+      {loadProgress < 100 && <LoadIndicator loadProgress={loadProgress} />}
     </ThemeProvider>
   );
 }

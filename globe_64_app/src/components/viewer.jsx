@@ -65,6 +65,9 @@ const ViewerComponent = forwardRef(function ViewerComponent(
       fullscreenButton={false}
       navigationHelpButton={false}
       scene3DOnly={true}
+      //shadows={true}
+      //terrainShadows={1}
+      //shouldAnimate={true}
       requestRenderMode={false} //substitute this with true + rerender viewer ref in useeffect on visibilityState ?
       maximumRenderTimeChange={"Infinity"}
     >
