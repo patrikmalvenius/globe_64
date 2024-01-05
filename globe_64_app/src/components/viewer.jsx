@@ -71,7 +71,6 @@ const ViewerComponent = forwardRef(function ViewerComponent(
       maximumRenderTimeChange={"Infinity"}
     >
       <CustomEventHandlers
-        viewRef={ref}
         leftClickAction={leftClickAction}
         setLeftClickAction={setLeftClickAction}
         removeMeasures={removeMeasures}
@@ -84,9 +83,7 @@ const ViewerComponent = forwardRef(function ViewerComponent(
         skyAtmosphere={new Cesium.SkyAtmosphere()}
       />
       <Globe depthTestAgainstTerrain={true} />
-      {walk ? (
-        <VirtualWalkEntity viewRef={ref} rCoords={rCoords} setWalk={setWalk} />
-      ) : null}
+      {walk ? <VirtualWalkEntity rCoords={rCoords} setWalk={setWalk} /> : null}
       <Tilesets
         tileLayers={tileLayers}
         visibilityStateTile={visibilityStateTile}

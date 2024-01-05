@@ -1,11 +1,9 @@
 // https://community.cesium.com/t/tracked-entity-camera-heading/10497/3
-import { Entity, PolylineGraphics, PointGraphics } from "resium";
+import { Entity, PolylineGraphics, PointGraphics, useCesium } from "resium";
 import { useMemo } from "react";
 import * as Cesium from "cesium";
-function VirtualWalkEntity({ rCoords, viewRef, setWalk }) {
-  console.log("ENTERING WALK");
-  console.log(rCoords);
-  const viewer = viewRef.current.cesiumElement;
+function VirtualWalkEntity({ rCoords, setWalk }) {
+  const { viewer } = useCesium();
   var positionProperty = new Cesium.SampledPositionProperty();
   var arrayOfPositions = null;
 
