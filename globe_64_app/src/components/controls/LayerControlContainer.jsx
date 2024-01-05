@@ -47,7 +47,7 @@ function LayerControlContainer({
           position: "absolute",
           border: 2,
           bgcolor: "primary.light",
-          borderColor: "primary.dark",
+          borderColor: "secondary.light",
           borderRadius: 1,
           mt: 2,
         }}
