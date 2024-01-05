@@ -36,7 +36,6 @@ const ViewerComponent = forwardRef(function ViewerComponent(
     visibilityStateWmtsBaselayer,
     walk,
     mapConfig,
-    extent,
   },
   ref
 ) {

@@ -12,6 +12,8 @@ import { initApp, fetchConfig } from "./models/initApp";
 const theme = createTheme(themeOptions);
 const initVisibilityTile = {};
 const initVisibilityWmtsBaseLayers = {};
+//we keep this collection in order to have easy access to the added tilesets for flyto and other operations
+//possible we could replace this with an array of id:s ?
 const addedTilesets = {};
 const dummyCredit = document.createElement("div");
 
@@ -36,8 +38,7 @@ function App() {
   const [geoJsonLayers, setGeoJsonLayers] = useState();
   const [visibilityStateGeoJson, setVisibilityStateGeoJson] = useState();
   const ref = useRef(null);
-  const wmsCollectionRef = useRef(null);
-  const wmtsCollectionRef = useRef(null);
+
   const [loadProgress, setLoadProgress] = useState(0);
   const [showToolMenu, setShowToolMenu] = useState(false);
   const [helpTableVisible, setHelpTableVisible] = useState(false);
@@ -112,8 +113,6 @@ function App() {
         visibilityStateGeoJson={visibilityStateGeoJson}
         setRCoords={setRCoords}
         visibilityStateWms={visibilityStateWms}
-        wmsCollectionRef={wmtsCollectionRef}
-        wmtsCollectionRef={wmsCollectionRef}
         wmtsBaseLayers={wmtsBaseLayers}
         visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
         appConfig={appConfig}
