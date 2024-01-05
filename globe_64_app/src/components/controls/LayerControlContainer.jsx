@@ -23,7 +23,7 @@ function LayerControlContainer({
   setVisibilityStateWmtsBaselayer,
   visibilityStateWmtsBaselayer,
   wmtsBaseLayers,
-  wmsLayers,
+  loadProgress,
   appConfig,
   setAppConfig,
   mapConfig,
@@ -70,7 +70,7 @@ function LayerControlContainer({
         </LayerControlTabPanel>
 
         <LayerControlTabPanel value={value} index={1}>
-          {wmsLayers ? (
+          {loadProgress > 80 ? (
             <WmsLayerControl
               addedWmsLayers={addedWmsLayers}
               setAddedWmsLayers={setAddedWmsLayers}
