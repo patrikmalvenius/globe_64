@@ -8,6 +8,9 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { themeOptions } from "./styles/theme";
 import ViewerComponent from "./components/viewer";
 import LoadIndicator from "./components/stuff/loadIndicator";
+import ToolMenu from "./components/controls/ToolMenuContainer";
+import HelpTable from "./components/controls/HelpTable";
+
 const theme = createTheme(themeOptions);
 
 const initVisibilityTile = {};
@@ -42,7 +45,8 @@ function App() {
   const wmsCollectionRef = useRef(null);
   const wmtsCollectionRef = useRef(null);
   const [loadProgress, setLoadProgress] = useState(0);
-
+  const [showToolMenu, setShowToolMenu] = useState(false);
+  const [helpTableVisible, setHelpTableVisible] = useState(false);
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
   };
@@ -53,7 +57,13 @@ function App() {
   const [mapConfig, setMapConfig] = useState();
   const [walk, setWalk] = useState(false);
   const [rCoords, setRCoords] = useState(null);
+  const handleClick = () => {
+    setShowToolMenu(!showToolMenu);
+  };
 
+  const onVisibilityChange = () => {
+    setLayersControlVisible(!layersControlVisible);
+  };
   useEffect(() => {
     async function fetchConfig() {
       let urlParams = new URLSearchParams(window.location.search);
@@ -231,6 +241,12 @@ function App() {
         addedEntity={addedEntity}
         setAddedEntity={setAddedEntity}
         eraseEntities={eraseEntities}
+        showToolMenu={showToolMenu}
+        setShowToolMenu={setShowToolMenu}
+        helpTableVisible={helpTableVisible}
+        setHelpTableVisible={setHelpTableVisible}
+        handleClick={handleClick}
+        onVisibilityChange={onVisibilityChange}
       />
       {layersControlVisible ? (
         <LayerControlContainer
@@ -253,6 +269,23 @@ function App() {
           setAppConfig={setAppConfig}
         />
       ) : null}
+      {showToolMenu ? (
+        <ToolMenu
+          setLeftClickAction={setLeftClickAction}
+          handleClick={handleClick}
+          showToolMenu={showToolMenu}
+          setShowToolMenu={setShowToolMenu}
+          setHelpTableVisible={setHelpTableVisible}
+          helpTableVisible={helpTableVisible}
+        />
+      ) : null}
+      {helpTableVisible ? (
+        <HelpTable
+          helpTableVisible={helpTableVisible}
+          setHelpTableVisible={setHelpTableVisible}
+        />
+      ) : null}
+
       {loadProgress < 100 && <LoadIndicator loadProgress={loadProgress} />}
     </ThemeProvider>
   );

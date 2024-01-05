@@ -43,7 +43,7 @@ function HelpTable({ helpTableVisible, setHelpTableVisible }) {
             bgcolor: "primary.light",
             borderColor: "primary.dark",
             borderRadius: 1,
-            mt: 70,
+            mt: 2,
           }}
         >
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
