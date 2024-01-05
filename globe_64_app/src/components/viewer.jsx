@@ -1,19 +1,13 @@
 import * as Cesium from "cesium";
 
-import {
-  Viewer,
-  Scene,
-  Globe,
-  CameraFlyHome,
-  ImageryLayerCollection,
-} from "resium";
+import { Viewer, Scene, Globe, Camera, ImageryLayerCollection } from "resium";
 import Tilesets from "./layers/Tilesets";
 import WmsLayers from "./layers/WmsLayers";
 import WmtsBaseLayer from "./layers/WmtsBaseLayer";
 import Geojsons from "./layers/Geojsons";
 import { CustomEventHandlers } from "./eventhandlers/CustomEventHandlers";
 import VirtualWalkEntity from "./layers/VirtualWalkEntity";
-import { forwardRef, useRef, useMemo } from "react";
+import { forwardRef, useRef, useState } from "react";
 
 const ViewerComponent = forwardRef(function ViewerComponent(
   {
@@ -40,8 +34,24 @@ const ViewerComponent = forwardRef(function ViewerComponent(
   },
   ref
 ) {
-  const collectionRef = useRef();
+  //const [lastPosition, setLastPosition] = useState();
 
+  const collectionRef = useRef();
+  const onCameraMoveEnd = () => {
+    console.log("MOVEEND");
+
+    const camera = ref.current.cesiumElement.scene.camera;
+    const position = camera.position;
+
+    const cartographic = Cesium.Cartographic.fromCartesian(position);
+    const rectangle = Cesium.Rectangle.fromDegrees(
+      ...[-0.947117, 43.3969, -0.937829, 43.399568]
+    );
+
+    if (!Cesium.Rectangle.contains(rectangle, cartographic)) {
+      camera.flyTo({ destination: rectangle, duration: 0.5 });
+    }
+  };
   return (
     <Viewer
       style={{
@@ -85,6 +95,7 @@ const ViewerComponent = forwardRef(function ViewerComponent(
         skyAtmosphere={new Cesium.SkyAtmosphere()}
       />
       <Globe depthTestAgainstTerrain={true} />
+      <Camera onMoveEnd={onCameraMoveEnd} />
       {walk ? (
         <VirtualWalkEntity viewRef={ref} rCoords={rCoords} setWalk={setWalk} />
       ) : null}
