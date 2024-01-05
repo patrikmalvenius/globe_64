@@ -110,7 +110,7 @@ export default function GlobeAppBar({
               bgcolor: "primary.light",
               borderColor: "primary.dark",
               borderRadius: 1,
-              mt: 60,
+              mt: 70,
             }}
             onClick={handleClick}
           >
@@ -138,12 +138,36 @@ export default function GlobeAppBar({
                 </ListSubheader>
               }
             >
+              {" "}
+              <ListItem key={"aidenav"} dense>
+                <Tooltip title="Aide navigation">
+                  <IconButton
+                    onClick={showHelpTable}
+                    size="large"
+                    color="primary.dark"
+                    edge="start"
+                    sx={{ mr: 1 }}
+                    aria-controls={open ? "outils-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                  >
+                    <HelpIcon
+                      style={{ color: "primary.dark" }}
+                      fontSize={"large"}
+                      sx={{ mr: 2 }}
+                    />
+                    <ListItemText primary={"Aide navigation"} />
+                  </IconButton>
+                </Tooltip>
+              </ListItem>
               <ListItem key={"mesure"} dense>
                 <Tooltip title="Mesure objets 3D">
                   <IconButton
                     size="large"
                     edge="start"
-                    color={leftClickAction === "measure" ? "third" : "inherit"}
+                    color={
+                      leftClickAction === "measure" ? "third" : "primary.dark"
+                    }
                     aria-label="menu"
                     sx={{ mr: 1 }}
                     onClick={() => activateMeasureTool()}
@@ -158,7 +182,9 @@ export default function GlobeAppBar({
                   <IconButton
                     size="large"
                     edge="start"
-                    color={leftClickAction === "pick" ? "third" : "inherit"}
+                    color={
+                      leftClickAction === "pick" ? "third" : "primary.dark"
+                    }
                     aria-label="menu"
                     sx={{ mr: 1 }}
                     onClick={() => activateGroundPicker()}
@@ -173,7 +199,7 @@ export default function GlobeAppBar({
                   <IconButton
                     size="large"
                     edge="start"
-                    color={leftClickAction === "fps" ? "third" : "inherit"}
+                    color={leftClickAction === "fps" ? "third" : "primary.dark"}
                     aria-label="menu"
                     sx={{ mr: 1 }}
                     onClick={() => activateFPS()}
@@ -188,7 +214,9 @@ export default function GlobeAppBar({
                   <IconButton
                     size="large"
                     edge="start"
-                    color={leftClickAction === "walk" ? "third" : "inherit"}
+                    color={
+                      leftClickAction === "walk" ? "third" : "primary.dark"
+                    }
                     aria-label="menu"
                     sx={{ mr: 1 }}
                     onClick={() => activateWalkTool()}
@@ -204,7 +232,9 @@ export default function GlobeAppBar({
                   <IconButton
                     size="large"
                     edge="start"
-                    color={leftClickAction === "info" ? "third" : "inherit"}
+                    color={
+                      leftClickAction === "info" ? "third" : "primary.dark"
+                    }
                     aria-label="menu"
                     sx={{ mr: 1 }}
                     onClick={() => activateInfo()}
@@ -305,24 +335,13 @@ export default function GlobeAppBar({
           </IconButton>
         </Tooltip>
       ) : null}
-      <Tooltip title="Aide navigation">
-        <IconButton
-          onClick={showHelpTable}
-          size="large"
-          color="primary.dark"
-          sx={{ ml: 2, backgroundColor: "primary.light" }}
-          aria-controls={open ? "outils-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-        >
-          <HelpIcon style={{ color: "primary.dark" }} fontSize={"large"} />
-        </IconButton>
-      </Tooltip>
+
+      <div id="globe64toolbar" sx={{ marginLeft: "auto", padding: 8 }}></div>
+
       <HelpTable
         helpTableVisible={helpTableVisible}
         setHelpTableVisible={setHelpTableVisible}
       />
-      <div id="globe64toolbar" sx={{ marginLeft: "auto", padding: 8 }}></div>
     </Toolbar>
   );
 }

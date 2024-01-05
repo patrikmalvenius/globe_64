@@ -18,14 +18,15 @@ import TouchDragIcon from "../icons/TouchDrag";
 import TouchRotateIcon from "../icons/TouchRotate";
 import TouchTiltIcon from "../icons/TouchTilt";
 import TouchZoomIcon from "../icons/TouchZoom";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemButton from "@mui/material/ListItemButton";
+import CancelIcon from "@mui/icons-material/Cancel";
+import { Cancel } from "@mui/icons-material";
+
 function HelpTable({ helpTableVisible, setHelpTableVisible }) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     event.preventDefault();
-    setValue(newValue);
+    newValue === 2 ? handleClickAway() : setValue(newValue);
   };
   const handleClickAway = () => {
     setHelpTableVisible(false);
@@ -42,7 +43,7 @@ function HelpTable({ helpTableVisible, setHelpTableVisible }) {
             bgcolor: "primary.light",
             borderColor: "primary.dark",
             borderRadius: 1,
-            mt: 60,
+            mt: 70,
           }}
         >
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -53,6 +54,7 @@ function HelpTable({ helpTableVisible, setHelpTableVisible }) {
             >
               <Tab icon={<MouseIcon />} iconPosition="start" label="Souris" />
               <Tab icon={<TouchIcon />} iconPosition="start" label="Touche" />
+              <Tab icon={<CancelIcon />} iconPosition="start" />
             </Tabs>
           </Box>
           <LayerControlTabPanel value={value} index={0}>

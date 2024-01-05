@@ -3,7 +3,7 @@ import SvgIcon from "@mui/material/SvgIcon";
 
 export default function MouseIcon() {
   return (
-    <SvgIcon variant="huge">
+    <SvgIcon>
       {/* credit: svg from cesium/ */}
 
       <svg
