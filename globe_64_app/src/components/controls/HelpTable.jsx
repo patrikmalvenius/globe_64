@@ -54,7 +54,7 @@ function HelpTable({ helpTableVisible, setHelpTableVisible }) {
             >
               <Tab icon={<MouseIcon />} iconPosition="start" label="Souris" />
               <Tab icon={<TouchIcon />} iconPosition="start" label="Touche" />
-              <Tab icon={<CancelIcon />} iconPosition="start" />
+              <Tab icon={<CancelIcon />} iconPosition="start" label="Ferme" />
             </Tabs>
           </Box>
           <LayerControlTabPanel value={value} index={0}>
@@ -71,16 +71,53 @@ function HelpTable({ helpTableVisible, setHelpTableVisible }) {
             >
               <ListItem key="sourisleft">
                 <MouseLeftIcon />
-                <ListItemText primary="souris" />
+                <ListItemText
+                  primary="Panorer"
+                  secondary={
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      Clique gauche + tire
+                    </Typography>
+                  }
+                />
               </ListItem>
               <ListItem key="sourismiddle">
-                <MouseMiddleIcon />
-                <ListItemText primary="souris" />
+                <MouseRightIcon />
+                <ListItemText
+                  primary="Zoom"
+                  secondary={
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      Clique droit + tire, ou défile mollette
+                    </Typography>
+                  }
+                />
               </ListItem>
               <ListItem key="sourisright">
-                <MouseRightIcon />
+                <MouseMiddleIcon />
 
-                <ListItemText primary="souris" />
+                <ListItemText
+                  primary="Rotation"
+                  secondary={
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      Clique mollette + tire, ou CTRL + clique Gauche/Droit +
+                      tire
+                    </Typography>
+                  }
+                />
               </ListItem>
             </List>
           </LayerControlTabPanel>
@@ -99,19 +136,67 @@ function HelpTable({ helpTableVisible, setHelpTableVisible }) {
             >
               <ListItem key="touchdrag">
                 <TouchDragIcon />
-                <ListItemText primary="touch" />
-              </ListItem>
-              <ListItem key="touchrotate">
-                <TouchRotateIcon />
-                <ListItemText primary="touchrotate" />
-              </ListItem>
-              <ListItem key="touchtilt">
-                <TouchTiltIcon />
-                <ListItemText primary="touchtilt" />
+                <ListItemText
+                  primary="Panorer"
+                  secondary={
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      Tire avec un doigt
+                    </Typography>
+                  }
+                />
               </ListItem>
               <ListItem key="touchzoom">
                 <TouchZoomIcon />
-                <ListItemText primary="touchzoom" />
+                <ListItemText
+                  primary="Zoom"
+                  secondary={
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      Pince avec deux doigts
+                    </Typography>
+                  }
+                />
+              </ListItem>
+              <ListItem key="touchtilt">
+                <TouchTiltIcon />
+                <ListItemText
+                  primary="Tilt"
+                  secondary={
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      Tire avec deux doigts, même direction
+                    </Typography>
+                  }
+                />
+              </ListItem>
+              <ListItem key="touchrotate">
+                <TouchRotateIcon />
+                <ListItemText
+                  primary="Rotation"
+                  secondary={
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      Tire avec deux doigts, direction opposée
+                    </Typography>
+                  }
+                />
               </ListItem>
             </List>
           </LayerControlTabPanel>
