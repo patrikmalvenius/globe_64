@@ -1,7 +1,5 @@
-import { useState, useRef, useEffect, forwardRef } from "react";
-
+import { useState, useRef, useEffect } from "react";
 import LayerControlContainer from "./components/controls/LayerControlContainer";
-
 import GlobeAppBar from "./components/controls/GlobeAppBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { themeOptions } from "./styles/theme";
@@ -10,12 +8,11 @@ import LoadIndicator from "./components/stuff/loadIndicator";
 import ToolMenu from "./components/controls/ToolMenuContainer";
 import HelpTable from "./components/controls/HelpTable";
 import { initApp, fetchConfig } from "./models/initApp";
-const theme = createTheme(themeOptions);
 
+const theme = createTheme(themeOptions);
 const initVisibilityTile = {};
 const initVisibilityWmtsBaseLayers = {};
 const addedTilesets = {};
-
 const dummyCredit = document.createElement("div");
 
 function App() {
