@@ -1,4 +1,4 @@
-import { ScreenSpaceEvent } from "resium";
+import { ScreenSpaceEvent, useCesium } from "resium";
 import { useEffect } from "react";
 import * as Cesium from "cesium";
 
@@ -10,7 +10,7 @@ export const MeasureEventHandler = ({ viewRef, removeMeasures }) => {
   const verticalLabel = [];
 
   let LINEPOINTCOLOR = Cesium.Color.BLACK;
-  const viewer = viewRef.current.cesiumElement;
+  const { viewer } = useCesium();
   const scene = viewer.scene;
   const clickedPositions = [];
   let collectionCounter = 0;

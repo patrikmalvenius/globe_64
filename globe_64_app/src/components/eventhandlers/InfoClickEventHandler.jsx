@@ -1,14 +1,12 @@
-import { ScreenSpaceEvent } from "resium";
+import { ScreenSpaceEvent, useCesium } from "resium";
 import * as Cesium from "cesium";
 
-export const InfoClickEventHandler = ({ viewRef }) => {
+export const InfoClickEventHandler = () => {
+  const { viewer } = useCesium();
   //essentially a copy of the code in https://github.com/CesiumGS/cesium/blob/1.111/packages/widgets/Source/Viewer/Viewer.js#L116
   //tried to find a nice way to get the initial left click action but failed miserably
   function pickAndSelectObject(e) {
-    viewRef.current.cesiumElement.selectedEntity = pickEntity(
-      viewRef.current.cesiumElement,
-      e
-    );
+    viewer.selectedEntity = pickEntity(viewer, e);
   }
 
   function pickEntity(viewer, e) {

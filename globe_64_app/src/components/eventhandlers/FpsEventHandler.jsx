@@ -1,18 +1,16 @@
-import { ScreenSpaceEvent } from "resium";
+import { ScreenSpaceEvent, useCesium } from "resium";
 import { useEffect } from "react";
 import * as Cesium from "cesium";
 
-export const FpsEventHandler = ({ viewRef }) => {
-  let viewer;
-  let scene;
+export const FpsEventHandler = () => {
+  const { scene } = useCesium();
+
   let screenSpaceCameraController;
   let camera;
   let cartographic = new Cesium.Cartographic();
   let ellipsoid;
 
   useEffect(() => {
-    viewer = viewRef.current.cesiumElement;
-    scene = viewRef.current.cesiumElement.scene;
     screenSpaceCameraController = scene.screenSpaceCameraController;
     camera = scene.camera;
     cartographic = new Cesium.Cartographic();

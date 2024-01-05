@@ -1,11 +1,10 @@
-import { ScreenSpaceEvent } from "resium";
+import { ScreenSpaceEvent, useCesium } from "resium";
 import * as Cesium from "cesium";
 
-export const PickElevationEventHandler = ({ viewRef, setAddedEntity }) => {
-  const terrainProvider = viewRef.current.cesiumElement.terrainProvider;
-  const scene = viewRef.current.cesiumElement.scene;
-
-  const entity = viewRef.current.cesiumElement.entities.add({
+export const PickElevationEventHandler = ({ setAddedEntity }) => {
+  const { viewer, scene } = useCesium();
+  const terrainProvider = viewer.terrainProvider;
+  const entity = viewer.entities.add({
     label: {
       show: false,
       showBackground: true,

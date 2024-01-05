@@ -1,9 +1,9 @@
-import { ScreenSpaceEvent } from "resium";
+import { ScreenSpaceEvent, useCesium } from "resium";
 import * as Cesium from "cesium";
 
 //not used yet, walkaction tied to click on geojson
-export const TakeAWalkEventHandler = ({ viewRef, geoJsonObj }) => {
-  const viewer = viewRef.current.cesiumElement;
+export const TakeAWalkEventHandler = ({ geoJsonObj }) => {
+  const { viewer } = useCesium();
 
   const takeAWalkAction = (click) => {
     if (Cesium.defined(click)) {
