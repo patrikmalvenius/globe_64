@@ -57,35 +57,35 @@ function TilesetLayerControl({
       }
     >
       {Object.entries(tileLayers).map((a) => {
+        const id = a[0];
+        const title = a[1]["title"];
         return (
-          <ListItem key={a[1]["title"]} dense>
+          <ListItem key={title} dense>
             <ListItemButton
               divider
               sx={{
-                bgcolor: visibilityStateTile[a[0]]
+                bgcolor: visibilityStateTile[id]
                   ? "background.paper"
                   : theme.palette.primary.off,
               }}
-              onClick={() =>
-                onVisibilityChange(a[0], !visibilityStateTile[a[0]])
-              }
+              onClick={() => onVisibilityChange(a[0], !visibilityStateTile[id])}
             >
               <Checkbox
                 edge="start"
-                checked={visibilityStateTile[a[0]]}
+                checked={visibilityStateTile[id]}
                 tabIndex={-1}
                 disableRipple
                 color="secondary"
                 sx={{ padding: 0.5 }}
               />
-              <ListItemText primary={a[1]["title"]} />
+              <ListItemText primary={title} />
             </ListItemButton>
             <Tooltip title="Zoom sur couche">
               <IconButton
                 size="small"
                 edge="end"
                 aria-label="menu"
-                onClick={() => onClick2(a[0])}
+                onClick={() => onClick2(id)}
                 sx={{ padding: 0.5 }}
                 color="third"
               >

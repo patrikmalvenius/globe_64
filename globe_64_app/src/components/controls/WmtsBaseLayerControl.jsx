@@ -50,28 +50,30 @@ function WmtsBaseLayerControl({
       }
     >
       {Object.entries(wmtsBaseLayers).map((a) => {
+        const id = a[0];
+        const title = a[1]["nom"];
         return (
-          <ListItem key={a[0]} dense>
+          <ListItem key={id} dense>
             <ListItemButton
               divider
               sx={{
-                bgcolor: visibilityStateWmtsBaselayer[a[0]]
+                bgcolor: visibilityStateWmtsBaselayer[id]
                   ? "background.paper"
                   : theme.palette.primary.off,
               }}
               onClick={() =>
-                onVisibilityChange(a[0], !visibilityStateWmtsBaselayer[a[0]])
+                onVisibilityChange(a[0], !visibilityStateWmtsBaselayer[id])
               }
             >
               <Checkbox
                 edge="start"
-                checked={visibilityStateWmtsBaselayer[a[0]]}
+                checked={visibilityStateWmtsBaselayer[id]}
                 tabIndex={-1}
                 disableRipple
                 color="secondary"
                 sx={{ padding: 0.5 }}
               />
-              <ListItemText primary={a[1]["nom"]} />
+              <ListItemText primary={title} />
             </ListItemButton>
           </ListItem>
         );
