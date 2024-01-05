@@ -73,29 +73,30 @@ function WmsLayerControl({
         }
       >
         {Object.entries(visibilityStateWms).map((a) => {
+          const layerName = a[0];
           return (
             <ListItem key={a[0]} dense>
               <ListItemButton
                 divider
                 sx={{
-                  bgcolor: visibilityStateWms[a[0]]
+                  bgcolor: visibilityStateWms[layerName]
                     ? "background.paper"
                     : theme.palette.primary.off,
                   width: "90%",
                 }}
                 onClick={() =>
-                  onVisibilityChange(a[0], !visibilityStateWms[a[0]])
+                  onVisibilityChange(layerName, !visibilityStateWms[layerName])
                 }
               >
                 <Checkbox
                   edge="start"
-                  checked={visibilityStateWms[a[0]]}
+                  checked={visibilityStateWms[layerName]}
                   tabIndex={-1}
                   disableRipple
                   color="secondary"
                   sx={{ padding: 0.5 }}
                 />
-                <ListItemText primary={a[0]} />
+                <ListItemText primary={layerName} />
               </ListItemButton>
             </ListItem>
           );
