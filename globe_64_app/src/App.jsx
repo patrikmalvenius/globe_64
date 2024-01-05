@@ -19,12 +19,10 @@ function App() {
   //wmsLayers = array with the layers we get from getCapabilities on the WMS
   //we change the contents here when we change WMS url in app
   const [wmsLayers, setWmsLayers] = useState([]);
-  //addedwmslayers = object used to initialize the wmslayercontainer for on/off
-  // and  visibilityStateWms
-  //we change the contents here when we change WMS url in app
-  const [addedWmsLayers, setAddedWmsLayers] = useState({});
+
   //visibilityStateWms = holds the state of the added wmslayers (visible/not visible)
-  const [visibilityStateWms, setVisibilityStateWms] = useState(addedWmsLayers);
+  //we change the contents here when we change WMS url in app
+  const [visibilityStateWms, setVisibilityStateWms] = useState({});
   const [visibilityStateTile, setVisibilityStateTile] = useState();
   const [layersControlVisible, setLayersControlVisible] = useState(false);
   const [visibilityStateWmtsBaselayer, setVisibilityStateWmtsBaselayer] =
@@ -89,7 +87,6 @@ function App() {
     wmsLayers.forEach((lyr) => {
       tempWmsLayers[lyr["Name"]] = false;
     });
-    setAddedWmsLayers(tempWmsLayers);
     setVisibilityStateWms(tempWmsLayers);
   }, [wmsLayers]);
 
@@ -149,7 +146,6 @@ function App() {
           visibilityStateTile={visibilityStateTile}
           setVisibilityStateTile={setVisibilityStateTile}
           tileLayers={tileLayers}
-          wmsLayers={wmsLayers}
           loadProgress={loadProgress}
           visibilityStateWms={visibilityStateWms}
           setVisibilityStateWms={setVisibilityStateWms}
@@ -157,8 +153,6 @@ function App() {
           setVisibilityStateWmtsBaselayer={setVisibilityStateWmtsBaselayer}
           visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
           wmtsBaseLayers={wmtsBaseLayers}
-          addedWmsLayers={addedWmsLayers}
-          setAddedWmsLayers={setAddedWmsLayers}
           appConfig={appConfig}
           mapConfig={mapConfig}
           setAppConfig={setAppConfig}

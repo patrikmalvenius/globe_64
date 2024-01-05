@@ -16,8 +16,6 @@ function LayerControlContainer({
   tileLayers,
   viewer,
   addedTilesets,
-  addedWmsLayers,
-  setAddedWmsLayers,
   visibilityStateWms,
   setVisibilityStateWms,
   setVisibilityStateWmtsBaselayer,
@@ -72,8 +70,6 @@ function LayerControlContainer({
         <LayerControlTabPanel value={value} index={1}>
           {loadProgress > 80 ? (
             <WmsLayerControl
-              addedWmsLayers={addedWmsLayers}
-              setAddedWmsLayers={setAddedWmsLayers}
               setVisibilityStateWms={setVisibilityStateWms}
               visibilityStateWms={visibilityStateWms}
               appConfig={appConfig}

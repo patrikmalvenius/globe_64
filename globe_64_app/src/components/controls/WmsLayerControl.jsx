@@ -15,8 +15,6 @@ import IconButton from "@mui/material/IconButton";
 function WmsLayerControl({
   setVisibilityStateWms,
   visibilityStateWms,
-  addedWmsLayers,
-  setAddedWmsLayers,
   appConfig,
   setAppConfig,
   mapConfig,
@@ -32,7 +30,7 @@ function WmsLayerControl({
   const onWmsUrlChange = () => {
     console.log(appConfig);
     console.log(mapConfig);
-    setAddedWmsLayers({});
+    setVisibilityStateWms({});
     setAppConfig((prevState) => ({
       ...prevState,
       ["configs"]: {
@@ -74,7 +72,7 @@ function WmsLayerControl({
           </ListSubheader>
         }
       >
-        {Object.entries(addedWmsLayers).map((a) => {
+        {Object.entries(visibilityStateWms).map((a) => {
           return (
             <ListItem key={a[0]} dense>
               <ListItemButton
@@ -97,7 +95,7 @@ function WmsLayerControl({
                   color="secondary"
                   sx={{ padding: 0.5 }}
                 />
-                <ListItemText primary={a} />
+                <ListItemText primary={a[0]} />
               </ListItemButton>
             </ListItem>
           );
