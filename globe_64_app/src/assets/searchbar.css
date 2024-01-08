@@ -28,6 +28,7 @@
   background-color: rgba(15, 15, 15, 0.9);
   box-shadow: none;
   outline: none;
+  opacity: 1;
 }
 #globe64toolbar:hover .cesium-geocoder-input,
 #globe64toolbar .cesium-geocoder-input:focus,
