@@ -74,7 +74,6 @@ export default function GlobeToolMenu({
           </IconButton>
         </Tooltip>
       </Grid>
-      <Grid item id="globe64toolbar"></Grid>
       <Grid item>
         <Tooltip title="Aide navigation">
           <IconButton
@@ -88,13 +87,14 @@ export default function GlobeToolMenu({
           </IconButton>
         </Tooltip>
       </Grid>
+      <Grid item id="globe64toolbar"></Grid>
       <Grid item>
         <Tooltip title="Outils">
           <IconButton
             onClick={activateToolMenu}
             color={showToolMenu ? "third" : "primary.dark"}
             aria-label="menu"
-            sx={{ ml: 2, backgroundColor: "primary.light" }}
+            sx={{ ml: 4, backgroundColor: "primary.light" }}
           >
             <BuildIcon style={{ color: "primary.dark" }} fontSize={"large"} />
           </IconButton>
@@ -115,7 +115,7 @@ export default function GlobeToolMenu({
               </IconButton>
             </Tooltip>
           </Grid>
-          <Grid container item>
+          <Grid item>
             <Tooltip title="Mesure objets 3D">
               <IconButton
                 edge="start"

@@ -120,8 +120,8 @@ function App() {
         ref={ref}
       ></ViewerComponent>
 
-      <Grid container direction="row" spacing={0}>
-        <Grid container item direction="column" spacing={1} xs={1}>
+      <Grid container direction="column" spacing={0}>
+        <Grid container item direction="row" spacing={1} xs={6}>
           <GlobeToolMenu
             layersControlVisible={layersControlVisible}
             setLayersControlVisible={setLayersControlVisible}
