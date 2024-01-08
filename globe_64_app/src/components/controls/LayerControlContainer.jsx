@@ -42,7 +42,7 @@ function LayerControlContainer({
         sx={{
           width: "20%",
           minWidth: "400px",
-          position: "absolute",
+          position: "relative",
           border: 2,
           bgcolor: "primary.light",
           borderColor: "secondary.light",

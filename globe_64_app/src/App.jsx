@@ -1,14 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import LayerControlContainer from "./components/controls/LayerControlContainer";
-import GlobeAppBar from "./components/controls/GlobeAppBar";
+import GlobeToolMenu from "./components/controls/GlobeToolMenu";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { themeOptions } from "./styles/theme";
 import ViewerComponent from "./components/viewer";
 import LoadIndicator from "./components/stuff/loadIndicator";
-import ToolMenu from "./components/controls/ToolMenuContainer";
 import HelpTable from "./components/controls/HelpTable";
 import { initApp, fetchConfig } from "./models/initApp";
-
+import Grid from "@mui/material/Grid";
 const theme = createTheme(themeOptions);
 const initVisibilityTile = {};
 const initVisibilityWmtsBaseLayers = {};
@@ -121,60 +120,56 @@ function App() {
         ref={ref}
       ></ViewerComponent>
 
-      <GlobeAppBar
-        layersControlVisible={layersControlVisible}
-        setLayersControlVisible={setLayersControlVisible}
-        setLeftClickAction={setLeftClickAction}
-        leftClickAction={leftClickAction}
-        setRemoveMeasures={setRemoveMeasures}
-        removeMeasures={removeMeasures}
-        addedEntity={addedEntity}
-        setAddedEntity={setAddedEntity}
-        eraseEntities={eraseEntities}
-        showToolMenu={showToolMenu}
-        setShowToolMenu={setShowToolMenu}
-        helpTableVisible={helpTableVisible}
-        setHelpTableVisible={setHelpTableVisible}
-        handleClick={handleClick}
-        onVisibilityChange={onVisibilityChange}
-      />
-      {layersControlVisible ? (
-        <LayerControlContainer
-          setLayersControlVisible={setLayersControlVisible}
-          addedTilesets={addedTilesets}
-          visibilityStateTile={visibilityStateTile}
-          setVisibilityStateTile={setVisibilityStateTile}
-          tileLayers={tileLayers}
-          loadProgress={loadProgress}
-          visibilityStateWms={visibilityStateWms}
-          setVisibilityStateWms={setVisibilityStateWms}
-          viewer={ref}
-          setVisibilityStateWmtsBaselayer={setVisibilityStateWmtsBaselayer}
-          visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
-          wmtsBaseLayers={wmtsBaseLayers}
-          appConfig={appConfig}
-          mapConfig={mapConfig}
-          setAppConfig={setAppConfig}
-        />
-      ) : null}
-      {showToolMenu ? (
-        <ToolMenu
-          setLeftClickAction={setLeftClickAction}
-          handleClick={handleClick}
-          showToolMenu={showToolMenu}
-          setShowToolMenu={setShowToolMenu}
-          setHelpTableVisible={setHelpTableVisible}
-          helpTableVisible={helpTableVisible}
-        />
-      ) : null}
-      {helpTableVisible ? (
-        <HelpTable
-          helpTableVisible={helpTableVisible}
-          setHelpTableVisible={setHelpTableVisible}
-        />
-      ) : null}
-
-      {loadProgress < 100 && <LoadIndicator loadProgress={loadProgress} />}
+      <Grid container direction="row" spacing={1}>
+        <Grid container item direction="column" spacing={1} xs={1}>
+          <GlobeToolMenu
+            layersControlVisible={layersControlVisible}
+            setLayersControlVisible={setLayersControlVisible}
+            setLeftClickAction={setLeftClickAction}
+            leftClickAction={leftClickAction}
+            setRemoveMeasures={setRemoveMeasures}
+            removeMeasures={removeMeasures}
+            addedEntity={addedEntity}
+            setAddedEntity={setAddedEntity}
+            eraseEntities={eraseEntities}
+            showToolMenu={showToolMenu}
+            setShowToolMenu={setShowToolMenu}
+            helpTableVisible={helpTableVisible}
+            setHelpTableVisible={setHelpTableVisible}
+            handleClick={handleClick}
+            onVisibilityChange={onVisibilityChange}
+            loadProgress={loadProgress}
+          />
+        </Grid>
+        <Grid container item xs={8} spacing={3}>
+          {layersControlVisible ? (
+            <LayerControlContainer
+              setLayersControlVisible={setLayersControlVisible}
+              addedTilesets={addedTilesets}
+              visibilityStateTile={visibilityStateTile}
+              setVisibilityStateTile={setVisibilityStateTile}
+              tileLayers={tileLayers}
+              loadProgress={loadProgress}
+              visibilityStateWms={visibilityStateWms}
+              setVisibilityStateWms={setVisibilityStateWms}
+              viewer={ref}
+              setVisibilityStateWmtsBaselayer={setVisibilityStateWmtsBaselayer}
+              visibilityStateWmtsBaselayer={visibilityStateWmtsBaselayer}
+              wmtsBaseLayers={wmtsBaseLayers}
+              appConfig={appConfig}
+              mapConfig={mapConfig}
+              setAppConfig={setAppConfig}
+            />
+          ) : null}
+          {helpTableVisible ? (
+            <HelpTable
+              helpTableVisible={helpTableVisible}
+              setHelpTableVisible={setHelpTableVisible}
+            />
+          ) : null}{" "}
+        </Grid>
+        <Grid item id="globe64toolbar"></Grid>
+      </Grid>
     </ThemeProvider>
   );
 }

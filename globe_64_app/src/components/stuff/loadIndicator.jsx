@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 
 function LoadIndicator({ loadProgress }) {
   return (
-    <Box sx={{ position: "relative", display: "inline-flex" }}>
+    <Box sx={{ ml: 2, position: "relative", display: "inline-flex" }}>
       <CircularProgress variant="determinate" value={loadProgress} />
       <Box
         sx={{
@@ -16,6 +16,7 @@ function LoadIndicator({ loadProgress }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          ml: 1,
         }}
       >
         <Typography variant="caption" component="div" color="primary.main">
