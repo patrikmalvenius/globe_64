@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
@@ -11,6 +11,7 @@ import LayersIcon from "@mui/icons-material/Layers";
 import HelpIcon from "@mui/icons-material/Help";
 import Tooltip from "@mui/material/Tooltip";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import BuildIcon from "@mui/icons-material/Build";
 import LoadIndicator from "../stuff/loadIndicator";
 import "../../assets/searchbar.css";
 
@@ -28,6 +29,7 @@ export default function GlobeToolMenu({
   setHelpTableVisible,
   onVisibilityChange,
 }) {
+  const [showToolMenu, setShowToolMenu] = useState(false);
   const eraseMeasurements = () => {
     setRemoveMeasures(removeMeasures + 1);
   };
@@ -53,6 +55,10 @@ export default function GlobeToolMenu({
   const activateInfo = () => {
     setLeftClickAction("info");
   };
+
+  const activateToolMenu = () => {
+    setShowToolMenu(!showToolMenu);
+  };
   return (
     <>
       <Grid item>
@@ -68,6 +74,7 @@ export default function GlobeToolMenu({
           </IconButton>
         </Tooltip>
       </Grid>
+      <Grid item id="globe64toolbar"></Grid>
       <Grid item>
         <Tooltip title="Aide navigation">
           <IconButton
@@ -77,90 +84,108 @@ export default function GlobeToolMenu({
             aria-label="menu"
             sx={{ ml: 2, backgroundColor: "primary.light" }}
           >
-            <HelpIcon style={{ color: "primary.dark" }} fontSize={"large"} />
+            <HelpIcon fontSize={"large"} />
           </IconButton>
         </Tooltip>
       </Grid>
       <Grid item>
-        <Tooltip title="Cliquez sur objets 3D pour infos">
+        <Tooltip title="Outils">
           <IconButton
-            edge="start"
-            color={leftClickAction === "info" ? "third" : "primary.dark"}
+            onClick={activateToolMenu}
+            color={showToolMenu ? "third" : "primary.dark"}
             aria-label="menu"
             sx={{ ml: 2, backgroundColor: "primary.light" }}
-            onClick={() => activateInfo()}
           >
-            <AdsClickIcon fontSize={"large"} />
+            <BuildIcon style={{ color: "primary.dark" }} fontSize={"large"} />
           </IconButton>
         </Tooltip>
       </Grid>
-      <Grid container item>
-        <Tooltip title="Mesure objets 3D">
-          <IconButton
-            edge="start"
-            color={leftClickAction === "measure" ? "third" : "primary.dark"}
-            aria-label="menu"
-            sx={{ ml: 2, backgroundColor: "primary.light" }}
-            onClick={() => activateMeasureTool()}
-          >
-            <SquareFootIcon fontSize={"large"} />
-          </IconButton>
-        </Tooltip>
-        {leftClickAction === "measure" && (
+      {showToolMenu && (
+        <>
           <Grid item>
-            <Tooltip title="Supprime mesurements">
+            <Tooltip title="Cliquez sur objets 3D pour infos">
+              <IconButton
+                edge="start"
+                color={leftClickAction === "info" ? "third" : "primary.dark"}
+                aria-label="menu"
+                sx={{ ml: 2, backgroundColor: "primary.light" }}
+                onClick={() => activateInfo()}
+              >
+                <AdsClickIcon fontSize={"large"} />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+          <Grid container item>
+            <Tooltip title="Mesure objets 3D">
               <IconButton
                 edge="start"
                 color={leftClickAction === "measure" ? "third" : "primary.dark"}
                 aria-label="menu"
                 sx={{ ml: 2, backgroundColor: "primary.light" }}
-                onClick={() => eraseMeasurements()}
+                onClick={() => activateMeasureTool()}
               >
-                <BackspaceIcon fontSize={"large"} />
+                <SquareFootIcon fontSize={"large"} />
+              </IconButton>
+            </Tooltip>
+            {leftClickAction === "measure" && (
+              <Grid item>
+                <Tooltip title="Supprime mesurements">
+                  <IconButton
+                    edge="start"
+                    color={
+                      leftClickAction === "measure" ? "third" : "primary.dark"
+                    }
+                    aria-label="menu"
+                    sx={{ ml: 2, backgroundColor: "primary.light" }}
+                    onClick={() => eraseMeasurements()}
+                  >
+                    <BackspaceIcon fontSize={"large"} />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
+            )}
+          </Grid>
+          <Grid item>
+            <Tooltip title="Mesure XYZ sur terre">
+              <IconButton
+                edge="start"
+                color={leftClickAction === "pick" ? "third" : "primary.dark"}
+                aria-label="menu"
+                sx={{ ml: 2, backgroundColor: "primary.light" }}
+                onClick={() => activateGroundPicker()}
+              >
+                <ColorizeIcon fontSize={"large"} />
               </IconButton>
             </Tooltip>
           </Grid>
-        )}
-      </Grid>
-      <Grid item>
-        <Tooltip title="Mesure XYZ sur terre">
-          <IconButton
-            edge="start"
-            color={leftClickAction === "pick" ? "third" : "primary.dark"}
-            aria-label="menu"
-            sx={{ ml: 2, backgroundColor: "primary.light" }}
-            onClick={() => activateGroundPicker()}
-          >
-            <ColorizeIcon fontSize={"large"} />
-          </IconButton>
-        </Tooltip>
-      </Grid>
-      <Grid item>
-        <Tooltip title="Entrez en mode FPS. Clique-droite pour sortir">
-          <IconButton
-            edge="start"
-            color={leftClickAction === "fps" ? "third" : "primary.dark"}
-            sx={{ ml: 2, backgroundColor: "primary.light" }}
-            onClick={() => activateFPS()}
-          >
-            <TravelExploreIcon fontSize={"large"} />
-          </IconButton>
-        </Tooltip>
-      </Grid>{" "}
-      {addedEntity && (
-        <Grid item>
-          <Tooltip title="Supprime">
-            <IconButton
-              edge="start"
-              color={"third"}
-              sx={{ ml: 2, backgroundColor: "primary.light" }}
-              onClick={() => eraseAllEntites()}
-            >
-              <RemoveCircleIcon fontSize={"large"} />
-            </IconButton>
-          </Tooltip>
-        </Grid>
-      )}{" "}
+          <Grid item>
+            <Tooltip title="Entrez en mode FPS. Clique-droite pour sortir">
+              <IconButton
+                edge="start"
+                color={leftClickAction === "fps" ? "third" : "primary.dark"}
+                sx={{ ml: 2, backgroundColor: "primary.light" }}
+                onClick={() => activateFPS()}
+              >
+                <TravelExploreIcon fontSize={"large"} />
+              </IconButton>
+            </Tooltip>
+          </Grid>{" "}
+          {addedEntity && (
+            <Grid item>
+              <Tooltip title="Supprime">
+                <IconButton
+                  edge="start"
+                  color={"third"}
+                  sx={{ ml: 2, backgroundColor: "primary.light" }}
+                  onClick={() => eraseAllEntites()}
+                >
+                  <RemoveCircleIcon fontSize={"large"} />
+                </IconButton>
+              </Tooltip>
+            </Grid>
+          )}{" "}
+        </>
+      )}
       {loadProgress < 100 && (
         <Grid item>
           <LoadIndicator loadProgress={loadProgress} />{" "}

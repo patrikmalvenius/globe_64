@@ -40,8 +40,9 @@ function LayerControlContainer({
     <ClickAwayListener onClickAway={handleClickAway}>
       <Box
         sx={{
-          width: "20%",
-          minWidth: "400px",
+          width: "30%",
+          height: "100%",
+          minWidth: "350px",
           position: "relative",
           border: 2,
           bgcolor: "primary.light",

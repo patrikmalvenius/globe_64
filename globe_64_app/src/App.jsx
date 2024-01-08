@@ -120,7 +120,7 @@ function App() {
         ref={ref}
       ></ViewerComponent>
 
-      <Grid container direction="row" spacing={1}>
+      <Grid container direction="row" spacing={0}>
         <Grid container item direction="column" spacing={1} xs={1}>
           <GlobeToolMenu
             layersControlVisible={layersControlVisible}
@@ -141,7 +141,7 @@ function App() {
             loadProgress={loadProgress}
           />
         </Grid>
-        <Grid container item xs={8} spacing={3}>
+        <Grid item xs={11}>
           {layersControlVisible ? (
             <LayerControlContainer
               setLayersControlVisible={setLayersControlVisible}
@@ -168,7 +168,6 @@ function App() {
             />
           ) : null}{" "}
         </Grid>
-        <Grid item id="globe64toolbar"></Grid>
       </Grid>
     </ThemeProvider>
   );

@@ -38,7 +38,6 @@ function TilesetLayerControl({
         width: "100%",
         bgcolor: "primary.light",
 
-        maxHeight: 500,
         overflowY: "auto",
         overflowX: "hidden",
       }}
