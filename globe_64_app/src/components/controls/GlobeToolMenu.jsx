@@ -170,22 +170,22 @@ export default function GlobeToolMenu({
               </IconButton>
             </Tooltip>
           </Grid>{" "}
-          {addedEntity && (
-            <Grid item>
-              <Tooltip title="Supprime">
-                <IconButton
-                  edge="start"
-                  color={"third"}
-                  sx={{ ml: 2, backgroundColor: "primary.light" }}
-                  onClick={() => eraseAllEntites()}
-                >
-                  <RemoveCircleIcon fontSize={"large"} />
-                </IconButton>
-              </Tooltip>
-            </Grid>
-          )}{" "}
         </>
       )}
+      {addedEntity && (
+        <Grid item>
+          <Tooltip title="Supprime">
+            <IconButton
+              edge="start"
+              color={"third"}
+              sx={{ ml: 2, backgroundColor: "primary.light" }}
+              onClick={() => eraseAllEntites()}
+            >
+              <RemoveCircleIcon fontSize={"large"} />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+      )}{" "}
       {loadProgress < 100 && (
         <Grid item>
           <LoadIndicator loadProgress={loadProgress} />{" "}

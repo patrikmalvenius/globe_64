@@ -5,6 +5,7 @@
   display: inline-block;
   vertical-align: middle;
   width: 0;
+  opacity: 0;
   height: 32px;
   margin: 0;
   padding: 0 0 0 0;
@@ -13,12 +14,14 @@
   left: 5rem;
   border-radius: 0;
   box-sizing: border-box;
-  transition: width ease-in-out 0.25s, background-color 0.2s ease-in-out;
+  transition: width ease-in-out 0.25s, background-color 0.2s ease-in-out,
+    opacity 0.2s ease-in-out;
   -webkit-appearance: none;
 }
 #globe64toolbar:hover .cesium-geocoder-input {
   border-color: #aef;
   box-shadow: 0 0 8px #fff;
+  opacity: 1;
 }
 #globe64toolbar .cesium-geocoder-input:focus {
   border-color: #ea4;
@@ -53,8 +56,8 @@
 #globe64toolbar .search-results ul li:hover {
   cursor: pointer;
 }
-#globe64toolbar .search-results ul li.active {
-  background-color: "#423734";
+#globe64toolbar > div > ul > li.active {
+  color: #388e9b;
 }
 .cesium-geocoder-searchButton {
   background-color: #f0f0e9;
