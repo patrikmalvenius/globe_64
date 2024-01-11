@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import BuildIcon from "@mui/icons-material/Build";
 import LoadIndicator from "../stuff/loadIndicator";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import "../../assets/searchbar.css";
 
 export default function GlobeToolMenu({
@@ -28,6 +29,8 @@ export default function GlobeToolMenu({
   helpTableVisible,
   setHelpTableVisible,
   onVisibilityChange,
+  timeControlVisible,
+  setTimeControlVisible,
 }) {
   const [showToolMenu, setShowToolMenu] = useState(false);
   const eraseMeasurements = () => {
@@ -42,6 +45,10 @@ export default function GlobeToolMenu({
 
   const showHelpTable = () => {
     setHelpTableVisible(!helpTableVisible);
+  };
+
+  const showTimeControl = () => {
+    setTimeControlVisible(!timeControlVisible);
   };
   const activateMeasureTool = () => {
     setLeftClickAction("measure");
@@ -84,6 +91,19 @@ export default function GlobeToolMenu({
             sx={{ ml: 2, backgroundColor: "primary.light" }}
           >
             <HelpIcon fontSize={"large"} />
+          </IconButton>
+        </Tooltip>
+      </Grid>
+      <Grid item>
+        <Tooltip title="Ouvrir contrôle temporelle">
+          <IconButton
+            edge="start"
+            color={layersControlVisible ? "third" : "primary.dark"}
+            aria-label="menu"
+            sx={{ ml: 2, backgroundColor: "primary.light" }}
+            onClick={() => showTimeControl()}
+          >
+            <AccessTimeIcon fontSize={"large"} />
           </IconButton>
         </Tooltip>
       </Grid>

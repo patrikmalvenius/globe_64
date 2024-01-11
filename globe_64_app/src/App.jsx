@@ -51,6 +51,7 @@ function App() {
   const [mapConfig, setMapConfig] = useState();
   const [walk, setWalk] = useState(false);
   const [rCoords, setRCoords] = useState(null);
+  const [timeControlVisible, setTimeControlVisible] = useState(false);
   const handleClick = () => {
     setShowToolMenu(!showToolMenu);
   };
@@ -139,10 +140,12 @@ function App() {
             handleClick={handleClick}
             onVisibilityChange={onVisibilityChange}
             loadProgress={loadProgress}
+            timeControlVisible={timeControlVisible}
+            setTimeControlVisible={setTimeControlVisible}
           />
         </Grid>
         <Grid item xs={11}>
-          {layersControlVisible ? (
+          {layersControlVisible && (
             <LayerControlContainer
               setLayersControlVisible={setLayersControlVisible}
               addedTilesets={addedTilesets}
@@ -160,14 +163,19 @@ function App() {
               mapConfig={mapConfig}
               setAppConfig={setAppConfig}
             />
-          ) : null}
-          {helpTableVisible ? (
+          )}
+          {helpTableVisible && (
             <HelpTable
               helpTableVisible={helpTableVisible}
               setHelpTableVisible={setHelpTableVisible}
             />
-          ) : null}{" "}
-          <TimeControl />
+          )}
+          {timeControlVisible && (
+            <TimeControl
+              timeControlVisible={timeControlVisible}
+              setTimeControlVisible={setTimeControlVisible}
+            />
+          )}
         </Grid>
       </Grid>
     </ThemeProvider>

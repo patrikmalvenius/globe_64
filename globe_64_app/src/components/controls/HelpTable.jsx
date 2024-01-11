@@ -37,12 +37,10 @@ function HelpTable({ helpTableVisible, setHelpTableVisible }) {
         <Box
           sx={{
             width: "20%",
-            minWidth: "400px",
+            minWidth: "350px",
             position: "absolute",
-            border: 2,
             bgcolor: "primary.light",
-            borderColor: "secondary.light",
-            borderRadius: 1,
+            borderRadius: 4,
             mt: 2,
           }}
         >
