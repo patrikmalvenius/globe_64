@@ -51,7 +51,7 @@ const TinyText = styled(Typography)({
 });
 
 export default function TimeControl() {
-  const [defaultSpeed, setDefaultSpeed] = useState(100); //percent
+  const [currentSpeed, setCurrentSpeed] = useState(100); //percent
   const [rangeStart, setRangeStart] = useState(1900);
   const [rangeStop, setRangeStop] = useState(2024);
   const [currentTime, setCurrentTime] = useState(rangeStart);
@@ -180,7 +180,8 @@ export default function TimeControl() {
           <VolumeDownRounded htmlColor={lightIconColor} />
           <Slider
             aria-label="Animation speed"
-            defaultValue={defaultSpeed}
+            defaultValue={currentSpeed}
+            onChange={(_, value) => setCurrentSpeed(value)}
             step={10}
             min={1}
             max={1000}

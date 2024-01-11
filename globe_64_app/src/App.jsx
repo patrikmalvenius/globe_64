@@ -4,7 +4,7 @@ import GlobeToolMenu from "./components/controls/GlobeToolMenu";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { themeOptions } from "./styles/theme";
 import ViewerComponent from "./components/viewer";
-import LoadIndicator from "./components/stuff/loadIndicator";
+import TimeControl from "./components/controls/TimeControls";
 import HelpTable from "./components/controls/HelpTable";
 import { initApp, fetchConfig } from "./models/initApp";
 import Grid from "@mui/material/Grid";
@@ -167,6 +167,7 @@ function App() {
               setHelpTableVisible={setHelpTableVisible}
             />
           ) : null}{" "}
+          <TimeControl />
         </Grid>
       </Grid>
     </ThemeProvider>
