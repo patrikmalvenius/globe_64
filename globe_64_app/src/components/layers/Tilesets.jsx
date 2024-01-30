@@ -42,6 +42,17 @@ function Tilesets({ tileLayers, visibilityStateTile, tilesetLoaded }) {
                 pointSize: "3",
               });
             }
+            if (a[1].type === "building") {
+              e.style = new Cesium.Cesium3DTileStyle({
+                color: {
+                  conditions: [
+                    ["${buildingpart} === 'roof'", 'color("#e37c44")'],
+                    ["${buildingpart} === 'wall'", 'color("#f2d9cb")'],
+                    ["true", 'color("#f2d9cb")'],
+                  ],
+                },
+              });
+            }
           }}
         />
       );
