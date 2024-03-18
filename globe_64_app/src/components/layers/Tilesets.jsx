@@ -46,8 +46,8 @@ function Tilesets({ tileLayers, visibilityStateTile, tilesetLoaded }) {
               e.style = new Cesium.Cesium3DTileStyle({
                 color: {
                   conditions: [
-                    ["${buildingpart} === 'roof'", 'color("#e37c44")'],
-                    ["${buildingpart} === 'wall'", 'color("#f2d9cb")'],
+                    ["${buildingpart} === 'roof'", "color(${color})"],
+                    ["${buildingpart} === 'wall'", "color(${color})"],
                     ["true", 'color("#f2d9cb")'],
                   ],
                 },
