@@ -11,12 +11,13 @@
   padding: 0 0 0 0;
   position: absolute;
   top: 4.5rem;
-  left: 5rem;
+  left: 2rem;
   border-radius: 0;
   box-sizing: border-box;
   transition: width ease-in-out 0.25s, background-color 0.2s ease-in-out,
     opacity 0.2s ease-in-out;
   -webkit-appearance: none;
+  z-index: 1000;
 }
 #globe64toolbar:hover .cesium-geocoder-input {
   border-color: #aef;
@@ -43,7 +44,8 @@
   overflow-y: auto;
   opacity: 0.8;
   width: 250px;
-  left: 5rem;
+  left: 2rem;
+  top: 6.5rem;
 }
 #globe64toolbar .search-results ul {
   list-style-type: none;

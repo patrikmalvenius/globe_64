@@ -94,7 +94,7 @@ export default function GlobeToolMenu({
           </IconButton>
         </Tooltip>
       </Grid>
-      <Grid item>
+      {/*<Grid item>
         <Tooltip title="Ouvrir contrôle temporelle">
           <IconButton
             edge="start"
@@ -106,7 +106,7 @@ export default function GlobeToolMenu({
             <AccessTimeIcon fontSize={"large"} />
           </IconButton>
         </Tooltip>
-      </Grid>
+      </Grid>*/}
       <Grid item id="globe64toolbar"></Grid>
       <Grid item>
         <Tooltip title="Outils">
