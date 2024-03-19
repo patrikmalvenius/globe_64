@@ -14,6 +14,7 @@ import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import BuildIcon from "@mui/icons-material/Build";
 import LoadIndicator from "../stuff/loadIndicator";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import "../../assets/searchbar.css";
 
 export default function GlobeToolMenu({
@@ -31,6 +32,9 @@ export default function GlobeToolMenu({
   onVisibilityChange,
   timeControlVisible,
   setTimeControlVisible,
+  allConfigs,
+  setConfigTableVisible,
+  configTableVisible,
 }) {
   const [showToolMenu, setShowToolMenu] = useState(false);
   const eraseMeasurements = () => {
@@ -45,6 +49,10 @@ export default function GlobeToolMenu({
 
   const showHelpTable = () => {
     setHelpTableVisible(!helpTableVisible);
+  };
+
+  const showConfigTable = () => {
+    setConfigTableVisible(!configTableVisible);
   };
 
   const showTimeControl = () => {
@@ -66,6 +74,8 @@ export default function GlobeToolMenu({
   const activateToolMenu = () => {
     setShowToolMenu(!showToolMenu);
   };
+
+  console.log("allConfigs in tool menu", allConfigs);
   return (
     <>
       <Grid item>
@@ -91,6 +101,19 @@ export default function GlobeToolMenu({
             sx={{ ml: 2, backgroundColor: "primary.light" }}
           >
             <HelpIcon fontSize={"large"} />
+          </IconButton>
+        </Tooltip>
+      </Grid>
+      <Grid item>
+        <Tooltip title="Changement de configuration">
+          <IconButton
+            onClick={showConfigTable}
+            edge="start"
+            color={configTableVisible ? "third" : "primary.dark"}
+            aria-label="menu"
+            sx={{ ml: 2, backgroundColor: "primary.light" }}
+          >
+            <SettingsApplicationsIcon fontSize={"large"} />
           </IconButton>
         </Tooltip>
       </Grid>

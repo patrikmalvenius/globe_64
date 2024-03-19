@@ -2,12 +2,14 @@ import * as Cesium from "cesium";
 import { fetchWmsLayers } from "./queryWMS";
 
 async function fetchConfig(args) {
-  const { setMapConfig, setAppConfig, setLoadProgress } = args;
+  const { setMapConfig, setAppConfig, setLoadProgress, setAllConfigs } = args;
   let urlParams = new URLSearchParams(window.location.search);
   const conf = urlParams.get("conf");
   const fetchAppConfig = await fetch("/appConfig.json");
   let result = await fetchAppConfig.json();
   conf in result.configs ? setMapConfig(conf) : setMapConfig("standard");
+  setAllConfigs(Object.keys(result.configs));
+
   const urlParamsWms = urlParams.get("wms");
   const urlParamsExtent = urlParams.get("extent")?.split(",");
 

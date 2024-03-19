@@ -8,6 +8,8 @@ import TimeControl from "./components/controls/TimeControls";
 import HelpTable from "./components/controls/HelpTable";
 import { initApp, fetchConfig } from "./models/initApp";
 import Grid from "@mui/material/Grid";
+import ChangeAppConfigControl from "./components/controls/ChangeAppConfigControl";
+
 const theme = createTheme(themeOptions);
 const initVisibilityTile = {};
 const initVisibilityWmtsBaseLayers = {};
@@ -20,6 +22,8 @@ function App() {
   //wmsLayers = array with the layers we get from getCapabilities on the WMS
   //we change the contents here when we change WMS url in app
   const [wmsLayers, setWmsLayers] = useState([]);
+  //array to hold list of all available configs
+  const [allConfigs, setAllConfigs] = useState([]);
 
   //visibilityStateWms = holds the state of the added wmslayers (visible/not visible)
   //we change the contents here when we change WMS url in app
@@ -41,6 +45,7 @@ function App() {
   const [loadProgress, setLoadProgress] = useState(0);
   const [showToolMenu, setShowToolMenu] = useState(false);
   const [helpTableVisible, setHelpTableVisible] = useState(false);
+  const [configTableVisible, setConfigTableVisible] = useState(false);
   const tilesetLoaded = (name, value) => {
     addedTilesets[name] = value;
   };
@@ -60,7 +65,7 @@ function App() {
     setLayersControlVisible(!layersControlVisible);
   };
   useEffect(() => {
-    fetchConfig({ setMapConfig, setAppConfig, setLoadProgress });
+    fetchConfig({ setMapConfig, setAppConfig, setLoadProgress, setAllConfigs });
   }, []);
 
   useEffect(() => {
@@ -81,7 +86,7 @@ function App() {
         setVisibilityStateTile,
       });
     }
-  }, [appConfig]);
+  }, [mapConfig]);
 
   useEffect(() => {
     let tempWmsLayers = {};
@@ -142,6 +147,9 @@ function App() {
             loadProgress={loadProgress}
             timeControlVisible={timeControlVisible}
             setTimeControlVisible={setTimeControlVisible}
+            allConfigs={allConfigs}
+            configTableVisible={configTableVisible}
+            setConfigTableVisible={setConfigTableVisible}
           />
         </Grid>
         <Grid item xs={11}>
@@ -174,6 +182,15 @@ function App() {
             <TimeControl
               timeControlVisible={timeControlVisible}
               setTimeControlVisible={setTimeControlVisible}
+            />
+          )}
+          {configTableVisible && (
+            <ChangeAppConfigControl
+              configTableVisible={configTableVisible}
+              setConfigTableVisible={setConfigTableVisible}
+              allConfigs={allConfigs}
+              setMapConfig={setMapConfig}
+              mapConfig={mapConfig}
             />
           )}
         </Grid>
